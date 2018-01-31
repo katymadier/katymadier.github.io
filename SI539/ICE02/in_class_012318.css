@@ -1,0 +1,42 @@
+img {
+  float: left;
+}
+.shape{
+  margin: 36px;
+  float: left;
+  background: #1EB287; /*green*/
+  height: 40px;
+  width: 40px;
+  animation: example 1.5s normal infinite;
+  -webkit-transition: -webkit-transform 5s;
+  transition: all 3s ease;
+  shape-padding: 20px;
+}
+/* blue: #158BC5 */
+/* red: #D25E51 */
+
+@keyframes example {
+  0% {
+    background: #1EB287;
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  33.3% {
+    background: #158BC5;
+    -webkit-clip-path: polygon(100% 100%, 100% 0, 0 50%);
+    clip-path: polygon(100% 100%, 100% 0, 0 50%);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  66.7% {
+    background: #D25E51;
+    clip-path: circle(50% at 50% 50%);
+    -webkit-transform: rotate(deg);
+    transform: rotate(90deg);
+  }
+  100% {
+    background: #1EB287;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
