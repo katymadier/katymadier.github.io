@@ -1,6 +1,9 @@
-html, body {
+html, body, p {
   margin: 0;
   padding: 0;
+}
+h1, h2, h3, h4, p, a {
+  font-family: 'Josefin Sans', sans-serif;
 }
 nav {
   padding: 10px 20px;
@@ -13,12 +16,17 @@ nav a {
   text-decoration: none;
   line-height: 30px;
 }
+h3, p {
+  display: inline-block;
+}
 h1 {
   text-align: right;
   padding: 0 40px;
 }
+
 .content {
-  padding: 40px;
+  width: 60%;
+  margin: 40px auto;
 }
 .images {
   display: inline-block;
@@ -33,8 +41,37 @@ h1 {
   transition: transform 1s;
 }
 .images img:hover {
-  float:right;
+  float:none;
   transform: scale(1.5);
   height: 100%;
-  overflow: scroll;
+}
+form {
+  margin: 0 auto;
+  text-align: center;
+}
+input {
+  margin: 10px;
+}
+input#name, input#dob {
+  border: 1px solid #f1f1f1;
+  height: 35px;
+  width: 210px;
+  margin: 10px;
+  display: inline-block;
+}
+.poptart-choice {
+  display: inline-block;
+  padding: 20px;
+}
+.chip-choice {
+  display: inline-block;
+  padding: 20px;
+}
+button {
+  display: block;
+  background-color: red;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px 40px;
+  border-radius: 10px;
 }

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>ICE 01 & Poptarts</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
 </head>
 
 <body>
@@ -27,41 +28,29 @@
     </div>
   </div>
   <div class="content">
-    <h2>First assignment with SI539</h2>
-    <h3>This form will tell me about your favorite poptart and chip. Enjoy the poptart cat video.</h3>
+    <h2>SI539 ICE01</h2>
+    <h3>Use this form to tell me about your favorite kind of poptart and chips. Click the cardboard icon to experience my favorite poptart in VR.</h3>
     <form>
-      Name:
-      <input type="text" name="name" id="name"></label>
-      <br>
-      <label for="dob">DOB:</label>
-      <input type="date" name="DOB" id="dob">
-      <br>
-      Please enter your choice of poptart:
-      <br>
-      <input type="radio" name="poptart" value="Strawberry">
-      Strawberry
-      <br>
-      <input type="radio" name="poptart" value="Smores">
-      Smores
-      <br>
-      <input type="radio" name="poptart" value="Blueberry">
-      Blueberry
-      <br>
-      Please enter your choice of drink:
-      <br>
-      <input type="radio" name="chips" value="Crinkly">
-      Crinkly
-      <br>
-      <input type="radio" name="chips" value="Sweet Potato">
-      Sweet Potato
-      <br>
-      <input type="radio" name="chips" value="Dill">
-      Dill
-      <br>
-      <button href="">Submit your fav!</button>
+      <h3>Name:</h3>
+      <input type="text" name="name" id="name"></label><br>
+      <h3><label for="dob">DOB:</label></h3>
+      <input type="date" name="DOB" id="dob"><br>
+      <div class="poptart-choice">
+        <h3>Please enter your choice of poptart:</h3><br>
+        <input type="radio" name="poptart" value="Strawberry"><p>Strawberry</p><br>
+        <input type="radio" name="poptart" value="Smores"><p>Smores</p><br>
+        <input type="radio" name="poptart" value="Blueberry"><p>Blueberry</p><br>
+      </div>
+      <div class="chip-choice">
+        <h3>Please enter your choice of drink:</h3><br>
+        <input type="radio" name="chips" value="Crinkly"><p>Crinkly</p><br>
+        <input type="radio" name="chips" value="Sweet Potato"><p>Sweet Potato</p><br>
+        <input type="radio" name="chips" value="Dill"><p>Dill</p><br>
+      </div>
     </form>
+    <button href="">Submit your favorite!</button>
   </div>
-  <iframe width="100%" height: "400" src="https://katymadier.github.io/SI539/ICE01/poptart/"></iframe>
+  <iframe id="poptart" allowfullscreen="yes" scrolling="no" allowvr="yes" width="100%" height="300" src="https://katymadier.github.io/SI539/ICE01/poptart/"></iframe>
 </body>
 
 </html>
