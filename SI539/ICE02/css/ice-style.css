@@ -47,9 +47,10 @@ h1 {
 
 aside {
   background: url(http://www.literarygenius.info/images/william-shakespeare.jpg) no-repeat center;
+  position:absolute;
+  right:0;
+  height: 100%;
   background-color: white;
-  float: right;
-  min-height: 443px;
   background-size: 100%;
 }
 aside ul {
