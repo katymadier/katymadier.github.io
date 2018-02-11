@@ -1,0 +1,40 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+nav {
+  padding: 10px 20px;
+  background-color: #000;
+  height: 30px;
+}
+nav a {
+  padding: 0 10px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 30px;
+}
+h1 {
+  text-align: right;
+  padding: 0 40px;
+}
+.content {
+  padding: 40px;
+}
+.images {
+  display: inline-block;
+  background-color: #000;
+  width: 100%;
+  overflow: hidden;
+}
+.image1, .image2, .image3 {
+  float: left;
+  height: 300px;
+  width: 33.3%;
+  transition: transform 1s;
+}
+.images img:hover {
+  float:right;
+  transform: scale(1.5);
+  height: 100%;
+  overflow: scroll;
+}
