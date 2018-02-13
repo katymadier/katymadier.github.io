@@ -1,6 +1,7 @@
 html, body, p {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 h1, h2, h3, h4, p, a {
   font-family: 'Josefin Sans', sans-serif;
@@ -22,6 +23,15 @@ h3, p {
 h1 {
   text-align: right;
   padding: 0 40px;
+}
+footer h2 a{
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+  text-decoration: none;
+}
+footer h2 {
+  text-align: center;
 }
 
 .content {
@@ -75,4 +85,20 @@ button {
   padding: 20px 40px;
   border-radius: 10px;
   font-size: 1em;
+}
+iframe {
+  border: none;
+  margin: 0;
+  width: 100%;
+  height: 400px;
+  margin-bottom: -4px;
+}
+footer {
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  right:0;
+  width: 100%;
+  background-color: #000;
+  margin: 0;
 }
