@@ -15,7 +15,7 @@ body,
   right: 3%;
   background-color: #ffffff80;
   background-color: 0.33;
-  min-width: 200px;
+  min-width: 150px;
 }
 .heading {
   padding: 0 5%;
@@ -33,7 +33,7 @@ body,
   font-size: .75rem;
 }
 .nicebox {
-  position: absolute;
+  position: relative;
   right: 0;
   text-align: center;
   font-family: "Roboto", "Arial", sans-serif;
@@ -46,11 +46,6 @@ body,
   border: rgb(229, 229, 229) 1px solid;
   margin: 30px auto;
 }
-/* @media (min-width:480px) {
-  .nicebox {
-    position: relative;
-  }
-} */
 #controls {
   width: 175px;
   height: 45px;
