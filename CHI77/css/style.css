@@ -19,6 +19,7 @@ body,
 }
 .heading {
   padding: 0 5%;
+  margin: 30px 10px;
 }
 .footer {
   position: absolute;
