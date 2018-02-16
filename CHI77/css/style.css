@@ -46,11 +46,11 @@ body,
   border: rgb(229, 229, 229) 1px solid;
   margin: 30px auto;
 }
-@media (min-width:480px) {
+/* @media (min-width:480px) {
   .nicebox {
     position: relative;
   }
-}
+} */
 #controls {
   width: 175px;
   height: 45px;
