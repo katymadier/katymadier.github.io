@@ -17,7 +17,7 @@ nav a {
   text-decoration: none;
   line-height: 30px;
 }
-h3, p {
+p {
   display: inline-block;
 }
 h1 {
@@ -40,7 +40,7 @@ footer h2 {
 }
 .images {
   display: inline-block;
-  background-color: #000;
+  background-color: #fff;
   width: 100%;
   overflow: hidden;
 }
@@ -62,8 +62,8 @@ form {
 input {
   margin: 10px;
 }
-input#name, input#dob {
-  border: 1px solid #f1f1f1;
+input#name, input#date {
+  border: 1px solid #999;
   height: 35px;
   width: 210px;
   margin: 10px;
