@@ -4,7 +4,8 @@
     border: none;
   }
   .top-nav ul {
-    width: 438px;
+    width: 60%;
+    text-align: center;
     margin: 0 auto;
     border-top: 1px solid red;
   }
