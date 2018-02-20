@@ -10,37 +10,42 @@ body {
 }
 
 h1, h2 {
-  font-family: 'Abril Fatface', cursive;
+  font-family: 'Open Sans', sans-serif;
+  color: #424242;
 }
-h3, p, li {
+h3, p, li, a {
   font-family: 'Mukta Malar', sans-serif;
+  color: #414549;
 }
 h1 {
-  font-size: 2em;
-  line-height: 2em;
-  margin: 30px 20px;
+  font-size: 2.25em;
+  line-height: 2.75em;
+  margin: 10px 20px;
 }
 h2 {
-  font-size: 1.5em;
-  line-height: 1.5em;
+  font-size: 24px;
+  line-height: 32px;
   margin: 10px 20px;
 }
 h3 {
-  font-size: 1.2em;
-  line-height: 1.2em;
-  margin: 10px 20px;
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 20px 20px 10px 20px;
+  font-style: italic;
 }
 p {
-  font-size: 1em;
-  line-height: 1.2em;
+  font-size: 14px;
+  line-height: 20px;
   margin: 10px 20px;
+  font-color: #424242;
 }
 a {
-  font-size: 1em;
-  color: red;
+  font-size: .875em;
+  line-height: 1.3em;
+  color: #00A5FC;
   margin: 10px 20px;
-  cursor: pointer;
-  text-decoration: none
+  text-decoration: none;
+  text-transform: capitalize;
 }
 a:hover {
   text-decoration: underline
@@ -48,7 +53,7 @@ a:hover {
 
 header {
   background-color: #fff;
-  height: 80px;
+  height: 4rem;
   width: 100%;
   padding: 20px;
   position: fixed;
@@ -63,10 +68,11 @@ header {
 }
 .svg-inline--fa.fa-w-14 {
   margin: 0 20px;
-  height: 2em;
-  width: 2em;
+  height: 1em;
+  width: 1.2em;
 }
 header h1 {
+  font-size: 1.3em;
   margin: 0 20px;
   text-align: center;
   align-self: center;
@@ -89,24 +95,21 @@ header h1 {
   display: block;
   z-index: -1;
   width: 100%;
-  margin: 80px 0;
-}
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0
+  margin: 40px 0;
 }
 .content {
   display: block;
 }
-.section hr {
-  width: 80%;
-  margin: 50px auto;
-  border-top: 1px solid #000;
+/* #E5585B */
+hr {
   display: block;
+  margin: 4em 0;
+  height: .25rem;
+  background-color:#00A5FC;
+  width: 100%;
+  border-top: 1px solid #fff;
+  padding: 0 32px;
+  min-height: 1px;
 }
 .section {
   display: block;
@@ -146,7 +149,6 @@ hr {
   height: 200px;
 }
 .temp1 p, .temp2 p, .temp3 p, .temp4 p {
-  color: #000;
   display: block;
 }
 .image1, .image2, .image3, .image4, .image5, .image6 {
@@ -165,7 +167,7 @@ hr {
   display: flex;
 }
 .footer-text a {
-  color: #ccc;
+  color: #414549;
 }
 .column1, .column2, .column3 {
   flex: 1 1 auto;
@@ -178,13 +180,15 @@ hr {
   justify-content: space-between;
   align-items: center;
   align-content: flex-start;
+  box-shadow: 0 -0.1875rem 0.125rem #efefef;
+  height: 10rem;
 }
 .profile-container {
-  height: 100px;
-  width: 100px;
+  height: 50px;
+  width: 50px;
   border-radius: 100%;
   overflow: hidden;
-  margin: 30px;
+  margin: 40px;
   box-shadow: 0 0.125rem 0.3125rem rgba(0,0,0,.26);
   flex: 0 0 auto;
 }
@@ -192,7 +196,7 @@ hr {
   width: 100%;
 }
 .copyright {
-  color: #ccc;
+  color: #5f6368;
   flex: 0 0 auto;
-  margin: 30px;
+  margin: 40px;
 }
