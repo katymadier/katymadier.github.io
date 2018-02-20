@@ -68,7 +68,7 @@ aside ul {
   text-align: center;
 }
 
-.footer {
+footer {
   background-color: green;
   height: 60px;
   width: 100%;
@@ -147,7 +147,8 @@ aside ul {
 }
 
 /* footer navigation universal style */
-footer {
+footer.universal {
+  bottom: auto;
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -157,12 +158,12 @@ footer {
   background-color: #000;
   margin: 0;
 }
-footer h2 a{
+footer.universal h2 a{
   color: #fff;
   font-size: 20px;
   line-height: 80px;
   text-decoration: none;
 }
-footer h2 {
+footer.universal h2 {
   text-align: center;
 }
