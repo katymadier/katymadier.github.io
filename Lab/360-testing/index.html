@@ -1,24 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-  	<meta charset="UTF-8">
-  	<title>360 Physical Testing</title>
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-  	<style>
-      html,
-      body {
-        height: 100%;
-      }
-    </style>
+    <meta charset="utf-8">
+    <title>360&deg; Image</title>
+    <meta name="description" content="360&deg; Image - A-Frame">
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
   </head>
   <body>
-  	<div id="360">
-  		<a-scene>
-  			<a-assets>
-  			</a-assets>
-  			<a-sky scr="images/R0010116.JPG"></a-sky>
-  		</a-scene>
-  	</div>
+    <a-scene>
+      <a-sky src="images/R0010116.JPG" rotation="0 -130 0"></a-sky>
+    </a-scene>
   </body>
 </html>
