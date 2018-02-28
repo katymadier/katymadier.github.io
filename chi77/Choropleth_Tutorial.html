@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://leafletjs.com/examples/choropleth/example.html -->
+<html class="gr__leafletjs_com"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>Choropleth Tutorial - Leaflet</title>
+
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="http://leafletjs.com/examples/choropleth/docs/images/favicon.ico">
+
+    <link rel="stylesheet" href="./Choropleth_Tutorial_files/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="">
+    <script src="./Choropleth_Tutorial_files/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+
+	<style>#map { width: 800px; height: 500px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+</head>
+<body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+
+<div id="map" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/6.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(468px, 203px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/6(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(212px, 203px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/5.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(468px, -53px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/5(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(212px, -53px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/7.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(212px, 459px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/7(1).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(468px, 459px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/6(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-44px, 203px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/6(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(724px, 203px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/7(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-44px, 459px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/5(2).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-44px, -53px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/5(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(724px, -53px, 0px); opacity: 1;"><img alt="" role="presentation" src="./Choropleth_Tutorial_files/7(3).png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(724px, 459px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" class="leaflet-zoom-animated" width="960" height="600" viewBox="-80 -50 960 600" style="transform: translate3d(-80px, -50px, 0px);"><g><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FFEDA0" fill-opacity="0.7" fill-rule="evenodd" d="M-5 -40L-5 -43L-3 -41L-3 -38L-6 -38zM-8 -46L-6 -44L-7 -40L-8 -41zM-15 -52L-12 -42L-10 -43L-9 -33L-13 -32L-14 -36L-15 -35L-18 -38L-20 -38L-20 -35L-17 -35L-18 -31L-23 -37L-24 -42L-26 -42L-26 -44L-22 -46L-23 -49L-26 -50L-26 -52zM-30 -49L-27 -47L-26 -49L-24 -48L-26 -45L-28 -46zM11 -52L13 -43L5 -32L4 -34L2 -33L2 -39L0 -41L3 -43L2 -44L0 -41L-2 -43L-3 -42L-8 -47L-6 -51L-9 -50L-10 -47L-12 -49L-12 -52z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M251 261L251 339L228 339L186 324L187 321L190 319L189 316L187 316L187 311L189 309L189 304L193 299L188 291L187 274L191 273L192 275L194 273L194 261L235 261z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M417 268L466 268L467 271L464 275L471 275L471 278L467 283L466 289L464 289L465 291L461 295L462 297L459 298L460 299L457 301L458 303L454 309L456 311L455 317L422 317L422 309L417 308L418 284L415 268z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M90 187L127 188L127 232L188 289L193 299L190 302L189 309L187 311L187 316L189 316L190 319L189 320L159 323L157 315L147 306L146 307L143 303L140 303L132 298L121 297L119 295L119 288L116 286L116 283L105 271L105 262L103 262L99 258L99 245L98 248L93 247L93 243L84 233L85 232L83 227L83 220L77 214L76 211L80 202L80 196L78 191L79 187z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M264 203L331 203L331 261L251 261L251 203z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#BD0026" fill-opacity="0.7" fill-rule="evenodd" d="M661 187L675 187L674 198L662 198L654 203L653 201L656 199L656 187z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M634 221L632 223L632 226L634 228L638 240L631 240L630 222L632 220z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#800026" fill-opacity="0.7" fill-rule="evenodd" d="M616 232L617 234L615 235L615 233z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M0 0"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FED976" fill-opacity="0.7" fill-rule="evenodd" d="M172 74L172 91L175 96L175 101L180 103L180 105L185 111L191 114L189 124L191 126L188 128L191 133L195 129L201 140L201 143L205 144L206 149L208 150L215 147L222 148L225 144L226 147L229 149L229 187L160 187L160 159L162 154L158 150L160 144L162 144L163 142L167 130L166 128L163 127L162 121L160 119L160 74z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M461 180L493 180L496 192L495 240L493 243L491 243L492 245L489 252L490 254L485 256L485 260L480 258L477 261L478 262L473 257L473 251L464 244L467 235L460 233L460 229L452 222L451 217L452 209L455 208L457 204L457 201L455 199L456 196L461 196L464 194L464 191L466 190L466 187L463 182z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M514 191L527 191L527 236L520 236L520 239L515 243L513 248L510 245L508 246L508 248L504 247L501 250L495 247L490 250L491 243L493 243L496 236L496 192L501 193L504 191z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M452 164L454 164L454 167L456 168L456 176L460 178L466 186L464 194L461 196L456 196L455 199L457 201L457 204L455 208L452 209L452 212L448 208L402 209L401 196L399 195L399 191L393 177L395 170L393 169L393 165L395 164z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M333 218L408 218L412 220L410 224L413 229L416 230L415 261L331 261L331 218z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M537 236L540 238L546 238L547 236L549 236L549 238L552 241L553 248L559 254L546 265L540 267L475 267L477 267L477 261L479 258L485 260L485 257L490 254L489 252L492 248L495 247L501 250L504 247L508 248L508 246L510 245L513 248L515 243L520 239L520 236L527 236L527 231L531 231L534 235z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M427 317L456 318L455 322L457 323L457 327L453 332L451 340L449 340L449 344L471 344L470 348L473 355L470 356L470 358L473 358L474 356L476 358L476 360L472 360L471 363L477 365L479 368L478 370L470 366L470 364L468 364L467 368L462 366L459 369L450 360L447 361L447 359L442 363L431 360L424 361L423 360L426 355L425 353L428 342L425 333L422 330L422 317z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#BD0026" fill-opacity="0.7" fill-rule="evenodd" d="M627 248L627 248zM588 222L630 222L631 240L638 240L636 247L629 248L629 244L627 242L624 242L624 230L628 224L622 230L621 239L623 241L623 246L617 243L616 240L614 242L613 240L615 235L617 234L616 232L615 233L611 231L611 229L603 222L599 225L592 225L588 229z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#BD0026" fill-opacity="0.7" fill-rule="evenodd" d="M685 174L687 177L684 183L687 184L688 188L693 192L696 190L695 193L685 193L685 195L683 195L680 191L680 187L656 187L658 176L681 177L682 175z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M542 192L504 191L511 181L511 172L508 163L508 155L511 145L513 145L513 142L516 141L518 138L518 144L520 142L520 137L521 135L525 135L524 131L526 128L534 130L544 138L542 140L545 145L544 151L542 152L541 156L538 157L537 162L540 163L545 157L549 155L552 159L554 172L553 178L551 179L551 177L543 190zM519 129L519 131L518 128zM495 139L495 135L492 135L493 129L491 128L490 125L467 119L463 115L475 110L489 100L491 101L487 106L486 111L488 109L492 109L499 116L502 115L506 117L512 113L524 112L525 116L527 117L535 115L536 124L542 124L541 126L532 125L529 123L528 127L525 124L519 123L517 125L511 125L510 128L506 129L505 126L504 129L500 130L495 138zM482 91L477 94L477 92L485 88L483 91z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M445 113L442 113L442 123L438 125L435 129L435 131L438 133L436 144L446 151L450 156L452 156L454 164L395 164L395 136L390 131L393 127L393 119L390 108L390 97L387 88L386 74L409 74L409 67L412 67L416 79L424 80L425 82L434 80L441 87L442 85L445 85L449 87L450 90L458 87L459 89L466 89L472 91L460 97L444 111z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M485 289L488 289L490 291L485 332L486 352L485 353L481 351L473 355L470 348L471 344L449 344L449 340L451 340L451 335L457 327L457 323L455 322L456 311L454 309L458 303L457 301L460 299L459 298L462 297L461 295L465 291L464 289z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M447 209L448 208L451 212L452 222L460 229L460 233L467 235L464 244L473 251L473 257L478 262L477 267L474 268L471 275L464 275L467 271L466 268L415 268L416 230L413 229L410 224L412 220L408 218L402 209L431 209z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FFEDA0" fill-opacity="0.7" fill-rule="evenodd" d="M308 74L308 140L228 140L229 149L226 147L225 144L222 148L215 147L208 150L206 149L205 144L201 143L201 140L195 129L191 133L189 131L188 128L191 126L189 124L191 114L188 114L180 105L180 103L175 101L175 96L172 91L172 74L247 74z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M316 172L371 172L378 176L379 174L386 174L392 177L393 180L395 180L399 191L399 195L401 196L401 207L408 218L331 218L331 203L308 203L308 172z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M160 187L194 188L194 273L193 275L191 273L187 274L188 289L127 232L127 188L141 188z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M683 136L685 167L688 171L681 177L668 176L668 163L672 155L672 151L676 150L678 147L677 144L679 142L678 140L680 136L683 137z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#800026" fill-opacity="0.7" fill-rule="evenodd" d="M647 201L651 203L650 207L647 210L650 212L649 221L641 232L640 230L633 226L632 223L641 216L636 207L638 205L637 203L642 197z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FED976" fill-opacity="0.7" fill-rule="evenodd" d="M270 261L320 261L319 330L279 330L280 333L261 333L261 339L251 339L251 261z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M571 268L629 268L630 273L619 275L628 277L630 276L631 280L628 281L626 285L622 285L622 294L614 295L606 301L605 305L598 305L585 292L573 292L573 290L571 288L570 289L570 287L553 287L541 290L533 290L533 286L535 286L539 282L542 282L545 279L548 279L550 275L557 273L559 274L563 267z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FFEDA0" fill-opacity="0.7" fill-rule="evenodd" d="M386 74L393 125L308 125L308 74z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M576 188L576 208L574 209L575 213L572 222L568 227L565 226L560 234L559 232L555 240L552 241L549 238L549 236L547 236L546 238L540 238L534 235L531 231L527 231L527 192L542 192L548 195L550 194L554 197L562 195L576 188z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M353 261L415 261L418 284L417 308L409 304L398 305L396 308L395 306L389 304L386 307L385 305L384 306L380 303L378 305L378 303L373 301L371 302L363 300L363 298L359 298L355 295L354 268L320 268L320 261L331 261z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M90 121L94 123L95 130L101 132L106 129L124 129L138 124L162 124L163 127L166 128L167 130L163 142L162 144L160 144L158 150L162 154L160 159L160 187L115 188L77 186L75 175L79 159L82 130L81 125L82 122L86 120L88 122z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#800026" fill-opacity="0.7" fill-rule="evenodd" d="M682 192L683 195L681 196zM678 187L680 187L680 191L682 192L680 192L679 197L674 198L675 187z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M550 288L570 287L570 289L571 288L573 292L585 292L598 305L594 308L589 317L587 317L582 322L579 323L572 330L569 329L565 317L553 304L549 297L544 294L546 289z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M308 125L393 125L390 131L395 136L395 164L393 165L393 169L395 170L393 177L395 180L393 180L392 177L386 174L379 174L378 176L371 172L308 172L308 140z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M490 268L490 266L563 267L559 274L557 273L552 276L550 275L548 279L545 279L542 282L539 282L535 286L533 286L533 290L464 289L466 289L467 283L471 278L473 268L476 268z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M334 268L354 268L354 295L358 298L363 298L363 300L371 302L373 301L378 303L378 305L380 303L384 306L385 305L386 307L389 304L395 306L396 308L398 305L409 304L418 309L422 309L422 330L425 333L428 342L425 353L426 355L423 360L424 361L417 363L414 362L414 360L411 361L412 366L407 372L400 375L393 374L395 377L391 378L391 380L388 382L382 393L384 392L382 398L386 409L382 410L381 408L375 408L364 402L359 388L351 379L347 369L338 360L324 360L321 368L317 370L303 362L299 349L293 346L279 332L279 330L319 330L320 268z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M216 188L229 187L229 203L251 203L251 261L194 261L194 188z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M678 140L678 147L676 150L672 151L672 155L668 163L668 176L658 176L659 164L656 156L658 152L658 140L669 140z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M634 247L636 247L628 260L628 253L631 248zM627 248L627 248zM601 226L606 230L608 228L611 229L611 231L615 233L614 238L612 240L613 242L616 242L616 244L620 245L625 249L623 253L624 260L623 262L620 260L622 262L627 262L629 268L540 267L549 263L559 254L563 258L566 256L568 258L578 254L578 251L582 247L586 238L590 241L593 235L595 236L600 230z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M160 74L160 119L162 121L162 124L138 124L124 129L119 128L113 131L106 129L101 132L95 130L95 125L91 121L88 122L84 119L80 119L82 115L73 88L74 84L81 88L95 89L99 102L99 94L101 90L98 78L95 76L95 74zM96 86L97 85L97 88L95 87zM92 81L93 79L95 81L95 84L92 83z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M463 115L467 119L490 125L491 128L493 129L492 135L495 135L495 141L493 141L490 147L492 148L495 143L498 142L499 138L502 137L494 158L492 168L493 180L461 180L456 176L456 168L454 167L454 160L452 156L450 156L446 151L436 144L438 133L435 129L438 125L442 123L442 113L448 113L458 108L458 112L462 115z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#FFEDA0" fill-opacity="0.7" fill-rule="evenodd" d="M251 140L308 140L308 203L229 203L228 140z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3" fill="#800026" fill-opacity="0.7" fill-rule="evenodd" d="M736 507L727 507L727 502L745 502L743 507L738 508z"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M519 344L525 344L526 348L557 349L557 352L560 346L565 348L567 360L576 377L575 382L581 395L580 412L576 419L575 418L570 420L568 418L569 416L566 411L561 407L558 397L556 399L551 390L555 385L552 385L551 387L549 384L552 371L543 363L543 361L540 358L532 356L532 358L521 361L520 358L510 352L496 353L498 351L495 344z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M498 289L518 290L523 319L526 327L523 332L525 344L495 344L498 351L495 354L492 351L492 348L489 353L486 352L485 332L490 291L488 289z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#FC4E2A" fill-opacity="0.7" fill-rule="evenodd" d="M546 289L544 294L551 300L562 315L565 317L569 329L572 330L567 339L565 348L560 346L558 352L557 349L526 348L523 332L526 327L523 319L518 290L541 290z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#FD8D3C" fill-opacity="0.7" fill-rule="evenodd" d="M576 208L576 222L588 222L588 229L592 225L599 225L600 223L603 222L604 224L606 224L608 228L606 230L601 226L600 230L595 236L593 235L590 241L586 238L582 247L578 251L578 254L568 258L566 256L564 258L561 257L553 248L552 241L557 238L556 236L559 232L560 234L561 233L565 226L568 227L572 222L575 213L574 209z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M584 184L584 187L635 187L638 191L638 194L642 196L637 203L638 205L636 207L641 216L634 221L632 220L630 222L576 222L576 188L584 183z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#E31A1C" fill-opacity="0.7" fill-rule="evenodd" d="M658 140L658 152L656 156L659 164L656 186L656 199L653 201L654 203L659 204L666 203L670 200L670 202L672 203L651 210L651 203L640 196L635 187L584 187L584 184L595 175L592 168L599 166L605 166L610 168L619 167L625 164L626 157L623 155L624 153L628 151L635 143L641 140L648 141z" stroke-dasharray="3"></path><path class="leaflet-interactive" stroke="white" stroke-opacity="1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#FEB24C" fill-opacity="0.7" fill-rule="evenodd" d="M688 171L685 167L683 136L688 133L687 132L693 126L693 119L704 100L706 100L708 105L716 102L721 107L721 129L724 131L724 136L728 138L730 144L728 146L726 145L725 147L723 146L723 148L721 148L718 151L717 149L714 152L713 150L707 150L704 158L702 157L697 161L695 159L689 167z" stroke-dasharray="3"></path></g></svg></div><div class="leaflet-pane leaflet-marker-pane"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(955.733px, 1582.83px, 0px) scale(8);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="http://leafletjs.com/examples/choropleth/example.html#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out" href="http://leafletjs.com/examples/choropleth/example.html#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div></div><div class="leaflet-top leaflet-right"><div class="info leaflet-control"><h4>US Population Density</h4>Hover over a state</div></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="info legend leaflet-control"><i style="background:#FFEDA0"></i> 0–10<br><i style="background:#FED976"></i> 10–20<br><i style="background:#FEB24C"></i> 20–50<br><i style="background:#FD8D3C"></i> 50–100<br><i style="background:#FC4E2A"></i> 100–200<br><i style="background:#E31A1C"></i> 200–500<br><i style="background:#BD0026"></i> 500–1000<br><i style="background:#800026"></i> 1000+</div><div class="leaflet-control-attribution leaflet-control"><a href="http://leafletjs.com/" title="A JS library for interactive maps">Leaflet</a> | Map data © <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com/">Mapbox</a>, Population data © <a href="http://census.gov/">US Census Bureau</a></div></div></div></div>
+
+<script type="text/javascript" src="./Choropleth_Tutorial_files/us-states.js"></script>
+
+<script type="text/javascript">
+
+	var map = L.map('map').setView([37.8, -96], 4);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+		id: 'mapbox.light'
+	}).addTo(map);
+
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
+			'<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+			: 'Hover over a state');
+	};
+
+	info.addTo(map);
+
+
+	// get color depending on population density value
+	function getColor(d) {
+		return d > 1000 ? '#800026' :
+				d > 500  ? '#BD0026' :
+				d > 200  ? '#E31A1C' :
+				d > 100  ? '#FC4E2A' :
+				d > 50   ? '#FD8D3C' :
+				d > 20   ? '#FEB24C' :
+				d > 10   ? '#FED976' :
+							'#FFEDA0';
+	}
+
+	function style(feature) {
+		return {
+			weight: 2,
+			opacity: 1,
+			color: 'white',
+			dashArray: '3',
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.density)
+		};
+	}
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			weight: 5,
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(statesData, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map);
+
+	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
+	var legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (map) {
+
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+			labels = [],
+			from, to;
+
+		for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+
+			labels.push(
+				'<i style="background:' + getColor(from + 1) + '"></i> ' +
+				from + (to ? '&ndash;' + to : '+'));
+		}
+
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
+
+	legend.addTo(map);
+
+</script>
+
+
+
+
+
+</body></html>
