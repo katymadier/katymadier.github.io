@@ -105,7 +105,7 @@ a:hover {
 
 hr {
   display: block;
-  margin: 4em 0;
+  margin: 3em 0;
   padding: 0 32px;
   height: .25rem;
   min-height: 1px;
@@ -182,18 +182,20 @@ header h1 {
 }
 .intro-img {
   position:relative;
-  top: 20px;
   margin: 30px -30px;
-  max-height: 400px;
+  height: 344px;
   z-index: -1;
+  overflow: hidden;
 }
 
 .home-photo {
-  width: 100%;
+  min-width: 100%;
+  max-width: 800px;
+  float: right;
 }
 
 .intro h1 {
-  margin: 30px 20px;
+  margin: var(--margin);
 }
 
 @media screen and (min-width: 768px) {
