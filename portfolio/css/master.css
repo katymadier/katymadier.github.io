@@ -261,6 +261,7 @@ header h1 {
 .projects {
   display: grid;
   position: relative;
+  overflow: hidden;
 }
 
 /* @media screen and (min-width: 768px) {
@@ -300,8 +301,6 @@ header h1 {
   overflow: hidden;
   margin: var(--margin);
 }
-
-
 .card1, .card2, .card3, .card4 {
   background-color: var(--main-bg);
   margin: 20px;
@@ -312,16 +311,18 @@ header h1 {
   height: 200px;
   overflow: hidden;
 }
-
 .card1 img, .card2 img, .card3 img, .card4 img {
   display: block;
   width:100%;
   margin: 0 auto;
 }
-
 .card1 p, .card2 p, .card3 p, .card4 p {
   display: block;
   padding: 0 0 20px 0;
+}
+iframe {
+  width: 100%;
+  padding: 10px;
 }
 /*
 @media screen and (min-width: 768px) {
