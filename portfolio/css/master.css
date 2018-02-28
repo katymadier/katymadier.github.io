@@ -27,28 +27,22 @@ body {
   --main-bg: #fff;
   /* sizes */
   --base-columns: 200px 200px;
-  --margin: 20px;
-  --margin-small: 10px 20px;
+  --margin: 10px 10px;
+  --margin-small: 10px 10px;
   --section-margin: 0 30px;
-  --h1-font: 1.75em;
+  --h1-font: 1.5em;
   --h1-lh: 1.25em;
   --h2-font: 1.3em;
   --h2-lh: 1.2em;
-  --h3-font: 1.5em;
-  --h3-lh: 1.25em;
-  --h4-font: 1.25em;
-  --h4-lh: 1.25em;
-  --p-font: 1em;
-  --p-lh: 1.3em;
+  --h3-font: 1.25em;
+  --h3-lh: 1.5em;
+  --p-font: 16px;
+  --p-lh: 24px;
   --li-font: 1.2em;
   --li-lh: 1.3em;
   --icon-size: 1.3em;
   --header-h1: 1.1em;
   --header-lh: 2em;
-}
-
-@media screen and (min-width: 768px) {
-
 }
 
 
@@ -66,7 +60,7 @@ h1, h2, h3 {
 
 h4, p, li, a {
   font-family: 'Mukta Malar', sans-serif;
-  color: var(--light-font);
+  color: var(--main-font);
   margin: var(--margin-small);
 }
 
@@ -86,7 +80,6 @@ h3 {
 h4 {
   font-size: var(--h4-font);
   line-height: var(--h4-lh);
-  font-style: italic;
 }
 
 p {
@@ -149,7 +142,7 @@ header h1 {
   font-size: var(--li-font);
   line-height: var(--li-lh);
 }
-
+/*
 @media screen and (min-width: 768px) {
   header .material-icons {
     display: none;
@@ -172,16 +165,32 @@ header h1 {
   .nav ul{
     margin: 0 auto;
   }
-}
+} */
 
 /* Intro */
 
 .content {
   display: block;
   position: relative;
-  padding: 0 30px;
+  padding: 0 10px;
+  top: 60px;
 }
+
 .intro-img {
+  position:relative;
+  border-radius: 100%;
+  margin: 40px 0 0 0;
+  height: 200px;
+  width: 200px;
+  z-index: -1;
+  overflow: hidden;
+  left: 40%;
+}
+
+.home-photo {
+  max-width: 100%;
+}
+/* .intro-img {
   position:relative;
   margin: 30px -30px;
   height: 344px;
@@ -193,12 +202,13 @@ header h1 {
   min-width: 100%;
   max-width: 800px;
   float: right;
-}
+} */
 
 .intro h1 {
   margin: var(--margin);
+  position: relative;
 }
-
+/*
 @media screen and (min-width: 768px) {
   .home-photo {
     top: 0;
@@ -235,17 +245,17 @@ header h1 {
     position: relative;
   }
 }
+*/
 
 /* Projects */
 
 .img-container {
   max-height: 500px;
   overflow: hidden;
+  margin: var(--margin);
 }
 .img-container img {
   z-index: -1;
-  margin: 40px auto;
-  padding: 20px;
   width: 100%;
 }
 .projects {
@@ -253,7 +263,7 @@ header h1 {
   position: relative;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .img-container img {
     margin: 0;
   }
@@ -276,7 +286,7 @@ header h1 {
     position:relative;
     top: -200px;
   }
-}
+} */
 
 /* Design */
 
@@ -288,27 +298,32 @@ header h1 {
   align-items: center;
   align-content: flex-start;
   overflow: hidden;
+  margin: var(--margin);
 }
 
 
 .card1, .card2, .card3, .card4 {
-  background-color: var(--primary-light);
-  margin: 2em;
+  background-color: var(--main-bg);
+  margin: 20px;
   width: 100%;
   box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, .26);
+}
+.card-img-container {
+  height: 200px;
+  overflow: hidden;
 }
 
 .card1 img, .card2 img, .card3 img, .card4 img {
   display: block;
+  width:100%;
   margin: 0 auto;
-  height: 400px;
 }
 
 .card1 p, .card2 p, .card3 p, .card4 p {
   display: block;
-  padding: 60px;
+  padding: 0 0 20px 0;
 }
-
+/*
 @media screen and (min-width: 768px) {
   .design .card-container {
     flex-direction: row;
@@ -336,7 +351,7 @@ header h1 {
     grid-row: 2/2;
     grid-column: 3/4;
   }
-}
+} */
 
 /* About  */
 
@@ -366,13 +381,13 @@ header h1 {
 .about p a {
   margin: 0;
 }
-
+/*
 @media screen and (min-width: 1000px) {
   .image1, .image2, .image3, .image4, .image5, .image6 {
     height: 300px;
     width: 25%;
   }
-}
+} */
 /* footer */
 
 .footer-text {
@@ -426,7 +441,7 @@ header h1 {
   margin: 20px;
   right: 0;
 }
-
+/*
 @media screen and (min-width: 768px) {
   .footer-text {
     width: 50%;
@@ -438,4 +453,4 @@ header h1 {
   .copyright, .profile-container {
     margin: 40px;
   }
-}
+} */
