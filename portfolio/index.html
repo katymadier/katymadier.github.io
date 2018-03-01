@@ -19,7 +19,7 @@
     <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
   </head>
   <body>
-    <header>
+    <header id="top-menu" class="noshadow" onscroll="shadow()">
       <i id="mobile-nav-open" class="material-icons" onclick="toggleAside()">dehaze</i>
       <div class="logo">
         <h1>Katy Madier</h1>
@@ -219,6 +219,16 @@
             x.style.display = "block";
           } else {
             x.style.display = "none";
+          }
+        }
+
+        window.onscroll=function() {shadow()};
+
+        function shadow() {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById('top-menu').className= "shadow";
+        } else {
+            document.getElementById("top-menu").className="noshadow";
           }
         }
     </script>
