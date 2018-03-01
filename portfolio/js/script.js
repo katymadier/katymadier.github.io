@@ -1,5 +1,10 @@
 
 // mdc material design by google
+function closeAside() {
+  var x = document.getElementById('mobile-nav');
+    x.style.display = "none";
+  }
+}
 
 var buttons = document.querySelectorAll('.mdc-button, .mdc-fab');
 for (var i = 0, button; button = buttons[i]; i++) {

@@ -10,16 +10,20 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" href="images/profile_icon.jpg">
     <link rel="stylesheet" href="css/default.css">
+
     <link href="https://fonts.googleapis.com/css?family=Mukta+Malar:200,300,400" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
     <link rel="stylesheet" href="css/master.css">
     <script scr="js/script.js" type="text/javascript"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
   </head>
   <body>
     <header>
-      <i class="material-icons">dehaze</i>
-      <h1>Katy Madier</h1>
+      <i id="mobile-nav-open" class="material-icons" onclick="toggleAside()">dehaze</i>
+      <div class="logo">
+        <h1>Katy Madier</h1>
+      </div>
       <nav class="nav home-nav">
         <ul>
           <li><a href="research.html">Research</a></li>
@@ -30,6 +34,36 @@
       </nav>
     </header>
     <div class = "page">
+      <aside id="mobile-nav" onclick="toggleAside()" style="display: none;">
+        <nav class="mobile-drawer">
+          <div class="logo">
+            <h1>Katy Madier</h1>
+          </div>
+          <div class="drawer-list">
+            <div class="drawer-list-item">
+              <h2><a href="research.html">Latest Research</a></h2>
+            </div>
+            <div class="drawer-list-item">
+              <h2><a href="design.html">Design Work</a></h2>
+            </div>
+            <div class="drawer-list-item">
+              <h2><a href="engineering.html">Engineering Skills</a></h2>
+            </div>
+            <div class="drawer-list-item">
+              <h2><a href="about.html">About Me</a></h2>
+            </div>
+          </div>
+          <div class="social">
+            <hr>
+            <i class="social-icons fab fa-linkedin"></i>
+            <i class="social-icons fab fa-facebook-square"></i>
+            <i class="social-icons fab fa-instagram"></i>
+            <i class="social-icons fab fa-twitter-square"></i>
+            <i class="social-icons fab fa-github-square"></i>
+            <i class="social-icons fas fa-envelope-square"></i>
+          </div>
+        </nav>
+      </aside>
       <div class="content">
         <div class="section intro">
           <div class="intro-img">
@@ -69,7 +103,7 @@
           <hr>
         </div>
         <div class="section design">
-          <h2>Design</h2>
+          <h2>Design Work</h2>
           <div class="card-container">
             <div class="card1">
               <div class="card-img-container">
@@ -93,7 +127,7 @@
               <p>Walter is a concept browser extension and debate platform that brings fact checking and verified experts to twitter conversations. This was a submission for the CHI 2018 student design competition. </p>
             </div>
           </div>
-          <a  href="design.html">more...</a>
+          <a  href="design.html">See All Design</a>
           <hr>
         </div>
         <div class="section engineering">
@@ -118,7 +152,7 @@
                 <h3>Vue.js</h3>
                 <p>Mapping project with Together Chicago.</p>
               </div>
-              <a href="engineering.html">more...</a>
+              <a href="engineering.html">See More Skills</a>
             </div>
             <hr>
           </div>
@@ -147,34 +181,24 @@
                 <img src="images/about/6.png" alt="me 1">
               </div>
             </div>
-            <a href="about.html">more...</a>
+            <a href="about.html">More About Me</a>
             <hr>
           </div>
       </div>
       <div class="footer-text">
         <div class="column1">
-          <h3>This list</h3>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
+          <h4>Hire me!</h4>
+          <p>Currently looking for UX Research internships for summer 2018, and full-time UX Research roles for fall 2019.</p>
+          <a>email</a>
         </div>
         <div class="column2">
-          <h3>This list</h3>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-        </div>
-        <div class="column3">
-          <h3>This list</h3>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
-          <a>Lorem</a>
+          <h4>Connect</h4>
+          <a>LinkedIn</a>
+          <a>Facebook</a>
+          <a>Twitter</a>
+          <a>Instagram</a>
+          <a>Github</a>
+          <a>Email</a>
         </div>
       </div>
       <footer>
@@ -188,5 +212,15 @@
       </div>
       </footer>
     </div>
+    <script>
+      function toggleAside() {
+        var x = document.getElementById('mobile-nav');
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+        }
+    </script>
   </body>
 </html>

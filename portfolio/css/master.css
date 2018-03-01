@@ -20,6 +20,7 @@ body {
   --primary-dark: #8d8d8d;
   --secondary: #7edeea;
   --secondary-light: #ffccbc;
+  --secondary-light-hover: #dc9d89;
   --secondary-dark: #48acb8;
   --main-font: #424242;
   --light-font: #8d8d8d;
@@ -108,6 +109,7 @@ hr {
 
 /* Header */
 header {
+  display: none;
   background-color: var(--main-bg);
   padding: 0 20px;
   z-index: 100;
@@ -142,6 +144,73 @@ header h1 {
   font-size: var(--li-font);
   line-height: var(--li-lh);
 }
+
+/* mobile nav */
+#mobile-nav-open {
+  display: block;
+  border-radius: 100%;
+  transition: all 1s linear;
+}
+#mobile-nav-open:hover {
+  background-color: var(--secondary-light);
+}
+
+aside {
+  background: rgba(0,0,0,.55);
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 100vh;
+  top:0;
+}
+
+.mobile-drawer {
+  background: #fff;
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
+  width: 280px;
+  position: fixed;
+  height: 100vh;
+}
+.mobile-drawer .logo {
+  padding: 20px 10px;
+}
+.drawer-list {
+  padding: 0 10px;
+}
+.drawer-list-item h2 a {
+  text-transform: uppercase;
+  color: var(--main-font);
+  font-size: var(--p-font);
+  margin: 0;
+  text-decoration: none;
+}
+.drawer-list-item {
+  margin: 25px 0;
+}
+.drawer-list-item:hover {
+  border-left: 4px var(--secondary) solid;
+}
+.social {
+  margin: 0 20px;
+  display: flex;
+  justify-content: center;
+  color: var(--secondary-light);
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+  top: 18%;
+}
+
+.social-icons {
+  font-size: 3em;
+  padding: 10px;
+}
+
+.social-icons:hover {
+  color: var(--secondary-light-hover);
+}
+
+
 /*
 @media screen and (min-width: 768px) {
   header .material-icons {
@@ -392,23 +461,38 @@ iframe {
 /* footer */
 
 .footer-text {
-  margin: 0 auto;
+  margin: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  align-content: center;
+  align-items: flex-start;
 }
-
-.column1, .column2, .column3 {
-  width: 20%;
+.footer-text h4 {
+  text-transform: uppercase;
+}
+.footer-text p, .footer-text a {
+  font-size: 15px;
+  line-height: 20px;
+}
+.column1, .column2 {
+  display: flex;
+  padding: 0 10px;
   margin: 60px auto;
-  text-align: center;
+  text-align: left;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
-.column1 a, .column2 a, .column3 a {
+.column1 {
+  width: 70%;
+}
+.column2 {
+  width: 30%;
+}
+
+.column1 a, .column2 a{
   color: var(--light-font);
+  margin: 0 10px;
 }
 
 .footer-content {
