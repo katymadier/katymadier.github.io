@@ -1,18 +1,22 @@
 /* Universal */
+
 html {
   height: 100%;
   width: 100%;
 }
+
 body {
   background-color: var(--main-bg);
   overflow: scroll;
 }
+
 .page {
   margin: 0 auto;
   max-width: 1000px;
 }
 
 /* Color Palette */
+
 :root {
   /* colors */
   --primary: #bdbdbd;
@@ -46,7 +50,6 @@ body {
   --header-lh: 2em;
 }
 
-
 /* Font & Icons */
 
 .material-icons {
@@ -74,10 +77,12 @@ h2 {
   font-size: var(--h2-font);
   line-height: var(--h2-lh);
 }
+
 h3 {
   font-size: var(--h3-font);
   line-height: var(--h3-lh);
 }
+
 h4 {
   font-size: var(--h4-font);
   line-height: var(--h4-lh);
@@ -108,6 +113,7 @@ hr {
 }
 
 /* Header */
+
 header {
   display: none;
   background-color: var(--main-bg);
@@ -116,7 +122,7 @@ header {
   width: 100%;
   height: 65px;
   position: fixed;
-  top:0;
+  top: 0;
   display: flex;
   flex-flow: row;
   flex-wrap: nowrap;
@@ -146,37 +152,42 @@ header h1 {
 }
 
 /* mobile nav */
+
 #mobile-nav-open {
   display: block;
   border-radius: 100%;
   transition: all 1s linear;
 }
+
 #mobile-nav-open:hover {
   background-color: var(--secondary-light);
 }
 
 aside {
-  background: rgba(0,0,0,.55);
+  background: rgba(0, 0, 0, .55);
   position: fixed;
   z-index: 100;
   width: 100%;
   height: 100vh;
-  top:0;
+  top: 0;
 }
 
 .mobile-drawer {
   background: #fff;
-  box-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
+  box-shadow: 0 8px 10px -5px rgba(0, 0, 0, .2), 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12);
   width: 280px;
   position: fixed;
   height: 100vh;
 }
+
 .mobile-drawer .logo {
   padding: 20px 10px;
 }
+
 .drawer-list {
   padding: 0 10px;
 }
+
 .drawer-list-item h2 a {
   text-transform: uppercase;
   color: var(--main-font);
@@ -184,12 +195,15 @@ aside {
   margin: 0;
   text-decoration: none;
 }
+
 .drawer-list-item {
   margin: 25px 0;
 }
+
 .drawer-list-item:hover {
   border-left: 4px var(--secondary) solid;
 }
+
 .social {
   margin: 0 20px;
   display: flex;
@@ -209,7 +223,6 @@ aside {
 .social-icons:hover {
   color: var(--secondary-light-hover);
 }
-
 
 /*
 @media screen and (min-width: 768px) {
@@ -246,7 +259,7 @@ aside {
 }
 
 .intro-img {
-  position:relative;
+  position: relative;
   border-radius: 100%;
   margin: 40px 0 0 0;
   height: 200px;
@@ -259,6 +272,7 @@ aside {
 .home-photo {
   max-width: 100%;
 }
+
 /* .intro-img {
   position:relative;
   margin: 30px -30px;
@@ -277,6 +291,7 @@ aside {
   margin: var(--margin);
   position: relative;
 }
+
 /*
 @media screen and (min-width: 768px) {
   .home-photo {
@@ -323,10 +338,12 @@ aside {
   overflow: hidden;
   margin: var(--margin);
 }
+
 .img-container img {
   z-index: -1;
   width: 100%;
 }
+
 .projects {
   display: grid;
   position: relative;
@@ -370,29 +387,35 @@ aside {
   overflow: hidden;
   margin: var(--margin);
 }
+
 .card1, .card2, .card3, .card4 {
   background-color: var(--main-bg);
   margin: 20px;
   width: 100%;
   box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, .26);
 }
+
 .card-img-container {
   height: 200px;
   overflow: hidden;
 }
+
 .card1 img, .card2 img, .card3 img, .card4 img {
   display: block;
-  width:100%;
+  width: 100%;
   margin: 0 auto;
 }
+
 .card1 p, .card2 p, .card3 p, .card4 p {
   display: block;
   padding: 0 0 20px 0;
 }
+
 iframe {
   width: 100%;
   padding: 10px;
 }
+
 /*
 @media screen and (min-width: 768px) {
   .design .card-container {
@@ -448,9 +471,11 @@ iframe {
   align-content: flex-start;
   overflow: hidden;
 }
+
 .about p a {
   margin: 0;
 }
+
 /*
 @media screen and (min-width: 1000px) {
   .image1, .image2, .image3, .image4, .image5, .image6 {
@@ -458,6 +483,7 @@ iframe {
     width: 25%;
   }
 } */
+
 /* footer */
 
 .footer-text {
@@ -467,13 +493,16 @@ iframe {
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .footer-text h4 {
   text-transform: uppercase;
 }
+
 .footer-text p, .footer-text a {
   font-size: 15px;
   line-height: 20px;
 }
+
 .column1, .column2 {
   display: flex;
   padding: 0 10px;
@@ -486,11 +515,12 @@ iframe {
 .column1 {
   width: 70%;
 }
+
 .column2 {
   width: 30%;
 }
 
-.column1 a, .column2 a{
+.column1 a, .column2 a {
   color: var(--light-font);
   margin: 0 10px;
 }
@@ -526,6 +556,7 @@ iframe {
   margin: 20px;
   right: 0;
 }
+
 /*
 @media screen and (min-width: 768px) {
   .footer-text {
