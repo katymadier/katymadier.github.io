@@ -20,18 +20,20 @@
   </head>
   <body>
     <header id="top-menu" class="noshadow" onscroll="shadow()">
-      <i id="mobile-nav-open" class="material-icons" onclick="toggleAside()">dehaze</i>
-      <div class="logo">
-        <h1>Katy Madier</h1>
+      <div class="menu-container">
+        <i id="mobile-nav-open" class="material-icons" onclick="toggleAside()">dehaze</i>
+        <div class="logo">
+          <h1>Katy Madier</h1>
+        </div>
+        <nav class="nav home-nav">
+          <ul>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="engineering.html">Engineering</a></li>
+            <li><a href="about.html">About Me</a></li>
+          </ul>
+        </nav>
       </div>
-      <nav class="nav home-nav">
-        <ul>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="design.html">Design</a></li>
-          <li><a href="engineering.html">Engineering</a></li>
-          <li><a href="about.html">About Me</a></li>
-        </ul>
-      </nav>
     </header>
     <div class = "page">
       <aside id="mobile-nav" onclick="toggleAside()" style="display: none;">
@@ -66,8 +68,7 @@
       </aside>
       <div class="content">
         <div class="section intro">
-          <div class="intro-img">
-            <img class="home-photo" src="images/profile_icon.jpg" alt="photo">
+          <div class="intro-img"alt="profile photo">
           </div>
           <h1>UX Researcher
           <br>& MSI Student</h1>
@@ -123,8 +124,15 @@
               <div class="card-img-container">
                 <img src="images/research/chi/Walter_Poster.jpg">
               </div>
-              <h3>CHI 2018 Student Design Competition: Walter</h3>
-              <p>Walter is a concept browser extension and debate platform that brings fact checking and verified experts to twitter conversations. This was a submission for the CHI 2018 student design competition. </p>
+              <h3>CHI 2018: Walter</h3>
+              <p>Concept browser extension and debate platform that brings fact checking and verified experts to twitter conversations. Submitted for the CHI 2018 student design competition. </p>
+            </div>
+            <div class="card4">
+              <div class="card-img-container">
+                <img src="images/design/www/WWW_6.jpg">
+              </div>
+              <h3>WorldWomenWork</h3>
+              <p>Redesign of the non-profit WorldWomenWork's site to increase merchandise sales and raise yearly donations.</p>
             </div>
           </div>
           <a  href="design.html">See All Design</a>
@@ -135,17 +143,17 @@
             <div class="projects">
               <div class="project e-one">
                 <p>2/18/18</p>
+                <h3>Aframe + Sketchup</h3>
+                <p>Poptarts and GIFs! Playing around with 3d modeling in sketchup and building scenes in aframe.</p>
+                <iframe id="poptart" allowfullscreen src="https://katymadier.github.io/SI539/ICE01/poptart/"></iframe>
+              </div>
+              <div class="project e-two">
+                <p>2/18/18</p>
                 <h3>Snapchat Lens Studio</h3>
                 <p>Making portals to strange places.</p>
                 <div class="img-container">
                   <img src="images/research/chi/walter.png" alt="engineering item">
                 </div>
-              </div>
-              <div class="project e-two">
-                <p>2/18/18</p>
-                <h3>Aframe + Sketchup</h3>
-                <p>Poptarts and GIFs! Playing around with 3d modeling in sketchup and building scenes in aframe.</p>
-                <iframe id="poptart" allowfullscreen src="https://katymadier.github.io/SI539/ICE01/poptart/"></iframe>
               </div>
               <div class="project e-three">
                 <p>2/18/18</p>
@@ -163,21 +171,12 @@
             <p>I have a <a href="http://arts.vcu.edu/paintingprintmaking/">BFA in Painting & Printmaking</a> and experience in a variety of design mediums such as sculpture, woodworking, photography, video, graphic design, UX design, HTML, & CSS. In my spare time, I love reading dystopian sci-fi novels to my daughter and hiking in national parks.</p>
             <div class="about-container">
               <div class="image1">
-                <img src="images/about/1.png" alt="me 1">
-              </div>
-              <div class="image2">
-                <img src="images/about/11.png" alt="me 1">
-              </div>
-              <div class="image3">
-                <img src="images/about/3.png" alt="me 1">
-              </div>
-              <div class="image4">
                 <img src="images/about/4.png" alt="me 1">
               </div>
-              <div class="image5">
+              <div class="image2">
                 <img src="images/about/5.png" alt="me 1">
               </div>
-              <div class="image6">
+              <div class="image3">
                 <img src="images/about/6.png" alt="me 1">
               </div>
             </div>
