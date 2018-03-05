@@ -59,21 +59,16 @@
       attribution: '&copy; <a href="http://osm.org/copyright">Together Chicago</a> contributors'
     }).addTo(map);
 
-// hover
-      // function hover(feature, layer){
-      //   layer.on({
-      //       mouseover: highlightFeature,
-      //       mouseout: resetHighlight,
-      //       click: popUp
-      //   });
-      // }
 // get the data on the map
       var geojsonLayer = new L.GeoJSON.AJAX("resources/data/Neighborhoods_2012b.geojson", {onEachFeature:onEachFeature, style:style});
       geojsonLayer.addTo(map);
 
 
-// get crime data
+// get crime
+    // var crimeData = new L.GeoJSON.AJAX("resources/data/Neighborhoods_2012b.geojson",
+
 // change polygon color to reflect crime data intensity
+
 // Show number of crimes in pop-up
 
 // color of polygons based on intensity
