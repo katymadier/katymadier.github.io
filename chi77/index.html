@@ -80,20 +80,20 @@
 
 // color of polygons based on intensity
     function getColor(d) {
-        return d > 60 ? '#800026' :
-               d > 50 ? '#BD0026' :
-               d > 40  ? '#E31A1C' :
-               d > 30  ? '#FC4E2A' :
-               d > 20 ? '#FD8D3C' :
-               d > 10  ? '#FEB24C' :
-               d > 5   ? '#FED976' :
+        return d > 70 ? '#800026' :
+               d > 60 ? '#BD0026' :
+               d > 50  ? '#E31A1C' :
+               d > 40  ? '#FC4E2A' :
+               d > 30 ? '#FD8D3C' :
+               d > 20  ? '#FEB24C' :
+               d > 10   ? '#FED976' :
                           '#FFEDA0' ;
     }
 
 // change feature.properties.objectid to reflect what you want to measure
     function style(feature) {
         return {
-            fillColor: getColor(feature.properties.statefp10),
+            fillColor: getColor(feature.properties.commarea_n),
             weight: 2,
             opacity: 1,
             color: 'white',
