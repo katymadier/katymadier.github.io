@@ -107,6 +107,7 @@
                   censusMax.toLocaleString();
             };
             xhr.send();
+            loadCensusData.addTo(map);
           }
   /** Removes census data from each shape on the map and resets the UI. */
       function clearCensusData() {
