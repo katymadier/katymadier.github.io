@@ -108,6 +108,17 @@
             };
             xhr.send();
           }
+  /** Removes census data from each shape on the map and resets the UI. */
+      function clearCensusData() {
+        censusMin = Number.MAX_VALUE;
+        censusMax = -Number.MAX_VALUE;
+        map.data.forEach(function(row) {
+          row.setProperty('census_variable', undefined);
+        });
+        document.getElementById('data-box').style.display = 'none';
+        document.getElementById('data-caret').style.display = 'none';
+      }
+
 
 
 // change polygon color to reflect crime data intensity
