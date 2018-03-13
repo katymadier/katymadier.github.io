@@ -40,13 +40,13 @@
 	// I used Two functions here.  Starter idea at:
 	// https://codepen.io/ColleenEMc/pen/XmZzWw
 	$(document).ready(function() {
-		$(".preview").bind('focus mouseover',function() {
+		$(".preview").on('focus mouseover',function() {
 			$("#image").text($(this).attr("alt"));
-			$("#image").css("background-image", 'url("+$(this).attr("src")+")');
+			$("#image").css("background-image", 'url("' + $(this).attr("src") + '")');
 		})
-		$(".preview").bind('blur mouseleave',function() {
-			$"#image").text("Hover over an image below");
-			$("#image").css("background-image", 'url()');
+		$(".preview").on('blur mouseleave',function() {
+			$("#image").text("Hover over an image below");
+			$("#image").css("background-image", '');
 		});
 	});
 	</script>
