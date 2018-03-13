@@ -347,6 +347,8 @@ aside {
   overflow: hidden;
 }
 
+/* Research */
+
 @media screen and (min-width: 600px) {
   .r-one .img-container {
     height: 300px;
@@ -399,7 +401,7 @@ aside {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   align-content: flex-start;
   overflow: hidden;
@@ -429,10 +431,6 @@ aside {
   padding: 0 0 20px 0;
 }
 
-iframe {
-  width: 100%;
-  padding: 10px;
-}
 
 @media screen and (min-width: 600px) {
   .design .card-container {
@@ -477,6 +475,8 @@ iframe {
     height: 300px;
   }
 }
+
+
 @media screen and (min-width: 960px) {
   .design .card1, .design .card2, .design .card3 {
     width: 30%;
@@ -490,16 +490,23 @@ iframe {
     margin: 0 20px 0 0;
   }
   .e-two {
-    grid-row: 1/2;
+    grid-row: 1/1;
     grid-column: 2/3;
   }
   .e-three {
-    grid-row: 2/3;
+    grid-row: 2/2;
     grid-column: 2/3;
   }
   .e-two .img-container img {
     display: none;
   }
+}
+
+/* Engineering */
+
+iframe {
+  width: 100%;
+  padding: 10px;
 }
 
 /* About  */
@@ -522,7 +529,7 @@ iframe {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   align-content: flex-start;
   overflow: hidden;
@@ -560,7 +567,7 @@ iframe {
   margin: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-start;
 }
 
@@ -598,7 +605,7 @@ iframe {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   box-shadow: 0 -0.1875rem 0.125rem var(--primary-light);
   height: 10rem;
