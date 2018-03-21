@@ -1,0 +1,84 @@
+/*
+Insert the following two lines, in order, into the index.html file:
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<link href="stylesheet.css" rel="stylesheet">
+
+*/
+
+body {
+	background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+	background: #ffffff;
+	color: #111111;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	padding: 0 1rem;
+}
+
+form{
+	-moz-border-radius: 2%;
+	-webkit-border-radius: 2%;
+	border-radius: 2%;
+	width: 100%;
+}
+
+fieldset {
+	width: 100%;
+	border: none;
+}
+
+h4 {
+	border-bottom: 1px black solid;
+}
+
+legend {
+	border-bottom: 0.5px grey solid;
+}
+
+label {
+	max-width: 350px;
+}
+
+button {
+	margin-top: 0.5rem;
+}
+
+form > input[type=submit] {
+	width: 100%;
+	padding: 0.5rem 0;
+}
+
+@media only screen and (min-width: 500px) {
+	form{
+		-moz-border-radius: 2%;
+		-webkit-border-radius: 2%;
+		border-radius: 2%;
+		padding: 2%;
+		width: 90%;
+	}
+
+	form > input[type=submit] {
+		width: 25%;
+		padding: 1rem 0;
+	}
+
+	fieldset {
+		width: 30%;
+	}
+
+	form > div {
+		border: 1px black dotted;
+		padding-top: 1rem;
+		padding-left: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	form > div > fieldset > select[name=position] {
+		width: 100%;
+		padding-bottom: 1rem;
+	}
+
+	#addWork #addDegree {
+		width: 100%;
+	}
+
+}

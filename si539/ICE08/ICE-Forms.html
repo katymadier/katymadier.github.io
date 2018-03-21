@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Employment Application Form</title>
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+		<link href="stylesheet.css" rel="stylesheet">
+		<!-- <script>
+	    $(document).ready(function(){
+	      /*    YOUR jQuery CODE HERE */
+	      $("#country").change(function(){
+	        $("#country ").toggle();
+	      })
+	    });
+	    </script>
+	    tried to write jquery to have state field hidden until United States chosen for country
+	   	 -->
+
+			 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	 		<script>
+	 		  $(document).ready(function(){
+	 				$('#main-div-1').hide();
+	 				$('#main-div-2').hide();
+	 				$('#main-div-3').hide();
+
+	 	      $('#heading-1').click(function(){
+	 	      $('#heading-1').next().toggle();
+	 				});
+
+	 				$('#heading-2').click(function(){
+	 					$('#heading-2').next().toggle();
+	 				});
+
+	 				$('#heading-3').click(function(){
+	 					$('#heading-3').next().toggle();
+	 				});
+	 			});
+	 		</script>
+
+	</head>
+
+	<body>
+		<h2 id="title"> Your Dream Job Starts Here... </h2>
+		<form name="application" action="" method="post">
+			<h4  id='heading-1'><u>Basic Information</u></h4>
+		   <div id="main-div-1" display='none'>
+
+		      <!--
+		      add patterns and validation
+		      basic styling (change the font)
+		      toggling on big categories
+		      reset button
+		      make so we can add more employer/degree
+		       -->
+
+		   </div>
+
+      	<!-- Content -->
+      <fieldset>
+			<legend>Account Information:</legend>
+				<label> First name:<input type="text" name="fname" required autofocus>
+				</label><br>
+
+		  	<label for="lname"> Last name:</label><input type="text" name="lname" required><br>
+
+		  	<label> Email: <input type="email" name="email"   placeholder = "iyad@umich.edu" required></label><br>
+
+		  	<label> Password (uppercase letter, lowercase letter, and number required): <input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" name="password1" required></label><br>
+
+		  	<label> Confirm Password: *<input type="password"   name="password2" onchange="validatePass(this)" required></label><br>
+		</fieldset><br>
+
+		<fieldset>
+			<legend>Contact Information:</legend>
+			<label>Phone number: <input id="phone" name="phone" type="tel"  pattern="\d{3}[\-]\d{3}[\-]\d{4}" placeholder="Eg. 123-456-7890" required>  </label><br><br>
+
+		<label>Country of Citizenship: <select id="country" class="bfh-countries" data-country="US"></select><br></label><br><!-- must have bootstrap files in the directory -->
+		<label> Address: <input type="text" id="address" name="address" size="50" pattern="^\d+\s[A-z]+\s[A-z]+" placeholder = "1234 N Wells St" required></label><br>
+		<label> City: <input type="text" name="city"  placeholder = "Ann Arbor" required></label>
+		<label> State: <input type="text" id="state" name="state"  placeholder = "MI"></label>
+		<label> Zip code: <input type="text" name="Zip code"  placeholder = "48108"></label><br>
+		</fieldset><br>
+
+
+			<h4  id='heading-2'><u>Education and Work Experience</u></h4>
+			<div id="main-div-2" display='none'>
+
+        <fieldset>
+		  <legend>Educational Information:</legend>
+
+		  <div id="education">
+		  <label> Degree:
+		  <select name="degree">
+				<option value="High school">High school</option>
+				<option value="BS">B.S</option>
+				<option value="BA">B.A</option>
+				<option value="Meng">M.Eng</option>
+				<option value="MA">M.A</option>
+				<option value="MS">M.S</option>
+				<option value="PhD">PhD</option>
+		  </select></label><br>
+
+		  <label> Institution name: <input type="text" name="inst_name" placeholder = "University of Michigan"></label><br>
+
+		  <label> Major: <input type="text" name="Major" placeholder = "Information System"></label><br>
+
+		  <label> GPA: <input type="number" step="any" name="GPA" min="0" max="4">4.0</label><br>
+
+
+
+		<button id="addDegree"> Add degree </button>
+		</div>
+		</fieldset>
+
+			<fieldset>
+			<legend>Work Experience:</legend>
+			<div id="work">
+				<label>Company Name: <input type="text" name="name" placeholder="Google"></label><br>
+				<label>Job Title: <input type="text" name="title" placeholder="Software Engineer"></label><br>
+				<label>Join Date: <input type="date" name="joindate"></label><br>
+				<label>End Date: <input type="date" name="enddate"></label><br>
+
+			</div>
+				<!-- Can automatically populate the duration using Javascript -->
+				<button id="addWork">Add Employer</button>
+			</fieldset>
+			<br>
+
+      </div>
+
+			<h4 id='heading-3'><u>Position</u></h4>
+      <div id='main-div-3'>
+
+
+
+        <fieldset>
+			<legend>Type of Work:</legend>
+			What are you interested in applying for:<br>
+				<label><input type="checkbox" name="position" value="internship"> Internship</label><br>
+				<label><input type="checkbox" name="position" value="full-time"> Full-time</label><br>
+				<label><input type="checkbox" name="position" value="part-time"> Part-time</label><br>
+			</fieldset>
+			<!-- Resume ( ) and cover letter (optional) -->
+
+			<fieldset>
+			<legend>Resume and Cover Letter:</legend>
+			<label>Upload Resume: *<input type="file" name="resume" accept="application/pdf"  ></label><br>
+			<label>Upload Cover Letter: <input type="file" name="coverletter" accept="application/pdf"></label><br>
+			</fieldset>
+
+			<fieldset>
+			<legend>Position:</legend>
+			Which position are you interested in applying:<br>
+			<select name="position">
+				<optgroup label="Information Technology">
+					<option>Network Engineer</option>
+				</optgroup>
+				<optgroup label="Finance">
+					<option>Financial Analyst</option>
+				</optgroup>
+				<optgroup label="Software Development">
+					<option>Project Manager</option>
+				</optgroup>
+				<optgroup label="Legal">
+					<option>Attorney</option>
+				</optgroup>
+				<optgroup label="Human Resources">
+					<option>Coordinator</option>
+				</optgroup>
+				<optgroup label="Research">
+					<option>Research Associate</option>
+				</optgroup>
+				<optgroup label="Transport">
+					<option>Driver</option>
+				</optgroup>
+			</select><br>
+
+			Office Location:
+			<input list="locations" name="locations">
+			<datalist id="locations">
+				<option value="New York">
+				<option value="San Francisco">
+				<option value="Detroit">
+				<option value="Ann Arbor">
+				<option value="Chicago">
+				<option value="Pittsburgh">
+			</datalist><br>
+
+			Expected Start Date: <input type="date" name="startdate"><br>
+
+			Expected Salary: $<input type="range" name="salary" min="40" max="200" step="5" value="100" onchange="updateSalary(this)"><br/><span id="salary"></span>
+			<br>
+
+			<label>Personal Website/Portfolio: <input type="url" name="website" placeholder="www.mywebsite.com"></label><br>
+
+			</fieldset>
+			<br>
+      </div>
+
+	<input type="submit" value = "Apply">
+	<input type='reset' value='Reset' name='reset'>
+
+	</form>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-formhelpers.min.js"></script>
+
+	</body>
+</html>
