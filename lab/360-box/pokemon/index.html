@@ -8,7 +8,10 @@
   </head>
   <body>
     <a-scene>
-      <a-sky src="images/R0010116.JPG" rotation="0 -130 0"></a-sky>
+      <a-assets>
+        <video id="pokemon" autoplay loop="true" src="pokemon-360box"></video>
+      <a-assets>
+      <a-videosphere src="#pokemon"></a-videosphere>
     </a-scene>
   </body>
 </html>
