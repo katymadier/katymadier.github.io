@@ -5,13 +5,31 @@
     <title>360&deg; Image</title>
     <meta name="description" content="360&deg; Image - A-Frame">
     <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-  </head>
+    <script src="https://rawgit.com/oscarmarinmiro/aframe-video-controls/master/dist/aframe-video-controls.min.js"></script>
+    <script>
+      AFRAME.registerComponent('video-controls',
+        schema: {
+          distance: { type: 'number', default:2.0},
+          backgroundColor: { default: 'black'},
+          barColor: { default: 'red'},
+          textColor: { default: 'yellow'},
+          infoTextBottom: { default: },
+          infoTextTop: { default: }
+        }));
+    </script>
+</head>
   <body>
     <a-scene>
       <a-assets>
-        <video id="pokemon" autoplay loop="true" src="pokemon-360box"></video>
-      <a-assets>
-      <a-videosphere src="#pokemon"></a-videosphere>
+        <video id="pokemon" src="/images/pokemon-360box.mp4"></video>
+        <img id="video-play-image" src="images/play.png">
+        <img id="video-pause-image" src="images/pause.png">
+      </a-assets>
+      <a-videosphere autoplay rotation="0 -90 0" loop="true" src="#pokemon"></a-videosphere>
+      <a-camera>
+          <a-cursor id="cursor" color="yellow"></a-cursor>
+      </a-camera>
+      <a-entity video-controls="src:#pokemon" infoTextBottom="" infoTextTop=""></a-entity>
     </a-scene>
   </body>
 </html>
