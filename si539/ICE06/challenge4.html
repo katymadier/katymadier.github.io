@@ -21,14 +21,19 @@
 				var b = document.getElementById("addrerrormsg").style;
 				if (x == null || x == "") {
 					a.display="block";
-				}
-				if (y == null|| y == "") {
-					b.display = "block";
+					return false;
 				}
 				else {
-					return true;
+					a.display="none";
 				}
-				return false;
+				if (y == null || y == "") {
+					b.display = "block";
+					return false;
+				}
+				else {
+					b.display="none";
+				}
+				return true;
 			}
     </script>
 </head>
