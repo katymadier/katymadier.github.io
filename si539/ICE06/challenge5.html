@@ -39,21 +39,13 @@
 	<script type="text/javascript">
 	// I used Two functions here.  Starter idea at:
 	// https://codepen.io/ColleenEMc/pen/XmZzWw
-	function upDate () {
-		document.getElementById("image").style(
-			"background-image","url()";
-		)
-		document.getElementById("image").alt(
-			""
-		)
+	function upDate (previewPic) {
+		document.getElementById("image").style.backgroundImage='url('+ previewPic.getAttribute("src")+')';
+		document.getElementById("image").innerHTML = previewPic.getAttribute("alt");
 	}
-	function unDo () {
-		document.getElementById("image").style(
-			background-image:url();
-		)
-		document.getElementById("image").alt(
-			""
-		)
+	function unDo (previewPic) {
+		document.getElementById("image").style.backgroundImage='none';
+		document.getElementById("image").innerHTML=("Hover over an image below.");
 	}
 	</script>
 </head>
@@ -73,7 +65,6 @@
 			alt = "Styling with a Bandana"
 			src = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/389177/bacon.jpg";
 			>
-
 
 		<!-- Your code goes in the img tag below.  Make sure to react to "hovering" and "tabbing": -->
 		<img class = "preview" tabindex = "1"
