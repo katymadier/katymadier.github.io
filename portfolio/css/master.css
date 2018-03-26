@@ -485,11 +485,16 @@ iframe {
 .e-one .img-container, .e-two .img-container, .e-three .img-container {
   height: 200px;
 }
+.e-one .img-container img, .e-two .img-container img, .e-three .img-container img {
+  min-width: 100%;
+  max-height: 200%;
+  min-height: 100%;
+}
 @media screen and (min-width: 600px) {
   .e-one .img-container, .e-two .img-container, .e-three .img-container {
     height: 300px;
   }
-  .e-one .img-container img, .e-two .img-container img, .e-three .img-container img {
+  .e-two .img-container img{
     position: relative;
     top: -100px;
   }
