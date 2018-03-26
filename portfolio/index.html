@@ -20,7 +20,7 @@
       <div class="menu-container">
         <i id="mobile-nav-open" class="material-icons" onclick="toggleAside()">dehaze</i>
         <div class="logo">
-          <h1>Katy Madier</h1>
+          <h1><a href="index.html">Katy Madier</a></h1>
         </div>
         <nav class="nav home-nav">
           <ul>
@@ -31,9 +31,7 @@
           </ul>
         </nav>
       </div>
-    </header>
-    <div class = "page">
-      <aside id="mobile-nav" onclick="toggleAside()" style="display: none;">
+      <aside id="mobile-nav" style="display:none;">
         <nav class="mobile-drawer">
           <div class="logo">
             <h1>Katy Madier</h1>
@@ -62,7 +60,11 @@
             <i class="social-icons fas fa-envelope-square"></i>
           </div>
         </nav>
+        <div class="mobile-nav-background" onclick="toggleAside()" style="display:block;">
+        </div>
       </aside>
+    </header>
+    <div class = "page">
       <div class="content">
         <div class="section intro">
           <div class="intro-img">
@@ -214,25 +216,5 @@
       </div>
       </footer>
     </div>
-    <script>
-      function toggleAside() {
-        var x = document.getElementById('mobile-nav');
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-
-        window.onscroll=function() {shadow()};
-
-        function shadow() {
-          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-            document.getElementById('top-menu').className= "shadow";
-        } else {
-            document.getElementById("top-menu").className="noshadow";
-          }
-        }
-    </script>
   </body>
 </html>

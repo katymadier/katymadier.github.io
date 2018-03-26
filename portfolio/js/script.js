@@ -1,5 +1,30 @@
 
-// mdc material design by google
+
+function toggleAside() {
+  var x = document.getElementById('mobile-nav');
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+window.onscroll=function() {shadow()};
+
+function shadow() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    document.getElementById('top-menu').className= "shadow";
+} else {
+      document.getElementById("top-menu").className="noshadow";
+  }
+}
+
+
+
+
+
+
+// mdc material design script by google
 function closeAside() {
   var x = document.getElementById('mobile-nav');
     x.style.display = "none";
