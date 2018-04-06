@@ -24,12 +24,13 @@ body {
   --primary-dark: #8d8d8d;
   --secondary: #7edeea;
   --secondary-light: #ffccbc;
-  --secondary-light-hover: #dc9d89;
   --secondary-dark: #48acb8;
   --main-font: #424242;
   --light-font: #8d8d8d;
   --link-font: #48acb8;
   --main-bg: #fff;
+  --focus: #ffccbc50;
+  --hover: #ffccbc;
   /* sizes */
   --base-columns: 200px 200px;
   --margin: 10px 10px;
@@ -39,7 +40,7 @@ body {
   --h1-lh: 1.25em;
   --h2-font: 1.3em;
   --h2-lh: 1.2em;
-  --h3-font: 1.25em;
+  --h3-font: 1.15em;
   --h3-lh: 1.5em;
   --p-font: 16px;
   --p-lh: 24px;
@@ -55,7 +56,7 @@ body {
   --h1-lh: 1.6em;
   --h2-font: 1.6em;
   --h2-lh: 1.4em;
-  --h3-font: 1.5em;
+  --h3-font: 1.3em;
   --h3-lh: 1.5em;
   --p-font: 1em;
   --p-lh: 1.4em;
@@ -85,10 +86,15 @@ h4, p, li, a {
   margin: var(--margin-small);
 }
 
-h1, .logo a {
+.logo a {
+  font-size: var(--header-h1);
+  line-height: var(--header-lh);
+}
+h1 {
   font-size: var(--h1-font);
   line-height: var(--h1-lh);
 }
+
 
 h2 {
   font-size: var(--h2-font);
@@ -117,6 +123,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+a:focus {
+  background-color: var(--focus);
+  border-radius: 10px;
 }
 .logo a:hover {
   text-decoration: none;
@@ -191,7 +201,7 @@ header h1 {
 }
 
 #mobile-nav-open:hover {
-  background-color: var(--secondary-light);
+  background-color: var(--hover);
 }
 
 aside {
@@ -239,14 +249,14 @@ aside {
   margin: 25px 0;
 }
 .drawer-list-item:hover {
-  border-left: 4px var(--secondary-light) solid;
+  border-left: 4px var(--hover) solid;
 }
 .drawer-list-item.page-selected {
   border-left: 4px var(--secondary-light) solid;
 }
 
 .social {
-  margin: 0 20px;
+  margin: 10px 20px;
   display: flex;
   justify-content: center;
   color: var(--secondary-light);
@@ -255,14 +265,19 @@ aside {
   position: relative;
   top: 5%;
 }
+.social a {
+  margin: 10px;
+}
 
 .social-icons {
   font-size: 3em;
-  padding: 10px;
+  margin: 0;
+  color: var(--secondary-light);
 }
 
 .social-icons:hover {
-  color: var(--secondary-light-hover);
+  background-color: var(--focus);
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 615px) {
@@ -283,7 +298,7 @@ aside {
     text-decoration: none;
   }
   .nav ul li a:hover {
-    border-bottom: 4px solid var(--secondary-light);
+    border-bottom: 4px solid var(--hover);
   }
   .nav .page-selected {
     border-bottom: 4px solid var(--secondary-light);
@@ -611,42 +626,49 @@ iframe {
 }
 
 /* footer */
+footer {
+  max-width: 960px;
+  margin: 0 auto;
+}
 
 .footer-text {
-  margin: 10px auto;
+  margin: 0 auto 60px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
+  width: 70%;
 }
 
 .footer-text h4 {
   text-transform: uppercase;
 }
-
 .footer-text p, .footer-text a {
   font-size: 15px;
   line-height: 20px;
 }
-
-.column1, .column2 {
+.column1 {
   display: flex;
   padding: 0 10px;
   margin: 60px auto;
   text-align: left;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
 }
-
-.column1 {
-  width: 50%;
-}
-
 .column2 {
-  width: 30%;
+  display: flex;
+  padding: 0 10px;
+  margin: 0 auto;
+  text-align: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 80%;
 }
 
-.column1 a, .column2 a {
+.column1 a {
   color: var(--light-font);
   margin: 0 10px;
 }
@@ -659,6 +681,38 @@ iframe {
   align-items: center;
   box-shadow: 0 -0.1875rem 0 var(--primary-light);
   height: 15rem;
+}
+@media screen and (min-width: 600px) {
+  .footer-text {
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+  .column1 {
+    display: flex;
+    padding: 0 10px;
+    margin: 60px auto;
+    text-align: left;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .column2 {
+    display: flex;
+    padding: 0 10px;
+    margin: 60px auto;
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .column1 {
+    width: 60%;
+  }
+  .column2 {
+    width: 40%;
+  }
 }
 
 /* copyright */
@@ -682,8 +736,13 @@ iframe {
   margin: 20px;
   right: 0;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 500px) {
   .footer-text {
-    width: 50%;
+    width: 70%;
   }
+}
+@media screen and (min-width: 900px) {
+    .footer-text {
+      width: 60%;
+    }
 }

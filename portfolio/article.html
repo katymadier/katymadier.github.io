@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>About Me</title>
+    <title>{{page-title}}</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <link rel="icon" type="image/png" href="images/profile_icon.jpg">
@@ -31,10 +31,10 @@
         </div>
         <nav class="nav home-nav">
           <ul>
-            <li><a href="research.html">Research</a></li>
+            <li><a href="research.html" class="page-selected" >Research</a></li>
             <li><a href="design.html">Design</a></li>
             <li><a href="engineering.html">Engineering</a></li>
-            <li><a href="about.html" class="page-selected" >About Me</a></li>
+            <li><a href="about.html">About Me</a></li>
           </ul>
         </nav>
       </div>
@@ -44,7 +44,7 @@
             <h1><a href="index.html">Katy Madier</a></h1>
           </div>
           <div class="drawer-list">
-            <div class="drawer-list-item">
+            <div class="drawer-list-item page-selected">
               <h2><a href="research.html">Latest Research</a></h2>
             </div>
             <div class="drawer-list-item">
@@ -53,7 +53,7 @@
             <div class="drawer-list-item">
               <h2><a href="engineering.html">Engineering Skills</a></h2>
             </div>
-            <div class="drawer-list-item page-selected">
+            <div class="drawer-list-item">
               <h2><a href="about.html">About Me</a></h2>
             </div>
           </div>
@@ -72,25 +72,17 @@
     </header>
     <div class="page">
       <div class="content">
-        <div class="section about">
-            <h2>About Me</h2>
-            <p>I am a first year Masters student at the U of M School of Information studying Human-Computer Interaction. My design and research interests are in prototyping for augmented and mixed-reality. Additionally, I love conceptualizing solutions to basic human issues through the application of new technologies. After graduation, I hope to work for an organization that helps to provide underserved populations access to technology.</p>
-
-            <p>I have a <a href="http://arts.vcu.edu/paintingprintmaking/">BFA in Painting & Printmaking</a> and experience in a variety of design mediums such as sculpture, woodworking, photography, video, graphic design, UX design, HTML, & CSS. In my spare time, I love reading dystopian sci-fi novels to my daughter and hiking in national parks.</p>
-            <div class="about-container">
-              <div class="image1">
-                <img src="images/about/4.png" alt="me 1">
-              </div>
-              <div class="image2">
-                <img src="images/about/5.png" alt="me 1">
-              </div>
-              <div class="image3">
-                <img src="images/about/6.png" alt="me 1">
-              </div>
+          <p>{{breadcrumbs}}</p>
+          <div class="projects">
+            <p>{{date}}</p>
+            <h3>{{article-title}}</h3>
+            <p>{{article-text}}</p>
+            <div class="img-container">
+              <img src="{{image-url}}" alt="{{alt-name}}">
             </div>
-            <hr>
           </div>
-      </div>
+          <hr>
+        </div>
       </div>
     </div>
     <footer>
