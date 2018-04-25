@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SI539 Final Project</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <h1>Katy Madier SI539 Final Project</h1>
+      <h2>Accessibility Evaluation</h2>
+      <h3><a href="http://research.umich.edu/leadership">Site: University of Michigan Research Leadership</a></h3>
+      <h3><a href="http://accessibility.voxmedia.com/">Role: Engineer</a></h3>
+    </header>
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span> Use the correct HTML element for your content</div>
+
+    <div class="paragraph" style="color: green;">This site uses correct HTML elements in the appropriate locations.</div>
+
+    <div class="paragraph">HTML elements communicate to the browser what kind of content they contain and how the browser should render or treat that content. The accessibility tree is built off of assumptions about the elements and their structure. This is the browser feature which powers screen readers. Choosing the correct element for the current context is a simple way to create a good foundation for your experiences. Source: WebAIM</div>
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span> Support keyboard navigation</div>
+
+    <div class="paragraph" style="color: green;">This site supports keyboard navigation, but the site uses positive tabindex values. This flags an alert when run through the wave accessibility validator as this can change the tab ordering and create confusion for the user.</div>
+
+    <div class="paragraph">Browsers support tabbing through link, form, button elements. This is an easy way to move around the page, but it’s very easy to accidentally hinder this functionality: by relying on CSS to move elements around instead of actually reordering the HTML; hiding elements from tab flow, either by faking buttons (with Javascript) in lieu of using button elements or disabling tab via tabindex=”-1”; and hiding form elements (on a tabbed interface) but not removing them from the tab flow (so that hidden form elements can be focused).
+    Source: WebAIM</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Understand and use HTML landmarks</div>
+
+    <div class="paragraph" style="color: green;">This site uses the appropriate HTML landmarks, nav, header, main, footer, ect. </div>
+
+    <div class="paragraph">People who use assistive devices may not want to peruse your content linearly, instead preferring to use an outline view (generated from markup) to find the relevant content for their current needs. These landmarks, like main and form and navigation help define specific areas that a user might want to seek out and can save them a lot of time.
+    Source: A List Apart</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: red; margin: 20px;">
+    &#x2717;</span> Write good alt text for your images.</div>
+
+    <div class="paragraph" style="color: red;">This site does not have any alt text for any of the images.</div>
+
+    <div class="paragraph">Users with low vision often make use of a talking browser to “read” the web. These specialized browsers convert text to speech so that a user can hear the words on a site. When a talking browser lands on an image, it looks for alt text that it can read aloud; if it finds none, it will often just say “image,” leaving the user in the dark as to what the image is and how it matters to the story.</div>
+
+    <div class="paragraph">Describe all of the elements that explain what’s happening in the image, rather than just setting the alt text to be something like, “photograph"</div>
+
+    <div class="paragraph">If you have to use an image of text, be sure to describe the design if relevant, as well as all of the words in the image. (Ex: Whiteboard drawing of the quote “This is a quote”) Source: WebAim: The Basics of Good Alt Text</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Design focus states to help users navigate and understand where they are</div>
+
+    <div class="paragraph" style="color: green;">This site uses focus states on almost all of the keyboard navigation elements.</div>
+
+    <div class="paragraph">Your designs should never actively hide focus states. When people use the keyboard to navigate, your product should include highly visible focus states.
+    Source: W3C</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: red; margin: 20px;">
+    &#x2717;</span>Help users understand inputs, and help them avoid and correct mistakes</div>
+
+    <div class="paragraph" style="color: red;">The search field on this page maintains the input focus, but doesn't contain a label.</div>
+
+    <div class="paragraph">Labels should never completely go away when the focus is inside of an input. Users should always have clear instructions on what they should be inputting. Put error messages in text that explain the error and how to fix the error. Never rely solely on color to indicate errors. Source: W3C</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Use ARIA attributes when applicable</div>
+    <div class="paragraph" style="color: green;">This site uses aria attributes.</div>
+
+    <div class="paragraph">ARIA stands for Accessible Rich Internet Applications. It is an optional but helpful spec to define ways to markup HTML that has dynamic experiences (typically controlled by Javascript).</div>
+
+    <div class="paragraph">The goal when using them is to communicate to the browser and assistive technology how content is going to change or what the purpose of the content is. Dynamic error messages can be called out to screenreaders, buttons can be linked to the content they affect and many other helpful states can be expressed on a code level. Source: Heydon Works</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: red; margin: 20px;">
+    &#x2717;</span>Give users a way to skip top level navigation to access main content</div>
+    <div class="paragraph" style="color: red;">Tabbing through a keyboard skips through all menu items and goes into the main content, but when menu is open the user gets stuck in the menu and cannot get out.</div>
+
+    <div class="paragraph">For keyboard users, it can be helpful to give them a way to skip past top level navigation to get to the main content. This is typically a button at the top of the page (it can only be visible if active), that, when clicked, shifts the current focus from the button to the top of the main content of the page. This saves the user from having to tab through many many elements of navigation. Source: WebAIM</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: red; margin: 20px;">
+    &#x2717;</span>Make links descriptive</div>
+
+    <div class="paragraph" style="color: red;">Many links on the page just say "Go".</div>
+
+    <div class="paragraph">Assistive technology is able to find all links on a page and present them in various forms, but these links are rather useless if it’s a long list of links that are just the text “click here.” A better way is to have the link describe where the user will go if they click it, giving them an idea of what’s on the other side of clicking. Source: Smashing Magazine</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Avoid images and iconography in pseudo-elements</div>
+    <div class="paragraph" style="color: green;">Images are all in image tags.</div>
+
+    <div class="paragraph">Assistive technology relies on HTML to find the content to present to users. It’s possible to create pseudo-elements with CSS, however, there is currently no way to provide alternative text if there are images or icons here. Source: Simply Accessible</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Make SVGs accessible to assistive technology</div>
+    <div class="paragraph" style="color: green;">No SVG elements in this site.</div>
+
+    <div class="paragraph">SVGs are often used as icons on interactive elements in sites. When this is the case, the SVG should have a title or embedded text (that is visually hidden but available to assistive tech) to ensure that the information of the icon is available programmatically. Source: Sitepoint</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: red; margin: 20px;">
+    &#x2717;</span>Hide decorative elements from screen readers</div>
+    <div class="paragraph" style="color: red;">Decorative elements are not hidden. Items labeled with aria-labelled-by.</div>
+
+    <div class="paragraph">Decorative elements, such as dividing lines, pull-quotes, or non-informative icons, can be hidden from screen readers to ensure that a user only receives relevant information as they peruse the page. This is done by adding aria-hidden=”true”  to the element. Source: W3C</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>Create alternate routes for users to access information</div>
+
+    <div class="paragraph" style="color: green;">There is not an obvious alternative route for users, but focus states and links are all obviously activated when focused and unfocused.</div>
+
+    <div class="paragraph">It can be difficult to make certain components (like an SVG map) into accessible experiences. In those cases, consider creating an additional screen reader-friendly experience, or at the very least, describe the experience to users.</div>
+
+    <div class="paragraph">Links should be visually identifiable and have clear :focus and :active states</div>
+
+    <div class="paragraph">The outline property indicates when an element or selected or has focus. This is helpful to users who don't have the ability to use a mouse or are visually impaired. Source: WebAIM</div>
+
+
+    <div class="item"><span style="font-size: 2em; font-family: Arial Unicode MS, Lucida Grande; color: green; margin: 20px;">
+    &#10004;</span>HTML document should have a language attribute</div>
+    <div class="paragraph" style="color: green;">Document has a language attribute.</div>
+
+    <div class="paragraph">The HTML lang attribute is used to identify the language of text content on the web. This information helps search engines return language specific results, and it is also used by screen readers that switch language profiles to provide the correct accent and pronunciation. e.g. "<html lang="en">" Source: Paciello Group</div>
+
+    <div class="item" style="background: #000; color: #fff;"> Recommendations </div>
+    <div class="paragraph"> <strong>1. Missing alt text:</strong> Add alt text to all of the images on this page. </div>
+    <div class="paragraph"> <strong>2. Skipped heading level:</strong> The H2 heading level has been skipped, so consider using the H2 for the leader's names on the page instead of H3. </div>
+    <div class="paragraph"> <strong>3. Combine redundant links:</strong> Consider removing the "Go" buttons on the page, as the links are the same as the links used with the leader's names above the images. The names are better descriptors of the link content.</div>
+    <div class="paragraph"> <strong>4. Low Contrast:</strong> The wave validator picked up on text contrast issues on the page. Consider re-evaluating the colors of some of the page text.</div>
+    <div class="paragraph"> <strong>5. Correct W3 validator errors and oudated code:</strong> The W3 validator has picked up on outdated code and several code errors that could should be fixed. </div>
+
+
+
+
+  </body>
+</html>
