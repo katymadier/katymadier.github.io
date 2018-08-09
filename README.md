@@ -1,4 +1,6 @@
 # katymadier.github.io
 
-Demo with aframe and poptarts
-<iframe src="https://katymadier.github.io/poptart/"></iframe>
+
+A portfolio of my work https://katymadier.github.io/portfolio/
+Demo with aframe and poptarts https://katymadier.github.io/poptart/
+
