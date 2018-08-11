@@ -5,10 +5,10 @@ I am currently a second-year master's student at the University of Michigan Scho
 I am looking for a full-time role after graduation in April 2019.
 
 ## My Projects
-School Projects
+### School Projects
 * [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/portfolio/)<br>
 
-### Experiementations
+### Experimentations
 * [Demo with aframe and sketchup](https://katymadier.github.io/poptart/) <br>
 Demo: Web XR - Adjusting color based on device orientation<br>
 Demo: AR.js with OBJ model<br>
