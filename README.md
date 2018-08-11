@@ -32,4 +32,4 @@ Demo: Unity with MCity for Windows Mixed-Reality<br>
 
 ## Acknowledgments
 
-* Thanks to everyone at the University of Michigan Information Interaction Lab. Most of this work was completed in or around the lab over the last year. 
+* Thanks to the University of Michigan Information Interaction Lab. Most of this work was completed in or around the lab over the last year. 
