@@ -10,16 +10,19 @@ I am currently a second-year master's student at the University of Michigan Scho
 * [Demo with aframe and sketchup](https://katymadier.github.io/poptart/) <br>
 Demo: Web XR - Adjusting color based on device orientation<br>
 Demo: AR.js with OBJ model<br>
-Demo: AR.js with positional sound<br>
+Demo: A-Frame XR and AR.js with positional sound<br>
 Demo: WebXR with AframeXR<br>
-Demo: Aframe with movement and sound<br>
-Demo: Aframe with physics<br>
+Demo: A-Frame with movement and sound for Daydream or mobile<br>
+Demo: A-Frame with physics for Daydream or mobile<br>
 Demo: Unity with poptarts<br>
+Demo: Unity with MCity for Windows Mixed-Reality<br>
 
 
 ## Built With
 
-* [A-Frame](http://) - The web framework used web-based AR/VR prototypes.
+* [A-Frame](http://) - The web framework used web-based VR prototypes.
+* [A-Frame XR](http://) - The web framework used web-based AR prototypes.
+* [ARjs](http://) - Used with A-FrameXR for marker-based AR prototypes.
 * [Unity3D](https://) - The game engine used for AR/VR prototypes.
 
 ## Authors
