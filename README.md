@@ -2,13 +2,13 @@
 
 I am currently a second-year master's student at the University of Michigan School of Information. During this program, my work has been focused on research of augmented and virtual reality interfaces. This github has work from school projects, demos and tutorials, and prototype experiments. 
 
-I am currently looking for a full-time AR/VR Interaction Design role or UX Research position after graduation in April 2019.
+I am looking for a full-time role after graduation in April 2019.
 
 ## My Projects
 School Projects
 * [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/portfolio/)<br>
 
-Experiementations
+### Experiementations
 * [Demo with aframe and sketchup](https://katymadier.github.io/poptart/) <br>
 Demo: Web XR - Adjusting color based on device orientation<br>
 Demo: AR.js with OBJ model<br>
@@ -18,82 +18,17 @@ Demo: Aframe with movement and sound<br>
 Demo: Aframe with physics<br>
 Demo: Unity with poptarts<br>
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [A-Frame](http://) - The web framework used web-based AR/VR prototypes.
+* [Unity3D](https://) - The game engine used for AR/VR prototypes.
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Katy Madier** - [katymadier.com](https://katymadier.com)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Thanks to everyone at the University of Michigan Information Interaction Lab. Most of this work was completed in or around the lab over the last year. 
