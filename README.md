@@ -2,8 +2,6 @@
 
 I am currently a second-year master's student at the University of Michigan School of Information. During this program, my work has been focused on research of augmented and virtual reality interfaces. This github has work from school projects, demos and tutorials, and prototype experiments. 
 
-I am looking for a full-time role after graduation in April 2019.
-
 ## My Projects
 ### School Projects
 * [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/portfolio/)<br>
