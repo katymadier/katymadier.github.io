@@ -4,7 +4,7 @@ I am currently a second-year master's student at the University of Michigan Scho
 
 ## Projects
 ### School Projects
-* [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/portfolio/)<br>
+* [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/schoolwork/portfolio)<br>
 Python Projects
 
 ### Experimentations
