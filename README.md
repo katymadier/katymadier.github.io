@@ -20,11 +20,10 @@ I am currently a second-year master's student at the University of Michigan Scho
 
 ## Built With
 
-* [A-Frame](http://) - The web framework used web-based VR prototypes.
-* [A-Frame XR](http://) - The web framework used web-based AR prototypes.
-* [AR.js](http://) - Used with A-FrameXR for marker-based AR prototypes.
-* [Unity3D](https://) - The game engine used for AR/VR prototypes.
-* [Google Poly](https://) - All AR/VR demos use 3D models by Google Poly.
+* [A-Frame](https://aframe.io/) - The web framework used web-based VR prototypes.
+* [A-Frame XR](https://mozilla.github.io/aframe-xr/) - The web framework used web-based AR prototypes.
+* [AR.js](https://github.com/jeromeetienne/AR.js/blob/master/README.md) - Used with A-FrameXR for marker-based AR prototypes.
+* [Google Poly](https://poly.google.com/) - All AR/VR demos use 3D models from Poly by Google.
 
 ## Authors
 
