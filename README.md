@@ -9,10 +9,10 @@ Python Projects
 
 ### Experimentations
 * [Demo: A-Frame & Sketchup](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
-* [Demo: A-Frame XR - Adjusting color based on device orientation](https://katymadier.github.io/demos/demo-webxr-orientation/): Requires WebXR browser<br>
-* [Demo: A-Frame XR - placing OBJ model in scene](https://katymadier.github.io/demos/demo-aframexr/): Requires WebXR browser<br>
-* [Demo: AR.js with OBJ model](https://katymadier.github.io/demos/demo-arjs/): Requires AR.js markers<br>
-* [Demo: A-Frame XR & AR.js - positional sound](https://katymadier.github.io/demos/demo-aframexr-positional-sound/): Requires AR.js markers<br>
+* [Demo: Processing camera input and motion sensing](https://katymadier.github.io/demos/demo-camera-orientation/)<br>
+* [Demo: A-Frame XR - placing OBJ model in scene](https://katymadier.github.io/demos/demo-aframexr-obj/): Requires WebXR browser<br>
+* [Demo: AR.js with OBJ model](https://katymadier.github.io/demos/demo-arjs-obj/): Requires AR.js markers<br>
+* [Demo: A-Frame XR & AR.js - positional sound](https://katymadier.github.io/demos/demo-arjs-positional-sound/): Requires AR.js markers<br>
 * [Demo: A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/)<br>
 * [Demo: A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
 
