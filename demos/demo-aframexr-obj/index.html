@@ -2,24 +2,41 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Internship Design Sprint 2: Marker-based vs. marker-less tracking - marker-less</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Design Sprint 2: Marker-based vs. marker-less tracking</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
     <script src='js/aframe-master.js'></script>
     <script src='js/three.xr.js'></script>
     <script src='js/aframe-xr.js'></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <style>
+    body, html {
+      margin: 0; height: 100%; overflow: hidden;
+    }
+    </style>
   </head>
-  <body style='margin : 0px; overflow: hidden;'>
-
-    <a-scene>
+  <body>
+    <a-scene id="scene" embedded='true' cursor="rayOrigin: mouse" class="clickable">
+      <canvas id="canvas"></canvas>
       <a-assets>
         <a-asset-item id="bunny-obj" src="model/Cottontails.obj"></a-asset-item>
         <a-asset-item id="bunny-mtl" src="model/Cottontails.mtl"></a-asset-item>
+        <a-mixin id="randombunny" obj-model="obj: #bunny-obj; mtl:#bunny-mtl;" scale= ".05 .05 .05" shadow random-position="min: -5 -2 -10; max: 5 -2 0"></a-mixin>
       </a-assets>
-
-      <a-entity xr="ar: true; vr: false; magicWindow: false"></a-entity>
-
-      <a-entity obj-model="obj: #bunny-obj; mtl:#bunny-mtl;" position= "0 -.5 0" scale= ".05 .05 .05" shadow></a-entity>
+      <a-entity id="xr" xr="ar: true; vr: false; magicWindow: false"></a-entity>
 
     </a-scene>
+    <script>
+    //on click event spawn a random bunny
+    var sceneEl = document.getElementById('scene');
+    sceneEl.addEventListener('click',function(evt){
+      var newBunny = document.createElement('a-entity');
+      newBunny.setAttribute('mixin','randombunny')
+      sceneEl.appendChild(newBunny);
+      console.log("you made a bunny!")
+    });
+
+    // then add an event-set_drag="_event:touchstart..."
+
+    </script>
   </body>
 </html>
