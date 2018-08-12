@@ -1,0 +1,273 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ARJS scaling motion tracking</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+    <script>
+      AFRAME.registerComponent("move",{
+      schema : {
+        target : {type : "selector"},
+        position : {type : "string"}
+      },
+      init : function(){
+      	this.el.addEventListener("click",function(){
+                  var animation = document.createElement("a-animation");
+                  animation.setAttribute("attribute","position");
+                  animation.setAttribute("to",this.data.position);
+                  animation.setAttribute("dur","16");
+                  animation.setAttribute("repeat","0");
+                  this.data.target.appendChild(animation);
+      	}.bind(this));
+      }
+      });
+      AFRAME.registerComponent("rotate",{
+      schema : {
+        target : {type : "selector"},
+        position : {type : "string"}
+      },
+      init : function(){
+        this.el.addEventListener("click",function(){
+                  var animation = document.createElement("a-animation");
+                  animation.setAttribute("attribute","rotation");
+                  animation.setAttribute("to",this.data.rotation);
+                  animation.setAttribute("dur","16");
+                  animation.setAttribute("easing","linear");
+                  animation.setAttribute("repeat","0");
+                  this.data.target.appendChild(animation);
+        }.bind(this));
+      }
+      });
+    </script>
+    <style>
+    #coords {
+      position:absolute;
+      display:block;
+      bottom:0;
+      right:0;
+      width: 200px;
+      background-color: #fff;
+      color: #000;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="coords"></div>
+    <a-scene embedded arjs >
+      <a-marker-camera preset="hiro">
+    	</a-marker-camera>
+      <a-box id="cube" position="0 0 0" rotation="0 0 0" color="#4CC3D9" move="position:newPosition">
+        <a-animation begin="go" attribute="position" dur="speed" fill="forwards" to=newPosition easing="linear"></a-animation>
+        <a-animation begin="go" attribute="rotation" dur="speed" fill="forwards" to=newRotation easing="linear"></a-animation>
+      </a-box>
+    </a-scene>
+    <script>
+
+    // setting up the scene size
+      var cube   = document.querySelector('#cube');
+      var scene = document.querySelector('a-scene');
+      var output = document.querySelector('#coords');
+
+      var maxX = scene.clientWidth  - cube.clientWidth;
+      var maxY = scene.clientHeight - cube.clientHeight;
+
+      var newPosition = "0 0 0"
+      var newRotation = "0 20 0"
+      var speed=1000;
+
+      console.log(document.getElementById("cube").getAttribute("position"));
+
+      var locations = [];
+      var start = {};
+      var coordinates = {};
+      var rotations = {};
+
+    // start recording button
+
+    // record phone location
+
+      // set start position
+        navigator.geolocation.getCurrentPosition(function(position){
+          start= {
+            'x':position.coords.latitude,
+            'y':position.coords.altitude,
+            'z':position.coords.longitude
+          };
+          // console.log(start);
+          locations.push({"start":start});
+          // console.log(locations['0'].start.x)
+          // console.log(locations['0'])
+        });
+      // get new position
+        navigator.geolocation.watchPosition(function(position) {
+          coordinates= {
+            'newX':position.coords.latitude,
+            'newY':position.coords.altitude,
+            'newZ':position.coords.longitude
+          };
+          // console.log(coordinates);
+          locations.push({"coordinates":coordinates});
+        });
+      // record rotation
+        window.addEventListener("deviceorientation", handleOrientation, true);
+        function handleOrientation(event) {
+          rotations= {
+            'zR':event.alpha,
+            'xR':event.beta,
+            'yR':event.gamma
+          };
+          // console.log(rotations);
+          locations.push({"rotations":rotations});
+        };
+
+      // translate info to rotation coords
+      // add to motionDiction
+
+
+    //translate lat/long to meters
+    //check differences between start [0] and end movements [-1]
+    var list_of_newX=[];
+    var list_of_diffX=[];
+    setTimeout(function wait() {
+      console.log(locations);
+      // console.log(locations['0'].start.x);
+      translateStuff(locations);
+      function translateStuff(arr) {
+        for (var i in arr) {
+          for (var a in arr[i]){
+
+            //translate coordinates
+            if (a =='coordinates') {
+              // console.log(arr[i][a]);
+              for (var b in arr[i][a]) {
+                if (b =='newX') {
+
+                  //add new coord to the list
+                  list_of_newX.push(arr[i][a][b]);
+
+                  // take latest coord & subtract from previous coord
+                  list_of_diffX.push(arr[i][a][b]-list_of_newX[list_of_newX.length-2]);
+                  // console.log(arr[i][a][b]-list_of_newX[list_of_newX.length-2])
+
+                  //get the greatest number & the smallest number = range
+                  // console.log(list_of_newX);
+                  console.log(list_of_diffX);
+                };
+                if (b=='newY'){
+                  // console.log(arr[i][a][b] + " newY");
+                };
+                if (b=='newZ'){
+                  // console.log(arr[i][a][b] + " newZ");
+                };
+              }
+            }
+          }
+        }
+
+
+        //change lat/long to the difference between the previous lat/long
+        //.364=.00006 nautical miles
+        //translate to aframe position meters
+
+          }
+          //set start to zero
+      //   };
+      // };
+
+    }, 2000);
+
+setTimeout(function wait() {
+  console.log(locations);
+  console.log(list_of_newX);
+  console.log(list_of_diffX);
+}, 4000);
+
+    // for (let key in arr[1]) {
+    //   console.log(arr[key]);
+    // }
+    // var translated = arr.map(obj =>{
+    //   var xObj={};
+    //   xObj[obj.keys]=obj.value;
+    //   console.log(xObj);
+    //   return xObj;
+    // });
+    // }
+
+    //stop recording button
+      //to stop watching
+      //navigator.geolocation.clearWatch(watchID);
+
+    // save motionDiction as an icon at the bottom of the screen
+      // update newPosition
+      // update newRotation
+      // update speed
+
+    // play object recording on object
+      document.querySelector('a-scene').addEventListener('click', function(){
+        document.querySelector('#cube').emit('go');
+      })
+
+    // slider for scale
+
+    // add scale filter to object movement
+
+
+
+
+    //console.log(motionDiction.movement.newX)
+    // movementX = (motionDiction.x - motionDiction.newX)*1000
+    // console.log(movementX)
+
+    // console.log(typeof motionDiction.origin.x);
+    // const thing = ((motionDiction || {}).origin || {}).x;
+    // console.log(typeof thing);
+    //
+    // const getNestedObject = (motionDiction, pathArr) => {
+    //   return pathArr.reduce((obj, key) =>
+    //       (obj && obj[key] !== 'undefined') ? obj[key] : undefined, motionDiction);
+    //   }
+    //   console.log(typeof getNestedObject);
+    // // pass in your object structure as array elements
+    // const thing = getNestedObject(motionDiction, ['origin', 'x']);
+    // console.log(typeof thing);
+    // // to access nested array, just pass in array index as an element the path array.
+    // const originx = getNestedObject(motionDiction, ['origin', 'x', 0]);
+    // console.log(typeof originx);
+  // this will return the city from the first address item.
+    // console.log(motionDiction.movement.x);
+    // acceleration (in meters per second squared)
+    // window.addEventListener('devicemotion', function(event) {
+    //   var x = event.acceleration.x;
+    //   var y = event.acceleration.y;
+    //   var z = event.acceleration.z;
+    //   //console.log(x)
+    // });
+
+  //console.log(SensorEvent.values[0])
+
+    // acceleration
+  //   window.ondevicemotion = function(event) {
+  //   accX = Math.round(event.acceleration.x*10) / 10;
+  //   accY = Math.round(event.acceleration.y*10) / 10;
+  //   movement = 10;
+  //   xA = -(accX / 10) * movement;
+  //   yA = -(accY / 10) * movement;
+  //   console.log(xA)
+  //   console.log(yA)
+  // }
+
+
+    // rotation speed (in degrees per second)
+    // window.addEventListener('devicemotion', function(event) {
+    //   console.log(event.rotationRate.alpha + ' z rotation');
+    //   console.log(event.rotationRate.beta + ' x rotation');
+    //   console.log(event.rotationRate.gamma + ' y rotation');
+    // });
+
+    // add velocity to something
+    // translate info to position coords
+    // add to motionDiction
+    </script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Internship Design Sprint 2: Marker-based vs. marker-less tracking - marker-less</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src='js/aframe-master.js'></script>
+    <script src='js/three.xr.js'></script>
+    <script src='js/aframe-xr.js'></script>
+  </head>
+  <body style='margin : 0px; overflow: hidden;'>
+
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="bunny-obj" src="model/Cottontails.obj"></a-asset-item>
+        <a-asset-item id="bunny-mtl" src="model/Cottontails.mtl"></a-asset-item>
+      </a-assets>
+
+      <a-entity xr="ar: true; vr: false; magicWindow: false"></a-entity>
+
+      <a-entity obj-model="obj: #bunny-obj; mtl:#bunny-mtl;" position= "0 -.5 0" scale= ".05 .05 .05" shadow></a-entity>
+
+    </a-scene>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Internship Design Sprint 2: Marker-based vs. marker-less tracking - marker-based</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
+</head>
+  <body style='margin : 0px; overflow: hidden;'>
+  
+    <a-scene embedded arjs>
+      <a-assets>
+        <a-asset-item id="bunny-obj" src="model/Cottontails.obj"></a-asset-item>
+        <a-asset-item id="bunny-mtl" src="model/Cottontails.mtl"></a-asset-item>
+      </a-assets>
+  	<a-marker preset="hiro">
+            <a-entity obj-model="obj: #bunny-obj; mtl:#bunny-mtl;" scale= ".5 .5 .5"></a-entity>
+  	</a-marker>
+  	<a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>

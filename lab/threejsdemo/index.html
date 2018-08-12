@@ -53,7 +53,7 @@
 			var pos = new THREE.Vector3();
 			var quat = new THREE.Quaternion();
 			// Physics variables
-			var gravityConstant = -4.8;
+			var gravityConstant = -9.8;
 			var physicsWorld;
 			var rigidBodies = [];
 			var softBodies = [];
@@ -88,7 +88,7 @@
 				var ambientLight = new THREE.AmbientLight( 0x404040 );
 				scene.add( ambientLight );
 				var light = new THREE.DirectionalLight( 0xffffff, 1 );
-				light.position.set( -10, 10, 5 );
+				light.position.set( -10, 10, -5 );
 				light.castShadow = true;
 				var d = 20;
 				light.shadow.camera.left = -d;
@@ -134,7 +134,7 @@
 					ground.material.needsUpdate = true;
 				} );
 				// Create soft volumes
-				var volumeMass = 20;
+				var volumeMass = 15;
 				var sphereGeometry = new THREE.SphereBufferGeometry( 1.5, 40, 25 );
 				sphereGeometry.translate( 5, 5, 0 );
 				createSoftVolume( sphereGeometry, volumeMass, 250 );

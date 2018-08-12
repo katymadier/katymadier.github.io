@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Katy's 539 Final Exam</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="content">
+      <header>
+        <h1>Katy Madier</h1>
+      </header>
+      <div class="images">
+        <div id="imagetohide" class="left-image">
+          <img src="images/examPic.JPG" alt="Colleen's Family">
+        </div>
+        <div id="imagetocenter" class="right-image">
+          <img src="images/UMSI-logo.jpg" alt="University of Michigan Logo">
+        </div>
+      </div>
+      <div class="buttons">
+        <button id="hidebutton" >Hide Image</button>
+        <button id="showbutton" >Show Image</button>
+      </div>
+  </div>
+  <script>
+  $(document).ready(function(){
+    $("#hidebutton").click(function(){
+      $("#imagetohide").hide();
+      $("#imagetocenter").css('margin','0 auto');
+    });
+  });
+  $(document).ready(function(){
+    $("#showbutton").click(function(){
+      $("#imagetohide").show();
+      $("#imagetocenter").css('margin','auto');
+    });
+  });
+  </script>
+  </body>
+</html>

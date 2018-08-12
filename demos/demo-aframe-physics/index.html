@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Internship Design Sprint 4: Explicit interactions</title>
+    <script src="https://rawgit.com/aframevr/aframe/16b0111/dist/aframe-master.min.js"></script>
+    <script src="js/aframe-physics-system.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+
+    <script>
+      AFRAME.registerComponent('setup', {
+        init: function () {
+          this.el.addEventListener('enter-vr', function (evt) {
+            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
+              var cursorFuse= document.getElementById("cursor");
+              cursorFuse.setAttribute('cursor',"fuse:false");
+              cursorFuse.setAttribute('visible',"false");
+            }
+          })
+        }
+      })
+
+    </script>
+  </head>
+  <body>
+    <a-scene environment="preset:starry;" physics="gravity:-9.8;friction: 0.1; restitution: .5;">
+
+      <a-assets>
+        <a-asset-item id="Cottontails-obj" src="models/Cottontails.obj"></a-asset-item>
+        <a-asset-item id="Cottontails-mtl" src="models/Cottontails.mtl"></a-asset-item>
+      </a-assets>
+
+      <!-- Player -->
+      <a-entity position= "0 0 0" progressive-controls wasd-controls look-controls >
+        <a-camera>
+          <a-entity id="cursor" cursor="rayOrigin:mouse;" line="visible:false" position="0 0 -0.5" geometry="primitive: circle; radius: 0.01; segments: 4;" material="color: #FF4444; shader: flat" ></a-entity>
+          <a-entity static-body="shape: box; boxRadius: 0.02;" daydream-controls="hand: right" box-collider="objects: [dynamic-body];"></a-entity>
+          <a-entity look-controls light="type:spot; castShadow:true; rotation: 0 20 0; angle: 40; color: #ffffff; intensity: .4; penumbra: 1;" position="0 0 0"></a-entity>
+        </a-camera>
+      </a-entity>
+
+      <!-- Terrain -->
+      <a-box position= "0 0 0" width="75" height="0" depth="75" static-body box-collider="objects: [dynamic-body];" ></a-box>
+
+      <!-- bunny -->
+
+      <a-obj-model src="#Cottontails-obj" mtl="#Cottontails-mtl" position="0 10 -5" dynamic-body="shape:box;" box-collider="objects: [static-body];" force-pushable grabbable draggable dropppable></a-obj-model>
+
+    </a-scene>
+  </body>
+</html>
