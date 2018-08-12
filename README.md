@@ -14,7 +14,7 @@ I am currently a second-year master's student at the University of Michigan Scho
 
 ### VR Demos
 * [A-Frame & Sketchup](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
-* [A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/)<br>
+* [A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sounds/)<br>
 * [A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
 
 
