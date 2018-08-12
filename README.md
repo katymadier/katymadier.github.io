@@ -5,7 +5,6 @@ I am currently a second-year master's student at the University of Michigan Scho
 ## Projects
 ### School Projects
 * [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/schoolwork/portfolio)<br>
-Python Projects
 
 ### Experimentations
 * [Demo: A-Frame & Sketchup](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
@@ -15,9 +14,6 @@ Python Projects
 * [Demo: A-Frame XR & AR.js - positional sound](https://katymadier.github.io/demos/demo-arjs-positional-sound/): Requires AR.js markers<br>
 * [Demo: A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/)<br>
 * [Demo: A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
-
-Demo: Unity with poptarts<br>
-Demo: Unity with MCity for Windows Mixed-Reality<br>
 
 
 ## Built With
