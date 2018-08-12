@@ -5,15 +5,17 @@ I am currently a second-year master's student at the University of Michigan Scho
 ## Projects
 ### School Projects
 * [A portfolio of my work created for SI539 Design of Complex Interfaces](https://katymadier.github.io/portfolio/)<br>
+Python Projects
 
 ### Experimentations
-* [Demo with aframe and sketchup](https://katymadier.github.io/poptart/) <br>
-Demo: Web XR - Adjusting color based on device orientation<br>
-Demo: AR.js with OBJ model<br>
-Demo: A-Frame XR and AR.js with positional sound<br>
-Demo: WebXR with AframeXR<br>
-Demo: A-Frame with movement and sound for Daydream or mobile<br>
-* [Demo: A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
+*[Demo: A-Frame & Sketchup](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
+*[Demo: A-Frame XR - Adjusting color based on device orientation](https://katymadier.github.io/demos/demo-webxr-orientation/): Requires WebXR browser<br>
+*[Demo: A-Frame XR - placing OBJ model in scene](https://katymadier.github.io/demos/demo-aframexr/): Requires WebXR browser<br>
+*[Demo: AR.js with OBJ model](https://katymadier.github.io/demos/demo-arjs/): Requires AR.js markers<br>
+*[Demo: A-Frame XR & AR.js - positional sound](https://katymadier.github.io/demos/demo-aframexr-positional-sound/): Requires AR.js markers<br>
+*[Demo: A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/)<br>
+*[Demo: A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
+
 Demo: Unity with poptarts<br>
 Demo: Unity with MCity for Windows Mixed-Reality<br>
 
@@ -22,8 +24,9 @@ Demo: Unity with MCity for Windows Mixed-Reality<br>
 
 * [A-Frame](http://) - The web framework used web-based VR prototypes.
 * [A-Frame XR](http://) - The web framework used web-based AR prototypes.
-* [ARjs](http://) - Used with A-FrameXR for marker-based AR prototypes.
+* [AR.js](http://) - Used with A-FrameXR for marker-based AR prototypes.
 * [Unity3D](https://) - The game engine used for AR/VR prototypes.
+* [Google Poly](https://) - All AR/VR demos use 3D models by Google Poly.
 
 ## Authors
 
