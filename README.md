@@ -13,7 +13,7 @@ Demo: AR.js with OBJ model<br>
 Demo: A-Frame XR and AR.js with positional sound<br>
 Demo: WebXR with AframeXR<br>
 Demo: A-Frame with movement and sound for Daydream or mobile<br>
-Demo: A-Frame with physics for Daydream or mobile<br>
+* [Demo: A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
 Demo: Unity with poptarts<br>
 Demo: Unity with MCity for Windows Mixed-Reality<br>
 
