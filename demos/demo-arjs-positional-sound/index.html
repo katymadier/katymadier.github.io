@@ -4,26 +4,28 @@
   <meta charset="utf-8">
   <title>ARJS with positional sound</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"> </script>
-
+  <style>
+    html, body {
+    margin : 0px;
+    overflow: hidden;
+  }
+  </style>
 </head>
-  <body style='margin : 0px; overflow: hidden;'>
-
+  <body>
     <a-scene embedded arjs>
       <a-assets>
-        <audio id="rick" src="sound/rick.mp3" preload="auto"></audio>
+        <audio id="rick" src="sound/rick.mp3" ></audio>
         <!-- made by Jason Toff from Poly -->
         <a-asset-item id="boombox-obj" src="models/model.obj"></a-asset-item>
         <a-asset-item id="boombox-mtl" src="models/materials.mtl"></a-asset-item>
       </a-assets>
-  	  <a-marker-camera preset="hiro" position="0 0 0">
-    	</a-marker-camera>
+
+  	  <a-marker preset="hiro" position="0 0 0">
       <a-entity id="boombox" obj-model="obj: #boombox-obj; mtl:#boombox-mtl;" rotation= "0 90 -90" scale="2 2 2" position="0 0 0" sound="src:#rick;loop:true; distanceModel:linear; maxDistance: 6; refDistance:3; rolloffFactor:5; autoplay:true;"></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
     </a-scene>
-    <script>
-
-
-    </script>
   </body>
 </html>
