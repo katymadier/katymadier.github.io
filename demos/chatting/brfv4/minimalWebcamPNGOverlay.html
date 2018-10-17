@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Beyond Reality Face - BRFv4 - HTML5/Javascript - minimal png overlay example</title>
+
+  <style>
+    html, body { width: 100%; height: 100%; background-color: #ffffff; margin: 0; padding: 0; overflow: hidden; }
+  </style>
+</head>
+
+<body>
+
+<video  id="_webcam" style="display: none;" playsinline></video>
+<canvas id="_imageData"></canvas>
+
+<div    id="mask" style="position: absolute; top: 0; left: 0; transform-origin: 50% 50%">
+  <img  src="assets/brfv4_lion.png" style="position: absolute; top: -190px; left: -240px;">
+</div>
+
+<script src="js/utils/BRFv4Stats.js"></script>
+<script src="js/BRFv4DemoMinimalWebcam.js"></script>
+
+<script>
+
+  // BRFv4DemoMinimal.js defines: var handleTrackingResults = function(brfv4, faces, imageDataCtx)
+  // Here we overwrite it. The initialization code for BRFv4 should always be similar,
+  // that's why we put it into its own file.
+
+  handleTrackingResults = function(
+    brfv4,          // namespace
+    faces,          // tracked faces
+    imageDataCtx    // canvas context to draw into
+  ) {
+
+    var mask = document.getElementById("mask");
+
+    for(var i = 0; i < faces.length; i++) {
+
+      var face = faces[i];
+
+      if(face.state === brfv4.BRFState.FACE_TRACKING_START ||
+        face.state === brfv4.BRFState.FACE_TRACKING) {
+
+        imageDataCtx.strokeStyle = "#00a0ff";
+
+        for(var k = 0; k < face.vertices.length; k += 2) {
+          imageDataCtx.beginPath();
+          imageDataCtx.arc(face.vertices[k], face.vertices[k + 1], 2, 0, 2 * Math.PI);
+          imageDataCtx.stroke();
+        }
+
+        // Set position to be nose top and calculate rotation.
+
+        function toDegree(x) {
+          return x * 180.0 / Math.PI;
+        }
+
+        var x = face.points[27].x;
+        var y = face.points[27].y;
+        var scaleX = (face.scale / 480) * (1 - toDegree(Math.abs(face.rotationY)) / 110.0) * 2.5;
+        var scaleY = (face.scale / 480) * (1 - toDegree(Math.abs(face.rotationX)) / 110.0) * 2.5;
+
+        mask.style.transform = "matrix("+scaleX+",0.0,0.0,"+scaleY+","+x+","+y+") rotate("+face.rotationZ+"rad)";
+        mask.style.opacity = "0.66";
+
+      } else {
+
+        mask.style.opacity = "0.0";
+
+      }
+    }
+  };
+
+</script>
+
+</body>
+
+</html>
