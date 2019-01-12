@@ -15,18 +15,20 @@
     .yellow {
       filter:url(#yellow);
     }
+    
+    body, html, #container {
+      margin: 0;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      touch-action: none
+      overflow: hidden;
+    }
     #canvas {
       position:absolute;
       width: 100%;
       height: 100%;
       z-index: 0;
-      overflow: hidden;
-    }
-    #container {
-      display: flex;
-      width: 100vh;
-      height: 100vh;
-      touch-action: none
       overflow: hidden;
     }
     #selected {
@@ -43,11 +45,7 @@
       z-index: -1;
       touch-action: none;
     }
-    body {
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
+
   </style>
   </head>
   <body>
