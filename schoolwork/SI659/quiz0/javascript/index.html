@@ -132,14 +132,14 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 41", evt)
+      console.log("canvas updating 42", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
       var selected = document.getElementById("selected");
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
-      ctx.drawImage(image, 0, 0);
+      ctx.drawImage(img, 0, 0);
       var touches = evt.changedTouches;
       console.log(touches);
 
