@@ -65,7 +65,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 48")
+    console.log("canvas updating 49")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -90,7 +90,7 @@
     var c = document.getElementById("canvas");
     var ctx = c.getContext("2d");
     var vid = document.getElementById("video");
-    ctx.drawvideo(vid, 0, 0);
+    ctx.drawVideo(vid, 0, 0);
 
     function writeCanvas(evt){
       let imageData = ctx.getImageData(evt.pageX, evt.pageY, 1, 1);
