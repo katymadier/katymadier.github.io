@@ -145,7 +145,7 @@
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
-        ctx.putImageData(img, 0, 0);
+        ctx.putImageData(imageData, 0, 0);
         console.log(imageData)
         var r = Color.red(imageData[0])
         var g = Color.green(imageData[1])
