@@ -136,6 +136,7 @@
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
+      var selection = document.getElementById("selection");
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
       ctx.drawImage(img, 0, 0);
@@ -154,8 +155,8 @@
         b = b.toString(16); // make it a hex digit
         var color = "#" + r + g + b;
         console.log("color for touch with identifier " + imageData + " = " + color);
-
-        ctx.putImageData(color, 150, 10);
+        selection.style.backgroundColor = color;
+        // ctx.putImageData(color, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
           // ctx.putImageData(imageData, 0, 0);
         // console.log(ctx)
