@@ -132,7 +132,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 37", evt)
+      console.log("canvas updating 38", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -144,13 +144,13 @@
       console.log(touches);
 
       for (var i = 0; i < touches.length; i++) {
-        let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
+        let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
         ctx.putImageData(imageData, 0, 0);
         console.log(imageData)
-        var r = Color.red(imageData[0])
-        var g = Color.green(imageData[1])
-        var b = Color.blue(imageData[2])
-        var a = Color.alpha(imageData[3])
+        var r = Color.red(data.imageData[0])
+        var g = Color.green(data.imageData[1])
+        var b = Color.blue(data.imageData[2])
+        var a = Color.alpha(data.imageData[3])
         let color =  "#" + r + g + b + a;
         console.log("color for touch with identifier = " + color);
         selected.style.backgroundColor = color;
