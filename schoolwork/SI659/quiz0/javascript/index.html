@@ -85,7 +85,7 @@
     function updatingCanvas(){
       console.log("canvas updating")
       //set up canvas
-      var c = document.getElementById("canvas");
+      var c = document.getElementsByTagName("canvas")[0];
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
       ctx.drawImage(img, 0, 0);
