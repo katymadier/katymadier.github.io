@@ -146,7 +146,7 @@
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].offsetX, touches[i].offsetY, 1, 1).data;
 
-        $('#output').html('R: ' + imageData[0] + '<br>G: ' + imageData[1] + '<br>B: ' + imageData[2] + '<br>A: ' + imageData[3]);
+        canvas.html('R: ' + imageData[0] + '<br>G: ' + imageData[1] + '<br>B: ' + imageData[2] + '<br>A: ' + imageData[3]);
 
         console.log(imageData)
         // ctx.putImageData(imageData, 150, 10);
