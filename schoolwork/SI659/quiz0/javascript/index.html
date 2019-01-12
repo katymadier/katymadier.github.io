@@ -136,13 +136,14 @@
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
       ctx.drawImage(img, 0, 0);
-      ctx.rect(10, 10, 100, 100);
-      ctx.fill();
+
       var touches = evt.changedTouches;
       console.log(touches);
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
+        ctx.rect(touches[i].pageX, touches[i].pageY, 100, 100);
+        ctx.fill();
         console.log(imageData)
         ctx.putImageData(imageData, 150, 10);
 
