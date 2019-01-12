@@ -80,6 +80,8 @@
     navigator.mediaDevices.getUserMedia(constraints).
         then(handleSuccess).catch(handleError);
 
+    updatingCanvas();
+    
     function updatingCanvas(){
       console.log("canvas updating")
       //set up canvas
