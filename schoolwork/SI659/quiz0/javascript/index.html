@@ -27,10 +27,17 @@
     #canvas {
       top:0;
       position:absolute;
-      /* width: 100%;
-      height: 100%; */
+      min-width: 100%;
+      min-height: 100%;
       z-index: 0;
       overflow: hidden;
+    }
+    #video {
+      top:0;
+      position:absolute;
+      overflow: hidden;
+      z-index: -1;
+      touch-action: none;
     }
     #selected {
       top:0;
@@ -38,15 +45,6 @@
       width:50px;
       height:50px;
       background-color: white;
-    }
-    #video {
-      top:0;
-      position:absolute;
-      /* height: 100%;
-      width: 100%; */
-      overflow: hidden;
-      z-index: -1;
-      touch-action: none;
     }
 
   </style>
@@ -72,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 71")
+    console.log("canvas updating 72")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
