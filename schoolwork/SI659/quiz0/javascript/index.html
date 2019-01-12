@@ -132,30 +132,37 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 31", evt)
+      console.log("canvas updating 32", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
       var selected = document.getElementById("selected");
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
-      ctx.drawImage(img, 0, 0);
 
       var touches = evt.changedTouches;
       console.log(touches);
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
-        // from Mozilla
-        var r = imageData[0] % 16;
-        var g = Math.floor(imageData[1] / 3) % 16;
-        var b = Math.floor(imageData[2]  / 7) % 16;
-        r = r.toString(16); // make it a hex digit
-        g = g.toString(16); // make it a hex digit
-        b = b.toString(16); // make it a hex digit
-        var color = "#" + r + g + b;
-        console.log("color for touch with identifier " + imageData + " = " + color);
-        selected.style.backgroundColor = color;
+
+        createImageBitmap(img, touches[i].pageX, touches[i].pageY, 1, 1[200,200]).then(function(response) {
+          ctx.drawImage(response[0]), 0, 0);
+          console.log("created bitmap")
+        });
+
+
+
+        // // from Mozilla
+        // var r = imageData[0] % 16;
+        // var g = Math.floor(imageData[1] / 3) % 16;
+        // var b = Math.floor(imageData[2]  / 7) % 16;
+        // r = r.toString(16); // make it a hex digit
+        // g = g.toString(16); // make it a hex digit
+        // b = b.toString(16); // make it a hex digit
+        // var color = "#" + r + g + b;
+        // console.log("color for touch with identifier " + imageData + " = " + color);
+        // selected.style.backgroundColor = color;
         // ctx.putImageData(color, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
           // ctx.putImageData(imageData, 0, 0);
