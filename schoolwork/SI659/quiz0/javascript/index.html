@@ -65,7 +65,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 56")
+    console.log("canvas updating 57")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -93,7 +93,7 @@
 
     video.addEventListener('play', function () {
         ctx.drawImage(video, 0, 0);
-        console.log("ctx", ctx)
+        console.log("playing", ctx)
     })
 
     function gettingColor(evt){
