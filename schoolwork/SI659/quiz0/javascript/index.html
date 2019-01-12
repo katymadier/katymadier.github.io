@@ -71,18 +71,18 @@
         then(handleSuccess).catch(handleError);
 
     //device orientation
-       window.addEventListener('orientationchange', function(x) {
+       window.addEventListener('touchevent', function(x) {
          console.log(x);
-         if (screen.orientation.angle == 0) {
-           // pink
-           video.className = "none";
-         } else if (screen.orientation.angle == 90) {
-           // yellow
-           video.className = "pink";
-         } else if (screen.orientation.angle == 270) {
-           // orange
-           video.className = "yellow";
-         }
+         // if (screen.orientation.angle == 0) {
+         //   // pink
+         //   video.className = "none";
+         // } else if (screen.orientation.angle == 90) {
+         //   // yellow
+         //   video.className = "pink";
+         // } else if (screen.orientation.angle == 270) {
+         //   // orange
+         //   video.className = "yellow";
+         // }
        });
     </script>
   </body>
