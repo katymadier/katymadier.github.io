@@ -27,8 +27,6 @@
     #canvas {
       top:0;
       position:absolute;
-      min-width: 100%;
-      min-height: 100%;
       z-index: 0;
       overflow: hidden;
     }
@@ -70,7 +68,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 72")
+    console.log("canvas updating 74")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -93,6 +91,8 @@
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
+    c.width = document.body.clientWidth;
+    c.height = document.body.clientHeight;
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
 
