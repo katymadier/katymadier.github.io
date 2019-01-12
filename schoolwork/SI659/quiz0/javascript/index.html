@@ -70,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 83")
+    console.log("canvas updating 84")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -126,7 +126,7 @@
     }
 
     //touch listener
-       canvas.addEventListener('touchstart', function(x) {
+       window.addEventListener('touchstart', function(x) {
          console.log("touchstart", x);
          gettingColor(x);
        });
