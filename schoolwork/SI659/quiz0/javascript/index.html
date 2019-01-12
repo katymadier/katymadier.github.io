@@ -46,6 +46,8 @@
     </svg>
     <div id="container">
       <video autoplay></video>
+      <div id="canvas"></div>
+      <div id="selected"></div>
     </div>
     <script>
 
@@ -73,6 +75,12 @@
     //device orientation
        window.addEventListener('touchstart', function(x) {
          console.log(x);
+         var canvas = document.getElementById("canvas");
+         var selected = document.getElementById("selected");
+         var context = canvas.getContext("2d");
+         var selected = canvas.getContext("2d");
+         // context.drawImage(video, 10, 10);
+         selected.drawImage(video, 10, 10);
          // if (screen.orientation.angle == 0) {
          //   // pink
          //   video.className = "none";
