@@ -146,7 +146,7 @@
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
 
-        let colorBitmap = bitmap.getPixel(touches[i].pageX, touches[i].pageY);
+        let colorBitmap = img.getPixel(touches[i].pageX, touches[i].pageY);
         var r = Color.red(color)
         var g = Color.green(color)
         var b = Color.blue(color)
