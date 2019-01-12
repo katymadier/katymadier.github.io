@@ -59,16 +59,15 @@
       </filter>
     </defs>
     </svg>
-    <!-- <div id="container">
-
-    </div> -->
-    <canvas id="canvas"></canvas>
-    <video id="video" autoplay></video>
-    <div id="selected"></div>
+    <div id="container">
+      <canvas id="canvas"></canvas>
+      <video id="video" autoplay></video>
+      <div id="selected"></div>
+    </div>
     <script>
 
     // setting up scene
-    console.log("canvas updating 62")
+    console.log("canvas updating 63")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -96,7 +95,7 @@
 
     video.addEventListener('play', function () {
       function step() {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+        ctx.drawImage(video, 0, 0)
         requestAnimationFrame(step)
       }
       requestAnimationFrame(step);
