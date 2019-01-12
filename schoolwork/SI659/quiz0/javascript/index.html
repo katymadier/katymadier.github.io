@@ -72,22 +72,27 @@
     navigator.mediaDevices.getUserMedia(constraints).
         then(handleSuccess).catch(handleError);
 
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("video");
+    ctx.drawImage(img, 0, 0);
+    var imgData = ctx.getImageData(0, 0, c.width, c.height);
+
+    // invert colors
+    var i;
+    for (i = 0; i < imgData.data.length; i += 4) {
+      imgData.data[i] = 255-imgData.data[i];
+      imgData.data[i + 1] = 255-imgData.data[i + 1];
+      imgData.data[i + 2] = 255-imgData.data[i + 2];
+      imgData.data[i + 3] = 255;
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+
     //device orientation
        window.addEventListener('touchstart', function(x) {
          console.log(x);
-         var canvas = document.getElementById("canvas");
-         var selected = document.getElementById("selected");
-         // var context = canvas.getContext("2d");
-         var selected = selected.getContext("2d");
-         // context.drawImage(video, 10, 10);
-         selected.drawImage(video, 10, 10);
-         selected.fillStyle = "red";
-         selected.fillRect(10, 10, 50, 50);
 
-          function copy() {
-            var imgData = selected.getImageData(10, 10, 50, 50);
-            selected.putImageData(imgData, 10, 70);
-          }
          // if (screen.orientation.angle == 0) {
          //   // pink
          //   video.className = "none";
