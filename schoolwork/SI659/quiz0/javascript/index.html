@@ -53,7 +53,7 @@
     </defs>
     </svg>
     <div id="container">
-      <div id="canvas"></div>
+      <canvas></canvas>
       <video autoplay></video>
       <div id="selected"></div>
     </div>
@@ -81,7 +81,7 @@
         then(handleSuccess).catch(handleError);
 
     updatingCanvas();
-    
+
     function updatingCanvas(){
       console.log("canvas updating")
       //set up canvas
