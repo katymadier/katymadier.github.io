@@ -23,8 +23,9 @@
       overflow: hidden;
     }
     #container {
-      width: 100%;
-      height: 100%;
+      display: flex;
+      width: 100vh;
+      height: 100vh;
       touch-action: none
       overflow: hidden;
     }
@@ -70,7 +71,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 67")
+    console.log("canvas updating 68")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
