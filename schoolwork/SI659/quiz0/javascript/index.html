@@ -56,8 +56,8 @@
     </defs>
     </svg>
     <div id="container">
-      <canvas></canvas>
-      <video autoplay></video>
+      <canvas id="canvas"></canvas>
+      <video id="video" autoplay></video>
       <div id="selected"></div>
     </div>
     <script>
@@ -129,19 +129,23 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 14", evt)
+      console.log("canvas updating 16", evt)
 
-      //set up canvas
-      var c = document.getElementsByTagName("canvas")[0];
+      //set up canvas with video image
+      var c = document.getElementById("canvas");
       var ctx = c.getContext("2d");
-      var img = document.getElementsByTagName("video")[0];
+      var img = document.getElementById("video");
       ctx.drawImage(img, 0, 0);
-      var imgData = ctx.getImageData(0, 0, 1, 1);
-      var color = colorForTouch(imgData);
-      ctx.fillStyle = color;
+      ctx.rect(10, 10, 100, 100);
+      ctx.fill();
 
-      ctx.putImageData(imgData, 0, 0);
-      console.log(ctx)
+      let imageData = ctx.getImageData(0, 0, 1, 1);
+      ctx.putImageData(imageData, 150, 10);
+
+      // var imgData = ctx.getImageData(0, 0, 1, 1);
+      // ctx.putImageData(imgData, 0, 0);
+      // console.log(ctx)
+
 
 
       //mess with colors
