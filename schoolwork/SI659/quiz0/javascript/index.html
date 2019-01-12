@@ -129,7 +129,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 17", evt)
+      console.log("canvas updating 18", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -141,14 +141,14 @@
       var touches = evt.changedTouches;
       console.log(touches);
 
+      for (var i = 0; i < touches.length; i++) {
       let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
       ctx.putImageData(imageData, 150, 10);
 
       // var imgData = ctx.getImageData(0, 0, 1, 1);
       // ctx.putImageData(imgData, 0, 0);
       // console.log(ctx)
-
-
+      }
 
       //mess with colors
       // var i;
