@@ -132,7 +132,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 38", evt)
+      console.log("canvas updating 39", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -147,28 +147,13 @@
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
         ctx.putImageData(imageData, 0, 0);
         console.log(imageData)
-        var r = Color.red(data.imageData[0])
-        var g = Color.green(data.imageData[1])
-        var b = Color.blue(data.imageData[2])
-        var a = Color.alpha(data.imageData[3])
+        var r = data.imageData[0].toString(16)
+        var g = data.imageData[1].toString(16)
+        var b = data.imageData[2].toString(16)
+        var a = data.imageData[3].toString(16)
         let color =  "#" + r + g + b + a;
         console.log("color for touch with identifier = " + color);
         selected.style.backgroundColor = color;
-
-
-        // var imgData = context.getImageData(0,0,canvas.width,canvas.height);
-        // // array [r,g,b,a,r,g,b,a,r,g,..]
-        //
-        // function getPixel(imgData, index) {
-        //   var i = index*4, d = imgData.data;
-        //   return [d[i],d[i+1],d[i+2],d[i+3]] // returns array [R,G,B,A]
-        // }
-        //
-        // // AND/OR
-        //
-        // function getPixelXY(imgData, x, y) {
-        //   return getPixel(imgData, y*imgData.width+x);
-        // }
 
 
         // // from Mozilla
