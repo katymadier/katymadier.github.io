@@ -154,9 +154,8 @@
         b = b.toString(16); // make it a hex digit
         var color = "#" + r + g + b;
         console.log("color for touch with identifier " + imageData + " = " + color);
-        c.fillStyle = color;
 
-        // ctx.putImageData(imageData, 150, 10);
+        ctx.putImageData(color, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
           // ctx.putImageData(imageData, 0, 0);
         // console.log(ctx)
