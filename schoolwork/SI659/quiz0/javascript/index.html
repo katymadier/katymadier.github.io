@@ -70,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 92")
+    console.log("canvas updating 93")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -110,13 +110,14 @@
     function gettingColor(evt){
       var selected = document.getElementById("selected");
       var touches = evt.changedTouches;
-      var x = evt.pageX;
-      var y = evt.pageY;
       console.log(evt)
-      console.log("x", x, "y", y)
 
       for (var i = 0; i < touches.length; i++) {
-        let imageData = ctx.getImageData(touches[i].x, touches[i].y, 1, 1);
+        var x = touches[i].pageX;
+        var y = touches[i].pageY;
+        console.log("x", x, "y", y)
+
+        let imageData = ctx.getImageData(x, y, 1, 1);
         ctx.putImageData(imageData, 0, 0);
         var r = imageData.data[0];
         var g = imageData.data[1];
