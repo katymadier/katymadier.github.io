@@ -83,7 +83,7 @@
     updatingCanvas();
 
     function updatingCanvas(){
-      console.log("canvas updating 5")
+      console.log("canvas updating 6")
       //set up canvas
       var c = document.getElementsByTagName("canvas")[0];
       var ctx = c.getContext("2d");
@@ -93,13 +93,13 @@
       console.log(imgData)
 
       //mess with colors
-      var i;
-      for (i = 0; i < imgData.data.length; i += 4) {
-        imgData.data[i] = 255-imgData.data[i];
-        imgData.data[i + 1] = 255-imgData.data[i + 1];
-        imgData.data[i + 2] = 255-imgData.data[i + 2];
-        imgData.data[i + 3] = 255;
-      }
+      // var i;
+      // for (i = 0; i < imgData.data.length; i += 4) {
+      //   imgData.data[i] = 255-imgData.data[i];
+      //   imgData.data[i + 1] = 255-imgData.data[i + 1];
+      //   imgData.data[i + 2] = 255-imgData.data[i + 2];
+      //   imgData.data[i + 3] = 255;
+      // }
 
       ctx.putImageData(imgData, 0, 0);
 
