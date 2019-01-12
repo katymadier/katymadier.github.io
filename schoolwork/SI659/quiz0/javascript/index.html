@@ -44,7 +44,7 @@
       position:absolute;
       width:50px;
       height:50px;
-      background-color: white;
+      background: white;
     }
 
   </style>
@@ -112,19 +112,16 @@
       var touches = evt.changedTouches;
 
       for (var i = 0; i < touches.length; i++) {
-        let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
+        let imageData = ctx.getImageData(touches[i].layerX, touches[i].layerY, 1, 1);
         ctx.putImageData(imageData, 0, 0);
-        var r = imageData.data[0] % 16;
-        r = r.toString(16);
-        var g = imageData.data[1] % 16;
-        g = g.toString(16);
-        var b = imageData.data[2] % 16;
-        b = b.toString(16);
-        var a = imageData.data[3] % 16;
-        a = a.toString(16);
+        var r = imageData.data[0];
+        var g = imageData.data[1];
+        var b = imageData.data[2];
+        var a = imageData.data[3]/255;
+
         let color =  "#" + r + g + b + a;
         console.log("color for touch with identifier = " + color);
-        selected.style.backgroundColor = color;
+        selected.style.background = color;
       }
     }
 
