@@ -70,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 80")
+    console.log("canvas updating 81")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -114,10 +114,10 @@
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].layerX, touches[i].layerY, 1, 1);
         ctx.putImageData(imageData, 0, 0);
-        var r = imageData.data[0];
-        var g = imageData.data[1];
-        var b = imageData.data[2];
-        var a = imageData.data[3]/255;
+        var r = imageData.data[0].toString(16);
+        var g = imageData.data[1].toString(16);
+        var b = imageData.data[2].toString(16);
+        var a = (imageData.data[3]/255).toString(16);
 
         let color =  "#" + r + g + b + a;
         console.log("color for touch with identifier = " + color);
