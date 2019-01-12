@@ -80,7 +80,10 @@
     navigator.mediaDevices.getUserMedia(constraints).
         then(handleSuccess).catch(handleError);
 
-
+    function copyTouch(touch) {
+      return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
+    }
+    
     function handleStart(evt) {
       var ongoingTouches = [];
       console.log("canvas updating 8")
