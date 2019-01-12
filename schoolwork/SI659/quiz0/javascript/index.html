@@ -61,7 +61,7 @@
     </div> -->
     <canvas id="canvas"></canvas>
     <video id="video" autoplay></video>
-    <!-- <div id="selected"></div> -->
+    <div id="selected"></div>
     <script>
 
     // setting up scene
@@ -136,7 +136,7 @@
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
-      var selection = document.getElementById("selection");
+      var selected = document.getElementById("selected");
       var ctx = c.getContext("2d");
       var img = document.getElementById("video");
       ctx.drawImage(img, 0, 0);
@@ -155,7 +155,7 @@
         b = b.toString(16); // make it a hex digit
         var color = "#" + r + g + b;
         console.log("color for touch with identifier " + imageData + " = " + color);
-        selection.style.backgroundColor = color;
+        selected.style.backgroundColor = color;
         // ctx.putImageData(color, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
           // ctx.putImageData(imageData, 0, 0);
