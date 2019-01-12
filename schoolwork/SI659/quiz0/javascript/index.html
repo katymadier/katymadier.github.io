@@ -70,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 89")
+    console.log("canvas updating 90")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -112,6 +112,7 @@
       var touches = evt.changedTouches;
       var x = evt.layerX;
       var y = evt.layerY;
+      console.log("x", x, "y", y)
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].x, touches[i].y, 1, 1);
