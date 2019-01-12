@@ -65,7 +65,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 52")
+    console.log("canvas updating 53")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -90,10 +90,11 @@
     var c = document.getElementById("canvas");
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
+    ctx.drawImage(video, 0, 0);
 
-    video.addEventListener('play', function () {
-        ctx.drawImage(video, 0, 0);
-    })
+    // video.addEventListener('play', function () {
+    //     ctx.drawImage(video, 0, 0);
+    // })
 
     function gettingColor(evt){
       var selected = document.getElementById("selected");
