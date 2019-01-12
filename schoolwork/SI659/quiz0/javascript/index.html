@@ -132,7 +132,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 26", evt)
+      console.log("canvas updating 27", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -153,12 +153,8 @@
         g = g.toString(16); // make it a hex digit
         b = b.toString(16); // make it a hex digit
         var color = "#" + r + g + b;
-        console.log("color for touch with identifier = " + color);
+        console.log("color for touch with identifier " + imageData + " = " + color);
         c.fillStyle = color;
-
-
-
-        console.log('R: ' + imageData[0] + 'G: ' + imageData[1] + 'B: ' + imageData[2] + 'A: ' + imageData[3]);
 
         // ctx.putImageData(imageData, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
