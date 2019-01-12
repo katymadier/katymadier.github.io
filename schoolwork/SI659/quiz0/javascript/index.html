@@ -34,9 +34,10 @@
       background-color: white;
     }
     #video {
-      height: 100px;
-      width: 100px;
+      height: 100%;
+      width: 100%;
       overflow: hidden;
+      z-index: -1;
     }
     body {
       margin: 0;
@@ -65,7 +66,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 60")
+    console.log("canvas updating 61")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
