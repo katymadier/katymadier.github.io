@@ -129,7 +129,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 16", evt)
+      console.log("canvas updating 17", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -138,8 +138,10 @@
       ctx.drawImage(img, 0, 0);
       ctx.rect(10, 10, 100, 100);
       ctx.fill();
+      var touches = evt.changedTouches;
+      console.log(touches);
 
-      let imageData = ctx.getImageData(0, 0, 1, 1);
+      let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
       ctx.putImageData(imageData, 150, 10);
 
       // var imgData = ctx.getImageData(0, 0, 1, 1);
