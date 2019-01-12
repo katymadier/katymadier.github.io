@@ -11,6 +11,11 @@
     body, html {
       margin: 0; height: 100%; overflow: hidden;
     }
+    #canvas {
+      z-index: -1;
+      width: 100%;
+      overflow:hidden;
+    }
     #sidebar {
       display: flex;
       position: absolute;
@@ -19,6 +24,8 @@
       width: 15%;
       justify-content: center;
       align-content: center;
+      z-index: 1;
+      background-color: blue;
     }
     #toolbar {
       display: flex;
@@ -28,6 +35,8 @@
       width: 100vh;
       justify-content: center;
       align-content: center;
+      z-index:1;
+      background-color: green;
     }
     </style>
   </head>
