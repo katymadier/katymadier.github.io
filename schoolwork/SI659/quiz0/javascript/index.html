@@ -15,10 +15,11 @@
     .yellow {
       filter:url(#yellow);
     }
-    canvas {
+    #canvas {
+      position:absolute;
       width: 100%
       height: 100%;
-      background-color: #ccc;
+      z-index: 0;
     }
     #container {
       width: 100%;
@@ -32,11 +33,10 @@
       height:50px;
       background-color: white;
     }
-    video {
-      min-height: 100%;
-      min-width: 100%;
+    #video {
+      height: 100px;
+      width: 100px;
       overflow: hidden;
-      display: block;
     }
     body {
       margin: 0;
@@ -65,7 +65,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 59")
+    console.log("canvas updating 60")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -93,7 +93,6 @@
 
     video.addEventListener('play', function () {
       function step() {
-        console.log("playing", ctx)
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
         requestAnimationFrame(step)
       }
@@ -106,7 +105,6 @@
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
-        ctx.drawImage(video, 0, 0);
         ctx.putImageData(imageData, 0, 0);
         var r = imageData.data[0].toString(16)
         var g = imageData.data[1].toString(16)
@@ -114,7 +112,6 @@
         var a = imageData.data[3].toString(16)
         let color =  "#" + r + g + b + a;
         console.log("color for touch with identifier = " + color);
-        ctx.fillstyle = color;
         selected.style.backgroundColor = color;
       }
     }
