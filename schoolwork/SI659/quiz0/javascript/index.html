@@ -145,25 +145,27 @@
 
       for (var i = 0; i < touches.length; i++) {
         let imageData = ctx.getImageData(touches[i].offsetX, touches[i].offsetY, 1, 1).data;
+        // from Mozilla
+        var r = imageData[0] % 16;
+        var g = Math.floor(imageData[1] / 3) % 16;
+        var b = Math.floor(imageData[2]  / 7) % 16;
+        r = r.toString(16); // make it a hex digit
+        g = g.toString(16); // make it a hex digit
+        b = b.toString(16); // make it a hex digit
+        var color = "#" + r + g + b;
+        console.log("color for touch with identifier " + imageData + " = " + color);
+        ctx.fillStyle = color;
+
+
 
         console.log('R: ' + imageData[0] + '<br>G: ' + imageData[1] + '<br>B: ' + imageData[2] + '<br>A: ' + imageData[3]);
 
-        console.log(imageData)
         // ctx.putImageData(imageData, 150, 10);
         // var imgData = ctx.getImageData(0, 0, 1, 1);
           // ctx.putImageData(imageData, 0, 0);
         // console.log(ctx)
 
       }
-
-      //mess with colors
-      // var i;
-      // for (i = 0; i < imgData.data.length; i += 4) {
-      //   imgData.data[i] = 255-imgData.data[i];
-      //   imgData.data[i + 1] = 255-imgData.data[i + 1];
-      //   imgData.data[i + 2] = 255-imgData.data[i + 2];
-      //   imgData.data[i + 3] = 255;
-      // }
 
     }
 
