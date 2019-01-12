@@ -132,7 +132,7 @@
 
 
     function updatingCanvas(evt){
-      console.log("canvas updating 34", evt)
+      console.log("canvas updating 35", evt)
 
       //set up canvas with video image
       var c = document.getElementById("canvas");
@@ -144,22 +144,16 @@
       console.log(touches);
 
       for (var i = 0; i < touches.length; i++) {
-        let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
-
-        let colorBitmap = img.getPixel(touches[i].pageX, touches[i].pageY);
-        var r = Color.red(color)
-        var g = Color.green(color)
-        var b = Color.blue(color)
-        var a = Color.alpha(color)
-        let color =  "#" + r + g + b + a;
-        console.log("color for touch with identifier = " + color);
-        selected.style.backgroundColor = color;
-
-        // createImageBitmap(img, touches[i].pageX, touches[i].pageY, 1, 1[200,200]).then(function(response) {
-        //   ctx.drawImage(response[0], 0, 0);
-        //   console.log("created bitmap")
-        // });
-
+        let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1);
+        ctx.putImageData(imageData, 0, 0);
+        console.log(imageData)
+        // var r = Color.red(color)
+        // var g = Color.green(color)
+        // var b = Color.blue(color)
+        // var a = Color.alpha(color)
+        // let color =  "#" + r + g + b + a;
+        // console.log("color for touch with identifier = " + color);
+        // selected.style.backgroundColor = color;
 
 
         // // from Mozilla
