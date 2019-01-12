@@ -70,7 +70,7 @@
     <script>
 
     // setting up scene
-    console.log("canvas updating 88")
+    console.log("canvas updating 89")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -119,7 +119,7 @@
         var r = imageData.data[0];
         var g = imageData.data[1];
         var b = imageData.data[2];
-        var a = (imageData.data[3]/255);
+        var a = imageData.data[3];
 
         let color =  "rgba(" + r + ', ' + g +', '+ b + ', '+ a + ')';
         console.log("color for touch with identifier = " + color);
