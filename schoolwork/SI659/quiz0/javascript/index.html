@@ -86,7 +86,6 @@
 
     // from Mozilla
     function copyTouch(touch) {
-      // console.log("identifier" touch.identifier, "pageX" touch.pageX, "pageY" touch.pageY)
       return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
     }
 
@@ -106,7 +105,7 @@
     // from Mozilla
     function handleStart(evt) {
       var ongoingTouches = [];
-      console.log("canvas updating 22")
+      console.log("canvas updating 23")
       evt.preventDefault();
       console.log("touchstart.");
       var el = document.getElementsByTagName("canvas")[0];
@@ -118,8 +117,8 @@
         console.log("touchstart:" + i + "...");
         ongoingTouches.push(copyTouch(touches[i]));
         var color = colorForTouch(touches[i]);
-        ctx.beginPath();
-        ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
+        // ctx.beginPath();
+        // ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
         ctx.fillStyle = color;
         ctx.fill();
         console.log("touchstart:" + i + ".");
