@@ -147,7 +147,7 @@
         let imageData = ctx.getImageData(touches[i].pageX, touches[i].pageY, 1, 1).data;
 
         createImageBitmap(img, touches[i].pageX, touches[i].pageY, 1, 1[200,200]).then(function(response) {
-          ctx.drawImage(response[0]), 0, 0);
+          ctx.drawImage(response[0], 0, 0);
           console.log("created bitmap")
         });
 
