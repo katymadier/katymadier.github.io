@@ -164,7 +164,9 @@
               }
             }
           }
-          ctx.putImageData(newImageData, 0, 0);
+          // ctx.putImageData(newImageData, 0, 0);
+          ctx.drawImage(newImageData, 0, 0)
+          requestAnimationFrame(step)
         };
       });
     }
