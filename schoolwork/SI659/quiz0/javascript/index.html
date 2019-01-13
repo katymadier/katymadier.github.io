@@ -86,7 +86,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 110")
+    console.log("canvas updating 111")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -149,9 +149,9 @@
 
         //filter out selected color from canvas
         let newImageData = ctx.getImageData(0, 0, c.width, c.height);
-        console.log("data length",newImageData.data.length)
         for (var i = 0; i < newImageData.data.length; i+=4) {
           if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
+            console.log("erasing data")
             newImageData.data[i] = 0;
             newImageData.data[i+1] = 0;
             newImageData.data[i+2] = 0;
