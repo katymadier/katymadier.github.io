@@ -7,17 +7,6 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
   <style>
-    .none {
-      filter: none;
-    }
-
-    .pink {
-      filter: url(#pink);
-    }
-
-    .yellow {
-      filter: url(#yellow);
-    }
 
     body,
     html,
@@ -66,18 +55,7 @@
 </head>
 
 <body>
-  <!-- <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <defs>
-      <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
-        <filter id="pink">
-          <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="0.6 1.7 1.7 0.2 -0.1 0.1 0.5 0 0 0 0.3 0 1 0 0 0 0 0 1 -0.04"></feColorMatrix>
-        </filter>
-        <filter id="yellow">
-          <feColorMatrix result="original" id="svgcolormatrix" type="matrix" values="0.6 1.7 1.7 0.2 -0.1 0.1 0.5 0 0.6 -0.1 -1 0.8 1 0 0.6 1.1 0 -0.7 0.5 -0.2"></feColorMatrix>
-        </filter>
-      </filter>
-    </defs>
-    </svg> -->
+
   <div id="container">
     <canvas id="canvas"></canvas>
     <video id="video" autoplay></video>
@@ -86,7 +64,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 111")
+    console.log("canvas updating 112")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -137,7 +115,6 @@
       var a = imageData.data[3];
 
       let color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
-      // console.log("color for touch with identifier = " + color);
       selected.style.backgroundColor = color;
       selected.textContent = color;
 
@@ -150,13 +127,18 @@
         //filter out selected color from canvas
         let newImageData = ctx.getImageData(0, 0, c.width, c.height);
         for (var i = 0; i < newImageData.data.length; i+=4) {
-          if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
-            console.log("erasing data")
-            newImageData.data[i] = 0;
-            newImageData.data[i+1] = 0;
-            newImageData.data[i+2] = 0;
-            newImageData.data[i+3] = 0;
-          }
+          console.log("filtering video")
+           newImageData.data[i] = 0;
+           newImageData.data[i+1] = 0;
+           newImageData.data[i+2] = 0;
+           newImageData.data[i+3] = 0;
+          // if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
+          //   console.log("erasing data")
+          //   newImageData.data[i] = 0;
+          //   newImageData.data[i+1] = 0;
+          //   newImageData.data[i+2] = 0;
+          //   newImageData.data[i+3] = 0;
+          // }
         };
         ctx.putImageData(newImageData, 0, 0);
       });
