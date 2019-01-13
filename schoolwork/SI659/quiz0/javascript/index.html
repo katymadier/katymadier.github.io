@@ -95,10 +95,11 @@
     var video = document.getElementById("video");
 
     video.addEventListener('play', function() {
-      function step() {
-        ctx.drawImage(video, 0, 0)
-        // requestAnimationFrame(step)
-      }
+      ctx.drawImage(video, 0, 0)
+      // function step() {
+      //   ctx.drawImage(video, 0, 0)
+      //   requestAnimationFrame(step)
+      // }
       // requestAnimationFrame(step);
     })
 
