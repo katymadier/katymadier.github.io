@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 125")
+    console.log("canvas updating 126")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -135,13 +135,11 @@
       var tolerance = 10;
 
       for (var i = 0; i < newImageData.data.length; i += 4) {
-        console.log("going through all pixels")
         var diffR = Math.abs(newImageData.data[i] - imageData.data[0]);
         var diffG = Math.abs(newImageData.data[i+1] - imageData.data[1]);
         var diffB = Math.abs(newImageData.data[i+2] - imageData.data[2]);
 
         if(diffR && diffG && diffB < tolerance) {
-          console.log("is it less than tolerance? ",diffR && diffG && diffB < tolerance)
           newImageData.data[i + 3] = 0;
         }
       };
