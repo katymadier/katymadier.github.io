@@ -64,7 +64,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 115")
+    console.log("canvas updating 116")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -137,8 +137,8 @@
             newImageData.data[i+3] = 255;
           }
         };
-        ctx.putImageData(newImageData, 0, 0);
       });
+      ctx.putImageData(newImageData, 0, 0);
     }
     window.addEventListener('mousemove', function(x) {
       // console.log("mousemove", x);
