@@ -20,6 +20,14 @@
 
     #canvas {
       top: 0;
+      left:0;
+      position: absolute;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #canvas2 {
+      top: 0;
+      right:0;
       position: absolute;
       z-index: 0;
       overflow: hidden;
@@ -58,6 +66,7 @@
 
   <div id="container">
     <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
     <video id="video" autoplay></video>
     <div id="selected"></div>
     <div id="clicked"></div>
@@ -66,7 +75,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 134")
+    console.log("canvas updating 135")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -90,10 +99,12 @@
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
-    c.width = document.body.clientWidth;
+    var can = document.getElementById("canvas2");
+    c.width = document.body.clientWidth/2;
     c.height = document.body.clientHeight;
 
     var ctx = c.getContext("2d");
+    var ctx2 = can.getContext("2d");
     var selected = document.getElementById("selected");
     var color;
     var imageData;
@@ -109,21 +120,21 @@
       requestAnimationFrame(step);
     })
 
-    function mouseoverColor(evt) {
-      x = evt.layerX;
-      y = evt.layerY;
-
-      imageData = ctx.getImageData(x, y, 1, 1);
-
-      var r = imageData.data[0];
-      var g = imageData.data[1];
-      var b = imageData.data[2];
-      var a = imageData.data[3];
-
-      color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
-      selected.style.backgroundColor = color;
-      selected.textContent = color;
-    }
+    // function mouseoverColor(evt) {
+    //   x = evt.layerX;
+    //   y = evt.layerY;
+    //
+    //   imageData = ctx.getImageData(x, y, 1, 1);
+    //
+    //   var r = imageData.data[0];
+    //   var g = imageData.data[1];
+    //   var b = imageData.data[2];
+    //   var a = imageData.data[3];
+    //
+    //   color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
+    //   selected.style.backgroundColor = color;
+    //   selected.textContent = color;
+    // }
 
     function filterCanvas(evt){
       //filter out selected color from canvas
@@ -156,7 +167,7 @@
           console.log("making pixels transparent", newImageData.data[i+3] )
         }
       }
-      ctx.putImageData(newImageData, 0, 0);
+      ctx2.putImageData(newImageData, 0, 0);
     }
 
     //touch listener
@@ -164,10 +175,10 @@
       filterCanvas(x)
     });
 
-    //mouse listener
-    window.addEventListener('mousemove', function(x) {
-      mouseoverColor(x);
-    });
+    // //mouse listener
+    // window.addEventListener('mousemove', function(x) {
+    //   mouseoverColor(x);
+    // });
 
 
   </script>
