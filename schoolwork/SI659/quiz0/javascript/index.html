@@ -151,7 +151,7 @@
 
         //filter out selected color from canvas
         var newImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < newImageData.data.length; i += 4) {
+        for (var i = 0; i < newImageData.data.length; i ++) {
           if newImageData.data[i] = r {
             if newImageData.data[i+1] = g {
               if newImageData.data[i+2] = b {
