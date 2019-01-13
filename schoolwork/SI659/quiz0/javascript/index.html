@@ -148,7 +148,7 @@
         clicked.textContent = color;
 
         //filter out selected color from canvas
-        let newImageData = ctx.getImageData(x, y, c.width, c.height);
+        let newImageData = ctx.getImageData(0, 0, c.width, c.height);
         for (var i = 0; i < newImageData.data.length; i++) {
           if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
             newImageData.data[i] = 0;
@@ -157,6 +157,7 @@
             newImageData.data[i+3] = 0;
           }
           ctx.putImageData(newImageData, 0, 0);
+          console.log("Adding new image")
         };
 
       });
