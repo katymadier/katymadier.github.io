@@ -150,26 +150,26 @@
         clicked.textContent = color;
 
         //filter out selected color from canvas
-        var newImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < newImageData.data.length; i++) {
-          console.log("newImage")
-          // if newImageData.data[i] = r {
-          //   if newImageData.data[i+1] = g {
-          //     if newImageData.data[i+2] = b {
-          //       if newImageData.data[i+3] = a {
-          //         newImageData.data[i] = 0;
-          //         newImageData.data[i+1] = 0;
-          //         newImageData.data[i+2] = 0;
-          //         newImageData.data[i+3] = 0;
-          //       }
-          //     }
-          //   }
-          //}
-          // ctx.putImageData(newImageData, 0, 0);
-          // ctx.drawImage(newImageData, 0, 0)
-          // requestAnimationFrame(step)
-        };
-      });
+      //   var newImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      //   for (var i = 0; i < newImageData.data.length; i++) {
+      //     console.log("newImage")
+      //     // if newImageData.data[i] = r {
+      //     //   if newImageData.data[i+1] = g {
+      //     //     if newImageData.data[i+2] = b {
+      //     //       if newImageData.data[i+3] = a {
+      //     //         newImageData.data[i] = 0;
+      //     //         newImageData.data[i+1] = 0;
+      //     //         newImageData.data[i+2] = 0;
+      //     //         newImageData.data[i+3] = 0;
+      //     //       }
+      //     //     }
+      //     //   }
+      //     //}
+      //     // ctx.putImageData(newImageData, 0, 0);
+      //     // ctx.drawImage(newImageData, 0, 0)
+      //     // requestAnimationFrame(step)
+      //   };
+      // });
     }
     window.addEventListener('mousemove', function(x) {
       // console.log("mousemove", x);
