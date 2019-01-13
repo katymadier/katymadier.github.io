@@ -64,7 +64,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 112")
+    console.log("canvas updating 113")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -97,9 +97,9 @@
     video.addEventListener('play', function() {
       function step() {
         ctx.drawImage(video, 0, 0)
-        requestAnimationFrame(step)
+        // requestAnimationFrame(step)
       }
-      requestAnimationFrame(step);
+      // requestAnimationFrame(step);
     })
 
     function mouseoverColor(evt) {
