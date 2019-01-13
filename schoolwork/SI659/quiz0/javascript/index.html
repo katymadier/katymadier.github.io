@@ -86,7 +86,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 102")
+    console.log("canvas updating 103")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -148,17 +148,23 @@
         console.log("click", color);
         clicked.style.backgroundColor = color;
         clicked.textContent = color;
+
         //filter out selected color from canvas
-        var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
-        invert();
-        function invert() {
-          for (var i = 0; i < data.length; i += 4) {
-            data[i]     = 255 - data[i];     // red
-            data[i + 1] = 255 - data[i + 1]; // green
-            data[i + 2] = 255 - data[i + 2]; // blue
+        var newImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < newImageData.data.length; i += 1) {
+          if newImageData.data[0] = r {
+            if newImageData.data[1] = g {
+              if newImageData.data[2] = b {
+                if newImageData.data[3] = a {
+                  newImageData.data[0] = 0;
+                  newImageData.data[1] = 0;
+                  newImageData.data[2] = 0;
+                  newImageData.data[3] = 0;
+                }
+              }
+            }
           }
-          ctx.putImageData(imageData, 0, 0);
+          ctx.putImageData(newImageData, 0, 0);
         };
       });
     }
