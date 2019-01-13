@@ -85,7 +85,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 99")
+    console.log("canvas updating 100")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -109,8 +109,8 @@
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
-    c.width = document.body.width;
-    c.height = document.body.height;
+    c.width = document.body.clientWidth;
+    c.height = document.body.clientHeight;
 
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
@@ -152,6 +152,7 @@
       });
     }
     window.addEventListener('mousemove', function(x) {
+      // console.log("mousemove", x);
       mouseoverColor(x);
     });
 
