@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 124")
+    console.log("canvas updating 125")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -98,6 +98,8 @@
     var color;
     var imageData;
     var newImageData;
+    var x;
+    var y;
 
     video.addEventListener('play', function() {
       function step() {
@@ -108,8 +110,8 @@
     })
 
     function mouseoverColor(evt) {
-      var x = evt.layerX;
-      var y = evt.layerY;
+      x = evt.layerX;
+      y = evt.layerY;
 
       imageData = ctx.getImageData(x, y, 1, 1);
 
