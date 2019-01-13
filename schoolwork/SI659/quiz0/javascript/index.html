@@ -86,7 +86,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 108")
+    console.log("canvas updating 109")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -149,7 +149,8 @@
 
         //filter out selected color from canvas
         let newImageData = ctx.getImageData(0, 0, c.width, c.height);
-        for (var i = 0; i < newImageData.data.length; i++) {
+        console.log("data length",newImageData.data.length)
+        for (var i = 0; i < newImageData.data.length; i+=4) {
           if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
             newImageData.data[i] = 0;
             newImageData.data[i+1] = 0;
@@ -157,7 +158,6 @@
             newImageData.data[i+3] = 0;
           }
           ctx.putImageData(newImageData, 0, 0);
-          console.log("Adding new image")
         };
 
       });
@@ -167,66 +167,6 @@
       mouseoverColor(x);
     });
 
-
-
-
-    // handleStart(x);
-
-    // if (screen.orientation.angle == 0) {
-    //   // pink
-    //   video.className = "none";
-    // } else if (screen.orientation.angle == 90) {
-    //   // yellow
-    //   video.className = "pink";
-    // } else if (screen.orientation.angle == 270) {
-    //   // orange
-    //   video.className = "yellow";
-    // }
-
-
-    // // from Mozilla
-    // function copyTouch(touch) {
-    //   return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
-    // }
-    //
-
-    // // from Mozilla
-    // function colorForTouch(touch) {
-    //   var r = touch.identifier % 16;
-    //   var g = Math.floor(touch.identifier / 3) % 16;
-    //   var b = Math.floor(touch.identifier / 7) % 16;
-    //   r = r.toString(16); // make it a hex digit
-    //   g = g.toString(16); // make it a hex digit
-    //   b = b.toString(16); // make it a hex digit
-    //   var color = "#" + r + g + b;
-    //   console.log("color for touch with identifier " + touch.identifier + " = " + color);
-    //   return color;
-    // }
-    //
-    // // from Mozilla
-    // function handleStart(evt) {
-    //   var ongoingTouches = [];
-    //   console.log("canvas updating 23")
-    //   evt.preventDefault();
-    //   console.log("touchstart.");
-    //   var el = document.getElementsByTagName("canvas")[0];
-    //   var ctx = el.getContext("2d");
-    //   var touches = evt.changedTouches;
-    //   console.log(touches);
-    //
-    //   for (var i = 0; i < touches.length; i++) {
-    //     console.log("touchstart:" + i + "...");
-    //     ongoingTouches.push(copyTouch(touches[i]));
-    //     var color = colorForTouch(touches[i]);
-    //     // ctx.beginPath();
-    //     // ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
-    //
-    //     ctx.fillStyle = color;
-    //     ctx.fill();
-    //     console.log("color", color);
-    //     console.log("touchstart:" + i + ".");
-    //   }
-    // }
   </script>
 </body>
 
