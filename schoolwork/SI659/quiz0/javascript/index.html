@@ -150,7 +150,7 @@
       console.log("clicked on", color);
       clicked.style.backgroundColor = color;
       clicked.textContent = color;
-      var tolerance = 10;
+      var tolerance = 20;
 
       for (var i = 0; i < newImageData.data.length; i += 4) {
         var diffR = Math.abs(newImageData.data[i] - r);
