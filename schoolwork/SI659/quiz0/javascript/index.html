@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 128")
+    console.log("canvas updating 129")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -127,7 +127,7 @@
 
     function filterCanvas(evt){
       //filter out selected color from canvas
-      newImageData = ctx.getImageData(x, y, c.width, c.height);
+      newImageData = ctx.getImageData(0, 0, c.width, c.height);
 
       console.log("clicked on", color);
       clicked.style.backgroundColor = color;
@@ -141,7 +141,7 @@
 
         if(diffR && diffG && diffB < tolerance) {
           console.log("making pixels transparent")
-          newImageData.data[i + 3] = 0;
+          newImageData.data[i+3] = 0;
         }
       };
 
