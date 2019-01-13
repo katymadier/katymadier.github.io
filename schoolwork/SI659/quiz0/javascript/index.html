@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 130")
+    console.log("canvas updating 131")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -104,7 +104,6 @@
     video.addEventListener('play', function() {
       function step() {
         ctx.drawImage(video, 0, 0)
-        ctx.putImageData(newImageData, 0, 0);
         requestAnimationFrame(step)
       }
       requestAnimationFrame(step);
@@ -144,7 +143,8 @@
           console.log("making pixels transparent")
           newImageData.data[i+3] = 0;
         }
-      };
+      }.then(ctx.putImageData(newImageData, 0, 0);).catch(err);
+
     }
 
     //touch listener
