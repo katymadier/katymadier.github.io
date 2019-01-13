@@ -85,7 +85,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 98")
+    console.log("canvas updating 99")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -109,8 +109,8 @@
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
-    c.width = video.width;
-    c.height = video.height;
+    c.width = document.body.width;
+    c.height = document.body.height;
 
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
