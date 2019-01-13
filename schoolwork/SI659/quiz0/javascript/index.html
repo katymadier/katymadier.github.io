@@ -75,7 +75,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 135")
+    console.log("canvas updating 136")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -102,6 +102,8 @@
     var can = document.getElementById("canvas2");
     c.width = document.body.clientWidth/2;
     c.height = document.body.clientHeight;
+    can.width = document.body.clientWidth/2;
+    can.height = document.body.clientHeight;
 
     var ctx = c.getContext("2d");
     var ctx2 = can.getContext("2d");
@@ -120,24 +122,7 @@
       requestAnimationFrame(step);
     })
 
-    // function mouseoverColor(evt) {
-    //   x = evt.layerX;
-    //   y = evt.layerY;
-    //
-    //   imageData = ctx.getImageData(x, y, 1, 1);
-    //
-    //   var r = imageData.data[0];
-    //   var g = imageData.data[1];
-    //   var b = imageData.data[2];
-    //   var a = imageData.data[3];
-    //
-    //   color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
-    //   selected.style.backgroundColor = color;
-    //   selected.textContent = color;
-    // }
-
-    function filterCanvas(evt){
-      //filter out selected color from canvas
+    function mouseoverColor(evt) {
       x = evt.layerX;
       y = evt.layerY;
 
@@ -147,6 +132,14 @@
       var g = imageData.data[1];
       var b = imageData.data[2];
       var a = imageData.data[3];
+
+      color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
+      selected.style.backgroundColor = color;
+      selected.textContent = color;
+    }
+
+    function filterCanvas(evt){
+      //filter out selected color from canvas
 
       newImageData = ctx.getImageData(0, 0, c.width, c.height);
 
@@ -171,14 +164,14 @@
     }
 
     //touch listener
-    canvas.addEventListener('click', function(x) {
+    window.addEventListener('click', function(x) {
       filterCanvas(x)
     });
 
-    // //mouse listener
-    // window.addEventListener('mousemove', function(x) {
-    //   mouseoverColor(x);
-    // });
+    //mouse listener
+    window.addEventListener('mousemove', function(x) {
+      mouseoverColor(x);
+    });
 
 
   </script>
