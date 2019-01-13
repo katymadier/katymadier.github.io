@@ -75,7 +75,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 136")
+    console.log("canvas updating 137")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -99,9 +99,9 @@
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
-    var can = document.getElementById("canvas2");
     c.width = document.body.clientWidth/2;
     c.height = document.body.clientHeight;
+    var can = document.getElementById("canvas2");
     can.width = document.body.clientWidth/2;
     can.height = document.body.clientHeight;
 
@@ -113,6 +113,10 @@
     var newImageData;
     var x;
     var y;
+    var r;
+    var g;
+    var b;
+    var a;
 
     video.addEventListener('play', function() {
       function step() {
@@ -128,10 +132,10 @@
 
       imageData = ctx.getImageData(x, y, 1, 1);
 
-      var r = imageData.data[0];
-      var g = imageData.data[1];
-      var b = imageData.data[2];
-      var a = imageData.data[3];
+      r = imageData.data[0];
+      g = imageData.data[1];
+      b = imageData.data[2];
+      a = imageData.data[3];
 
       color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
       selected.style.backgroundColor = color;
@@ -142,8 +146,6 @@
       //filter out selected color from canvas
 
       newImageData = ctx.getImageData(0, 0, c.width, c.height);
-
-      color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
 
       console.log("clicked on", color);
       clicked.style.backgroundColor = color;
