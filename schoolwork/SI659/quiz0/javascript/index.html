@@ -1,56 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Quiz 0: JavaScript</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<head>
+  <meta charset="utf-8">
+  <title>Quiz 0: JavaScript</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
   <style>
     .none {
       filter: none;
     }
+
     .pink {
-      filter:url(#pink);
-    }
-    .yellow {
-      filter:url(#yellow);
+      filter: url(#pink);
     }
 
-    body, html, #container {
+    .yellow {
+      filter: url(#yellow);
+    }
+
+    body,
+    html,
+    #container {
       margin: 0;
       display: flex;
       width: 100%;
       height: 100%;
-      touch-action: none
-      overflow: hidden;
+      touch-action: none overflow: hidden;
     }
+
     #canvas {
-      top:0;
-      position:absolute;
+      top: 0;
+      position: absolute;
       z-index: 0;
       overflow: hidden;
     }
+
     #video {
-      top:0;
-      position:absolute;
+      top: 0;
+      position: absolute;
       overflow: hidden;
       z-index: -1;
       touch-action: none;
       width: 100%;
     }
+
     #selected {
       bottom: 5px;
       right: 5px;
-      position:absolute;
-      width:50px;
-      height:50px;
+      position: absolute;
+      width: 50px;
+      height: 50px;
       background-color: white;
     }
-
+    #clicked {
+      bottom: 5px;
+      right: 60px;
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: white;
+    }
   </style>
-  </head>
-  <body>
-    <!-- <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+</head>
+
+<body>
+  <!-- <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
     <defs>
       <filter id="svgfilter" x="0%" y="0%" width="100%" height="100%">
         <filter id="pink">
@@ -62,22 +77,22 @@
       </filter>
     </defs>
     </svg> -->
-    <div id="container">
-      <canvas id="canvas"></canvas>
-      <video id="video" autoplay></video>
-      <div id="selected"></div>
-    </div>
-    <script>
-
+  <div id="container">
+    <canvas id="canvas"></canvas>
+    <video id="video" autoplay></video>
+    <div id="selected"></div>
+    <div id="clicked"></div>
+  </div>
+  <script>
     // setting up scene
-    console.log("canvas updating 95")
+    console.log("canvas updating 96")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
-          facingMode: "environment",
-          video:true,
-          audio:false
-        }
+        facingMode: "environment",
+        video: true,
+        audio: false
+      }
     };
 
     //reading camera feed
@@ -85,11 +100,12 @@
       window.stream = stream;
       video.srcObject = stream;
     }
+
     function handleError(error) {
       console.log('navigator.getUserMedia error: ', error);
     }
     navigator.mediaDevices.getUserMedia(constraints).
-        then(handleSuccess).catch(handleError);
+    then(handleSuccess).catch(handleError);
 
     //set up canvas with video image
     var c = document.getElementById("canvas");
@@ -99,7 +115,7 @@
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
 
-    video.addEventListener('play', function () {
+    video.addEventListener('play', function() {
       function step() {
         ctx.drawImage(video, 0, 0)
         requestAnimationFrame(step)
@@ -107,122 +123,100 @@
       requestAnimationFrame(step);
     })
 
-    function gettingColor(evt){
-      var selected = document.getElementById("selected");
-      var touches = evt.changedTouches;
+    function mouseoverColor(evt) {
       console.log(evt)
+      var selected = document.getElementById("selected");
+      var x = evt.layerX;
+      var y = evt.layerY;
+      console.log("x", x, "y", y)
 
-      for (var i = 0; i < touches.length; i++) {
-        var x = touches[i].pageX;
-        var y = touches[i].pageY;
-        console.log("x", x, "y", y)
+      let imageData = ctx.getImageData(x, y, 1, 1);
+      ctx.putImageData(imageData, 0, 0);
+      var r = imageData.data[0];
+      var g = imageData.data[1];
+      var b = imageData.data[2];
+      var a = imageData.data[3];
 
-        let imageData = ctx.getImageData(x, y, 1, 1);
-        ctx.putImageData(imageData, 0, 0);
-        var r = imageData.data[0];
-        var g = imageData.data[1];
-        var b = imageData.data[2];
-        var a = imageData.data[3];
+      let color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
+      console.log("color for touch with identifier = " + color);
+      selected.style.backgroundColor = color;
+      selected.textContent = color;
 
-        let color =  "rgba(" + r + ', ' + g +', '+ b + ', '+ a + ')';
-        console.log("color for touch with identifier = " + color);
-        selected.style.backgroundColor = color;
-        selected.textContent = color;
-      }
+      //touch listener
+      canvas.addEventListener('click', function(x) {
+        console.log("click", color);
+        clicked.style.backgroundColor = color;
+        clicked.textContent = color;
+
+
+      });
     }
-
-    //touch listener
-       window.addEventListener('touchstart', function(x) {
-         console.log("touchstart", x);
-         gettingColor(x);
-       });
-
-       function mouseoverColor(evt){
-         console.log(evt)
-         var selected = document.getElementById("selected");
-         var x = evt.layerX;
-         var y = evt.layerY;
-         console.log("x", x, "y", y)
-
-         let imageData = ctx.getImageData(x, y, 1, 1);
-         ctx.putImageData(imageData, 0, 0);
-         var r = imageData.data[0];
-         var g = imageData.data[1];
-         var b = imageData.data[2];
-         var a = imageData.data[3];
-
-         let color =  "rgba(" + r + ', ' + g +', '+ b + ', '+ a + ')';
-         console.log("color for touch with identifier = " + color);
-         selected.style.backgroundColor = color;
-         selected.textContent = color;
-       }
-       window.addEventListener('mousemove', function(x) {
-         console.log("mousemove", x);
-         mouseoverColor(x);
-       });
+    window.addEventListener('mousemove', function(x) {
+      console.log("mousemove", x);
+      mouseoverColor(x);
+    });
 
 
 
 
-       // handleStart(x);
+    // handleStart(x);
 
-       // if (screen.orientation.angle == 0) {
-       //   // pink
-       //   video.className = "none";
-       // } else if (screen.orientation.angle == 90) {
-       //   // yellow
-       //   video.className = "pink";
-       // } else if (screen.orientation.angle == 270) {
-       //   // orange
-       //   video.className = "yellow";
-       // }
-
-
-       // // from Mozilla
-       // function copyTouch(touch) {
-       //   return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
-       // }
-       //
-
-       // // from Mozilla
-       // function colorForTouch(touch) {
-       //   var r = touch.identifier % 16;
-       //   var g = Math.floor(touch.identifier / 3) % 16;
-       //   var b = Math.floor(touch.identifier / 7) % 16;
-       //   r = r.toString(16); // make it a hex digit
-       //   g = g.toString(16); // make it a hex digit
-       //   b = b.toString(16); // make it a hex digit
-       //   var color = "#" + r + g + b;
-       //   console.log("color for touch with identifier " + touch.identifier + " = " + color);
-       //   return color;
-       // }
-       //
-       // // from Mozilla
-       // function handleStart(evt) {
-       //   var ongoingTouches = [];
-       //   console.log("canvas updating 23")
-       //   evt.preventDefault();
-       //   console.log("touchstart.");
-       //   var el = document.getElementsByTagName("canvas")[0];
-       //   var ctx = el.getContext("2d");
-       //   var touches = evt.changedTouches;
-       //   console.log(touches);
-       //
-       //   for (var i = 0; i < touches.length; i++) {
-       //     console.log("touchstart:" + i + "...");
-       //     ongoingTouches.push(copyTouch(touches[i]));
-       //     var color = colorForTouch(touches[i]);
-       //     // ctx.beginPath();
-       //     // ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
-       //
-       //     ctx.fillStyle = color;
-       //     ctx.fill();
-       //     console.log("color", color);
-       //     console.log("touchstart:" + i + ".");
-       //   }
-       // }
+    // if (screen.orientation.angle == 0) {
+    //   // pink
+    //   video.className = "none";
+    // } else if (screen.orientation.angle == 90) {
+    //   // yellow
+    //   video.className = "pink";
+    // } else if (screen.orientation.angle == 270) {
+    //   // orange
+    //   video.className = "yellow";
+    // }
 
 
-    </script>
-  </body>
+    // // from Mozilla
+    // function copyTouch(touch) {
+    //   return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
+    // }
+    //
+
+    // // from Mozilla
+    // function colorForTouch(touch) {
+    //   var r = touch.identifier % 16;
+    //   var g = Math.floor(touch.identifier / 3) % 16;
+    //   var b = Math.floor(touch.identifier / 7) % 16;
+    //   r = r.toString(16); // make it a hex digit
+    //   g = g.toString(16); // make it a hex digit
+    //   b = b.toString(16); // make it a hex digit
+    //   var color = "#" + r + g + b;
+    //   console.log("color for touch with identifier " + touch.identifier + " = " + color);
+    //   return color;
+    // }
+    //
+    // // from Mozilla
+    // function handleStart(evt) {
+    //   var ongoingTouches = [];
+    //   console.log("canvas updating 23")
+    //   evt.preventDefault();
+    //   console.log("touchstart.");
+    //   var el = document.getElementsByTagName("canvas")[0];
+    //   var ctx = el.getContext("2d");
+    //   var touches = evt.changedTouches;
+    //   console.log(touches);
+    //
+    //   for (var i = 0; i < touches.length; i++) {
+    //     console.log("touchstart:" + i + "...");
+    //     ongoingTouches.push(copyTouch(touches[i]));
+    //     var color = colorForTouch(touches[i]);
+    //     // ctx.beginPath();
+    //     // ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
+    //
+    //     ctx.fillStyle = color;
+    //     ctx.fill();
+    //     console.log("color", color);
+    //     console.log("touchstart:" + i + ".");
+    //   }
+    // }
+  </script>
+</body>
+
 </html>
