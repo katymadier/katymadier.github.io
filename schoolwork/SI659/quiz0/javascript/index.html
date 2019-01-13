@@ -64,7 +64,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 114")
+    console.log("canvas updating 115")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -120,25 +120,22 @@
 
       //touch listener
       canvas.addEventListener('click', function(x) {
-        console.log("click", color);
-        clicked.style.backgroundColor = color;
-        clicked.textContent = color;
 
         //filter out selected color from canvas
         let newImageData = ctx.getImageData(0, 0, c.width, c.height);
+
+        console.log("click", color);
+        clicked.style.backgroundColor = color;
+        clicked.textContent = color;
         for (var i = 0; i < newImageData.data.length; i+=4) {
           console.log("filtering video")
-           newImageData.data[i] = 0;
-           newImageData.data[i+1] = 0;
-           newImageData.data[i+2] = 0;
-           newImageData.data[i+3] = 0;
-          // if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
-          //   console.log("erasing data")
-          //   newImageData.data[i] = 0;
-          //   newImageData.data[i+1] = 0;
-          //   newImageData.data[i+2] = 0;
-          //   newImageData.data[i+3] = 0;
-          // }
+          if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
+            console.log("erasing data")
+            newImageData.data[i] = 255;
+            newImageData.data[i+1] = 255;
+            newImageData.data[i+2] = 255;
+            newImageData.data[i+3] = 255;
+          }
         };
         ctx.putImageData(newImageData, 0, 0);
       });
