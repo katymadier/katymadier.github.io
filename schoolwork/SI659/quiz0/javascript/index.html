@@ -151,7 +151,8 @@
         //filter out selected color from canvas
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         var data = imageData.data;
-        function() {
+        invert();
+        function invert() {
           for (var i = 0; i < data.length; i += 4) {
             data[i]     = 255 - data[i];     // red
             data[i + 1] = 255 - data[i + 1]; // green
