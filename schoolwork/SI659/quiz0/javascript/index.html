@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 127")
+    console.log("canvas updating 128")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -144,12 +144,13 @@
           newImageData.data[i + 3] = 0;
         }
       };
-      ctx.putImageData(newImageData, 0, 0);
+
     }
 
     //touch listener
     canvas.addEventListener('click', function(x) {
       filterCanvas(x)
+      ctx.putImageData(newImageData, 0, 0);
     });
 
     //mouse listener
