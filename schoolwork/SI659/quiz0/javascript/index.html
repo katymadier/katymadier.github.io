@@ -62,9 +62,11 @@
     <div id="selected"></div>
     <div id="clicked"></div>
   </div>
+
   <script>
+
     // setting up scene
-    console.log("canvas updating 120")
+    console.log("canvas updating 121")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -92,39 +94,38 @@
     c.height = document.body.clientHeight;
 
     var ctx = c.getContext("2d");
-    var video = document.getElementById("video");
-    ctx.drawImage(video, 0, 0)
+    var selected = document.getElementById("selected");
+    var color;
+    var imageData;
+    var newImageData;
 
-    // video.addEventListener('play', function() {
-    //   function step() {
-    //     ctx.drawImage(video, 0, 0)
-    //     requestAnimationFrame(step)
-    //   }
-    //   requestAnimationFrame(step);
-    // })
+    video.addEventListener('play', function() {
+      function step() {
+        ctx.drawImage(video, 0, 0)
+        requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step);
+    })
 
     function mouseoverColor(evt) {
-      var selected = document.getElementById("selected");
       var x = evt.layerX;
       var y = evt.layerY;
 
-      let imageData = ctx.getImageData(x, y, 1, 1);
+      imageData = ctx.getImageData(x, y, 1, 1);
       ctx.putImageData(imageData, 0, 0);
       var r = imageData.data[0];
       var g = imageData.data[1];
       var b = imageData.data[2];
       var a = imageData.data[3];
 
-      let color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
+      color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
       selected.style.backgroundColor = color;
       selected.textContent = color;
     }
 
-    //touch listener
-    canvas.addEventListener('click', function(x) {
-
+    function filterCanvas(evt){
       //filter out selected color from canvas
-      let newImageData = ctx.getImageData(0, 0, c.width, c.height);
+      newImageData = ctx.getImageData(0, 0, c.width, c.height);
 
       console.log("click", color);
       clicked.style.backgroundColor = color;
@@ -139,13 +140,18 @@
         }
       };
       ctx.putImageData(newImageData, 0, 0);
+    }
+    
+    //touch listener
+    canvas.addEventListener('click', function(x) {
+      filterCanvas(x)
     });
 
-
+    //mouse listener
     window.addEventListener('mousemove', function(x) {
-      // console.log("mousemove", x);
       mouseoverColor(x);
     });
+
 
   </script>
 </body>
