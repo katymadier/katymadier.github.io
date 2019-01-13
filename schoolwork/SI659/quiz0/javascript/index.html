@@ -66,7 +66,7 @@
   <script>
 
     // setting up scene
-    console.log("canvas updating 133")
+    console.log("canvas updating 134")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -127,24 +127,36 @@
 
     function filterCanvas(evt){
       //filter out selected color from canvas
+      x = evt.layerX;
+      y = evt.layerY;
+
+      imageData = ctx.getImageData(x, y, 1, 1);
+
+      var r = imageData.data[0];
+      var g = imageData.data[1];
+      var b = imageData.data[2];
+      var a = imageData.data[3];
+
       newImageData = ctx.getImageData(0, 0, c.width, c.height);
+
+      color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
 
       console.log("clicked on", color);
       clicked.style.backgroundColor = color;
       clicked.textContent = color;
-      var tolerance = 10;
+      var tolerance = 5;
 
       for (var i = 0; i < newImageData.data.length; i += 4) {
-        var diffR = Math.abs(newImageData.data[i] - imageData.data[0]);
-        var diffG = Math.abs(newImageData.data[i+1] - imageData.data[1]);
-        var diffB = Math.abs(newImageData.data[i+2] - imageData.data[2]);
+        var diffR = Math.abs(newImageData.data[i] - r);
+        var diffG = Math.abs(newImageData.data[i+1] - g);
+        var diffB = Math.abs(newImageData.data[i+2] - b);
 
         if(diffR && diffG && diffB < tolerance) {
-          console.log("making pixels transparent")
           newImageData.data[i+3] = 0;
-          ctx.putImageData(newImageData, 0, 0);
+          console.log("making pixels transparent", newImageData.data[i+3] )
         }
       }
+      ctx.putImageData(newImageData, 0, 0);
     }
 
     //touch listener
