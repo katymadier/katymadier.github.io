@@ -64,7 +64,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 117")
+    console.log("canvas updating 120")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -93,14 +93,15 @@
 
     var ctx = c.getContext("2d");
     var video = document.getElementById("video");
+    ctx.drawImage(video, 0, 0)
 
-    video.addEventListener('play', function() {
-      function step() {
-        ctx.drawImage(video, 0, 0)
-        requestAnimationFrame(step)
-      }
-      requestAnimationFrame(step);
-    })
+    // video.addEventListener('play', function() {
+    //   function step() {
+    //     ctx.drawImage(video, 0, 0)
+    //     requestAnimationFrame(step)
+    //   }
+    //   requestAnimationFrame(step);
+    // })
 
     function mouseoverColor(evt) {
       var selected = document.getElementById("selected");
@@ -117,29 +118,30 @@
       let color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
       selected.style.backgroundColor = color;
       selected.textContent = color;
-
-      //touch listener
-      canvas.addEventListener('click', function(x) {
-
-        //filter out selected color from canvas
-        let newImageData = ctx.getImageData(0, 0, c.width, c.height);
-
-        console.log("click", color);
-        clicked.style.backgroundColor = color;
-        clicked.textContent = color;
-        for (var i = 0; i < newImageData.data.length; i+=4) {
-          console.log("filtering video")
-          if (newImageData.data[i] == r && newImageData.data[i+1] == g && newImageData.data[i+2] == b && newImageData.data[i+3] == a) {
-            console.log("erasing data")
-            newImageData.data[i] = 255;
-            newImageData.data[i+1] = 255;
-            newImageData.data[i+2] = 255;
-            newImageData.data[i+3] = 255;
-          }
-        };
-        ctx.putImageData(newImageData, 0, 0);
-      });
     }
+
+    //touch listener
+    canvas.addEventListener('click', function(x) {
+
+      //filter out selected color from canvas
+      let newImageData = ctx.getImageData(0, 0, c.width, c.height);
+
+      console.log("click", color);
+      clicked.style.backgroundColor = color;
+      clicked.textContent = color;
+      for (var i = 0; i < newImageData.data.length; i += 4) {
+        if (newImageData.data[i] == imageData.data[0] && newImageData.data[i+1] == imageData.data[1] && newImageData.data[i+2] == imageData.data[2] && newImageData.data[i+3] == imageData.data[3]) {
+          console.log("erasing data, New:", newImageData.data[i], "Old:", imageData.data[0] )
+          newImageData.data[i] = 255;
+          newImageData.data[i+1] = 255;
+          newImageData.data[i+2] = 255;
+          newImageData.data[i+3] = 255;
+        }
+      };
+      ctx.putImageData(newImageData, 0, 0);
+    });
+
+
     window.addEventListener('mousemove', function(x) {
       // console.log("mousemove", x);
       mouseoverColor(x);
