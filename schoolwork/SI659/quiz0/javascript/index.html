@@ -85,7 +85,7 @@
   </div>
   <script>
     // setting up scene
-    console.log("canvas updating 97")
+    console.log("canvas updating 98")
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -124,11 +124,11 @@
     })
 
     function mouseoverColor(evt) {
-      console.log(evt)
+      // console.log(evt)
       var selected = document.getElementById("selected");
       var x = evt.layerX;
       var y = evt.layerY;
-      console.log("x", x, "y", y)
+      // console.log("x", x, "y", y)
 
       let imageData = ctx.getImageData(x, y, 1, 1);
       ctx.putImageData(imageData, 0, 0);
@@ -138,7 +138,7 @@
       var a = imageData.data[3];
 
       let color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
-      console.log("color for touch with identifier = " + color);
+      // console.log("color for touch with identifier = " + color);
       selected.style.backgroundColor = color;
       selected.textContent = color;
 
@@ -152,7 +152,6 @@
       });
     }
     window.addEventListener('mousemove', function(x) {
-      console.log("mousemove", x);
       mouseoverColor(x);
     });
 
