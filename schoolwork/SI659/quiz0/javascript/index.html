@@ -5,9 +5,7 @@
   <meta charset="utf-8">
   <title>Quiz 0: JavaScript</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
   <style>
-
     body,
     html,
     #container {
@@ -15,9 +13,9 @@
       display: flex;
       width: 100%;
       height: 100%;
-      touch-action: none overflow: hidden;
+      touch-action: none;
+      overflow: hidden;
     }
-
     #canvas {
       top: 0;
       left:0;
@@ -25,14 +23,6 @@
       z-index: 0;
       overflow: hidden;
     }
-    #canvas2 {
-      top: 0;
-      right:0;
-      position: absolute;
-      z-index: 0;
-      overflow: hidden;
-    }
-
     #video {
       top: 0;
       position: absolute;
@@ -42,7 +32,6 @@
       width: 100%;
       display:none;
     }
-
     #selected {
       bottom: 5px;
       right: 5px;
@@ -61,21 +50,18 @@
     }
   </style>
 </head>
-
 <body>
-
   <div id="container">
     <canvas id="canvas"></canvas>
-    <canvas id="canvas2"></canvas>
     <video id="video" autoplay></video>
     <div id="selected"></div>
     <div id="clicked"></div>
   </div>
-
   <script>
 
-    // setting up scene
-    console.log("canvas updating 142")
+    console.log("canvas updating 152")
+
+    //reading camera feed
     var video = window.video = document.querySelector('video');
     var constraints = {
       video: {
@@ -84,29 +70,22 @@
         audio: false
       }
     };
-
-    //reading camera feed
     function handleSuccess(stream) {
       window.stream = stream;
       video.srcObject = stream;
     }
-
     function handleError(error) {
       console.log('navigator.getUserMedia error: ', error);
     }
     navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 
+
     //set up canvas with video image
     var c = document.getElementById("canvas");
-    c.width = document.body.clientWidth/2;
+    c.width = document.body.clientWidth;
     c.height = document.body.clientHeight;
-    var can = document.getElementById("canvas2");
-    can.width = document.body.clientWidth/2;
-    can.height = document.body.clientHeight;
-
     var ctx = c.getContext("2d");
-    var ctx2 = can.getContext("2d");
     var selected = document.getElementById("selected");
     var color;
     var imageData;
@@ -119,65 +98,75 @@
     var a;
 
     video.addEventListener('play', function() {
-      function step() {
-        ctx.drawImage(video, 0, 0)
-        requestAnimationFrame(step)
+      function draw() {
+        filterCanvas()
+        requestAnimationFrame(draw)
       }
-      requestAnimationFrame(step);
+      requestAnimationFrame(draw);
     })
 
+    //getting mouseover color preview
     function mouseoverColor(evt) {
+      var mousex = evt.layerX;
+      var mousey = evt.layerY;
+      var mouseimageData = ctx.getImageData(mousex, mousey, 1, 1);
+      var mouser = mouseimageData.data[0];
+      var mouseg = mouseimageData.data[1];
+      var mouseb = mouseimageData.data[2];
+      var mousea = mouseimageData.data[3];
+      var mousecolor = "rgba(" + mouser + ', ' + mouseg + ', ' + mouseb + ', ' + mousea + ')';
+      selected.style.backgroundColor = mousecolor;
+      selected.textContent = mousecolor;
+    }
+    //mouse listener
+    window.addEventListener('mousemove', function(x) {
+      mouseoverColor(x);
+    });
+
+    //getting color selection on click to filter
+    function selectedColor(evt) {
       x = evt.layerX;
       y = evt.layerY;
-
       imageData = ctx.getImageData(x, y, 1, 1);
-
       r = imageData.data[0];
       g = imageData.data[1];
       b = imageData.data[2];
       a = imageData.data[3];
-
       color = "rgba(" + r + ', ' + g + ', ' + b + ', ' + a + ')';
       selected.style.backgroundColor = color;
       selected.textContent = color;
     }
+    //touch listener
+    window.addEventListener('click', function(x) {
+      selectedColor(x);
+    });
 
-    function filterCanvas(evt){
-      //filter out selected color from canvas
-
+    //filtering video feed
+    function filterCanvas(){
+      ctx.drawImage(video, 0, 0)
       newImageData = ctx.getImageData(0, 0, c.width, c.height);
 
       console.log("clicked on", color);
       clicked.style.backgroundColor = color;
       clicked.textContent = color;
+
       var tolerance = 20;
 
-      for (var i = 0; i < newImageData.data.length; i += 4) {
-        var diffR = Math.abs(newImageData.data[i] - r);
-        var diffG = Math.abs(newImageData.data[i+1] - g);
-        var diffB = Math.abs(newImageData.data[i+2] - b);
+      for (var i = 0; i < newImageData.data.length/4; i ++) {
+        var diffR = Math.abs(newImageData.data[i * 4 + 0] - r);
+        var diffG = Math.abs(newImageData.data[i * 4 + 1] - g);
+        var diffB = Math.abs(newImageData.data[i * 4 + 2] - b);
 
         if(diffR && diffG && diffB < tolerance) {
-          newImageData.data[i] = 255;
-          newImageData.data[i+1] = 255;
-          newImageData.data[i+2] = 255;
-          newImageData.data[i+3] = 255;
-          console.log("changing data" )
+          newImageData.data[i * 4 + 0] = 0;
+          newImageData.data[i * 4 + 1] = 0;
+          newImageData.data[i * 4 + 2] = 0;
+          newImageData.data[i * 4 + 3] = 255;
+          console.log("filtering color" )
         }
       }
-      ctx2.putImageData(newImageData, 0, 0);
-      // ctx2.drawImage(newImageData, 0, 0)
+      ctx.putImageData(newImageData, 0, 0);
     }
-
-    //touch listener
-    window.addEventListener('click', function(x) {
-      filterCanvas(x)
-    });
-
-    //mouse listener
-    window.addEventListener('mousemove', function(x) {
-      mouseoverColor(x);
-    });
 
 
   </script>
