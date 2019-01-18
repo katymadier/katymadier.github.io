@@ -94,6 +94,18 @@
     var g;
     var b;
     var a;
+    var mousex;
+    var mousey;
+    var mouseimageData;
+    var mouser;
+    var mouseg;
+    var mouseb;
+    var mousea;
+    var mousecolor;
+    var tolerance;
+    var diffR;
+    var diffG;
+    var diffB;
 
     video.addEventListener('play', function() {
       function draw() {
@@ -105,14 +117,14 @@
 
     //getting mouseover color preview
     function mouseoverColor(evt) {
-      var mousex = evt.layerX;
-      var mousey = evt.layerY;
-      var mouseimageData = ctx.getImageData(mousex, mousey, 1, 1);
-      var mouser = mouseimageData.data[0];
-      var mouseg = mouseimageData.data[1];
-      var mouseb = mouseimageData.data[2];
-      var mousea = mouseimageData.data[3];
-      var mousecolor = "rgba(" + mouser + ', ' + mouseg + ', ' + mouseb + ', ' + mousea + ')';
+      mousex = evt.layerX;
+      mousey = evt.layerY;
+      mouseimageData = ctx.getImageData(mousex, mousey, 1, 1);
+      mouser = mouseimageData.data[0];
+      mouseg = mouseimageData.data[1];
+      mouseb = mouseimageData.data[2];
+      mousea = mouseimageData.data[3];
+      mousecolor = "rgba(" + mouser + ', ' + mouseg + ', ' + mouseb + ', ' + mousea + ')';
       selected.style.backgroundColor = mousecolor;
       selected.textContent = mousecolor;
     }
@@ -144,23 +156,23 @@
       ctx.drawImage(video, 0, 0)
       newImageData = ctx.getImageData(0, 0, c.width, c.height);
 
-      console.log("clicked on", color);
+      // console.log("clicked on", color);
       clicked.style.backgroundColor = color;
       clicked.textContent = color;
 
-      var tolerance = 20;
+      tolerance = 20;
 
       for (var i = 0; i < newImageData.data.length/4; i ++) {
-        var diffR = Math.abs(newImageData.data[i * 4 + 0] - r);
-        var diffG = Math.abs(newImageData.data[i * 4 + 1] - g);
-        var diffB = Math.abs(newImageData.data[i * 4 + 2] - b);
+        diffR = Math.abs(newImageData.data[i * 4 + 0] - r);
+        diffG = Math.abs(newImageData.data[i * 4 + 1] - g);
+        diffB = Math.abs(newImageData.data[i * 4 + 2] - b);
 
         if(diffR && diffG && diffB < tolerance) {
           newImageData.data[i * 4 + 0] = 0;
           newImageData.data[i * 4 + 1] = 0;
           newImageData.data[i * 4 + 2] = 0;
           newImageData.data[i * 4 + 3] = 255;
-          console.log("filtering color" )
+          // console.log("filtering color" )
         }
       }
       ctx.putImageData(newImageData, 0, 0);
