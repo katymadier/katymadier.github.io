@@ -1,0 +1,103 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Assignment 1: Spaceballs</title>
+  <meta name="description" content="Assignment 1: Spaceballs">
+  <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.1/dist/aframe-extras.min.js"></script>
+  <script src="https://cdn.rawgit.com/matthewbryancurtis/aframe-star-system-component/db4f1030/index.js"></script>
+</head>
+
+<body>
+  <a-scene>
+    <a-assets>
+      <img id="floorTexture" src="./imgs/floor.jpg">
+      <a-asset-item id="dinerasset" src="./models/diner/diner_1264.gltf"></a-asset-item>
+      <a-asset-item id="dinerboothasset" src="./models/diner_booth/scene.gltf"></a-asset-item>
+      <a-asset-item id="dinerbarasset" src="./models/bar/scene.gltf"></a-asset-item>
+      <a-asset-item id="dodginggirlasset" src="./models/sitting_dodges/scene.gltf"></a-asset-item>
+      <a-asset-item id="dyingmanasset" src="./models/dying/scene.gltf"></a-asset-item>
+      <a-asset-item id="alienasset" src="./models/alien/scene.gltf"></a-asset-item>
+      <a-asset-item id="standingladyasset" src="./models/stepbackcharacter/scene.gltf"></a-asset-item>
+      <a-asset-item id="talkingladyasset" src="./models/sitting_talking/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <!-- credits -->
+    <a-entity id="credits">
+      <a-text position="-25.933 18.360 17.099" rotation="0 -45 0" value="A-Frame Spaceballs" text=""></a-text>
+      <a-text position="-25.933 18.0 17.099" rotation="0 -45 0" value="by Katy Madier" text=""></a-text>
+    </a-entity>
+
+    <!-- camera -->
+    <a-entity position="-26.32805 17.85616 21.25161" rotation="-21.735153958287782 -44.86603310551424 0">
+      <a-camera camera="" look-controls="" wasd-controls="" data-aframe-inspector-original-camera="" position="0 0 0" rotation=""></a-camera>
+      <a-animation attribute="position" dur="6000" delay="6000" to="5.70865 3.14291 3.05757"></a-animation>
+      <a-animation attribute="rotation" dur="7000" delay="7000" to="0 43.7052206125792 0"></a-animation>
+    </a-entity>
+
+    <!-- scene -->
+    <!-- diner: Model by Google from Google Poly https://poly.google.com/view/4Xlqz9IfdrV-->
+    <a-entity gltf-model="#dinerasset" scale="0.09 0.09 0.09" position="-0.6403 0.17614 0.27848"></a-entity>
+
+    <!-- diner booth by West McCann https://sketchfab.com/models/00110b996d944a658db8f24c6ccf36ec -->
+    <a-entity id="booths">
+      <a-entity gltf-model="#dinerboothasset" scale="1.5 1.5 1.5" position="-3.63152 2.294 2.074"></a-entity>
+      <a-entity gltf-model="#dinerboothasset" scale="1.5 1.5 1.5" position="-0.66074 2.294 2.074"></a-entity>
+    </a-entity>
+
+    <!-- bar by SageCettcle https://sketchfab.com/models/d424350cdf0e4ad08e3bba402b5342d2-->
+    <a-entity id="bar" position="2.88267 1.54951 -2.72176" scale="0.6 0.6 0.6" rotation="0 270 0">
+      <a-entity gltf-model="#dinerbarasset" scale="" position=""></a-entity>
+    </a-entity>
+
+    <!-- floor -->
+    <a-entity id="room" position="-3.02274 0.17135 -1.70393" scale="0.9 0.9 0.9">
+      <a-plane src="#floorTexture" position="-0.21317 1.5 -4.34801" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="-0.18664 1.5 0.03011" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="-0.22872 1.5 2.5" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="3.55518 1.51486 2.53248" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="4.80559 1.5 -1.86605" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="4.15933 1.5 -4.36241" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="10.44169 1.525 4.4079" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="7.91813 1.525 4.40977" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="10.44899 1.5 -4.3159" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="10.44155 1.51486 0.04623" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="7.93632 1.5 -4.32815" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+      <a-plane src="#floorTexture" position="7.95451 1.5 0.05861" rotation="-90 0 0" width="5" height="5" shadow="" side="double" material="" geometry=""></a-plane>
+    </a-entity>
+
+    <!-- characters - made with Mixamo & uploaded to sketchfab-->
+    <a-entity id="sittingdodging" scale="0.006 0.006 0.006" position="3.28352 1.86619 -1.66584" gltf-model="#dodginggirlasset" animation-mixer="duration: 50; timeScale:0" rotation="0 -63.27172931629681 0">
+      <a-animation attribute="animation-mixer.timeScale" delay="13000" from="0" to="1"></a-animation>
+      <a-animation attribute="animation-mixer.timeScale" delay="20000" from="1" to="0"></a-animation>
+    </a-entity>
+
+    <!-- characters - made with Mixamo & uploaded to sketchfab-->
+    <a-entity id="dyingman" scale="0.006 0.006 0.006" position="2.35068 1.5 -1.41445" gltf-model="#dyingmanasset" animation-mixer="timeScale:0">
+      <a-animation attribute="animation-mixer.timeScale" delay="13000" from="0" to="1"></a-animation>
+      <a-animation attribute="animation-mixer.timeScale" delay="18000" from="1" to="0"></a-animation>
+      <!-- Alien from 3DMaesen https://sketchfab.com/models/4028043549f64b40a14b6b12392663a7 -->
+      <a-entity id="alien" scale=".0001 .0001 .0001" position="103.497 -11.383 340.513" rotation="-19.267 92.966 -0.980" gltf-model="#alienasset" animation-mixer="timeScale:1" rotation="0 0 0">
+        <a-animation attribute="scale" delay="20000" to="1 1 1" repeat="0"></a-animation>
+      </a-entity>
+    </a-entity>
+
+    <!-- Woman from informatica e manutenção https://sketchfab.com/models/c33634d535bb443097e1fdbbd651b328-->
+    <a-entity id="stepbacklady" scale="0.011 0.011 0.011" position="3.29521 1.5 0.68784" rotation="0 -88.764 0" gltf-model="#standingladyasset" animation-mixer="duration:10; loop:pingpong; timeScale:0">
+      <a-animation attribute="animation-mixer.timeScale" delay="13000" from="0" to="1"></a-animation>
+      <a-animation attribute="animation-mixer.timeScale" delay="20000" from="1" to="0"></a-animation>
+    </a-entity>
+
+    <!-- characters - made with Mixamo & uploaded to sketchfab-->
+    <a-entity id="sittingtalking" scale="0.01 0.01 0.01" position="6.8363 1.7478 -2.79107" gltf-model="#talkingladyasset" animation-mixer="" rotation="0 -62.589909540091135 0">
+    </a-entity>
+
+
+    <a-sky color="black"></a-sky>
+    <a-entity star-system></a-entity>
+  </a-scene>
+
+</body>
+
+</html>
