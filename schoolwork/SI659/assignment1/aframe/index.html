@@ -21,12 +21,14 @@
       <a-asset-item id="alienasset" src="./models/alien/scene.gltf"></a-asset-item>
       <a-asset-item id="standingladyasset" src="./models/stepbackcharacter/scene.gltf"></a-asset-item>
       <a-asset-item id="talkingladyasset" src="./models/sitting_talking/scene.gltf"></a-asset-item>
+      <!-- Background audio track provided by Noises.Online under a CC 3.0 BY license. -->
+      <a-asset-item id="backgroundNoise" src="./audio/NoisesDotOnline_FileRequest#1548459646423.wav"></a-asset-item>
     </a-assets>
 
     <!-- credits -->
     <a-entity id="credits">
       <a-text position="-25.933 18.360 17.099" rotation="0 -45 0" value="A-Frame Spaceballs" text=""></a-text>
-      <a-text position="-25.933 18.0 17.099" rotation="0 -45 0" value="by Katy Madier" text=""></a-text>
+      <a-text position="-25.933 18.0 17.099" rotation="0 -45 0" value="by Katy Madier" text="" sound="src: #backgroundNoise; autoplay: true; maxDistance:6"></a-text>
     </a-entity>
 
     <!-- camera -->
