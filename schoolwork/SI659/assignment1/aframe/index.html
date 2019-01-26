@@ -22,20 +22,20 @@
       <a-asset-item id="standingladyasset" src="./models/stepbackcharacter/scene.gltf"></a-asset-item>
       <a-asset-item id="talkingladyasset" src="./models/sitting_talking/scene.gltf"></a-asset-item>
       <!-- Background audio track provided by Noises.Online under a CC 3.0 BY license. -->
-      <a-asset-item id="backgroundNoise" src="./audio/NoisesDotOnline_FileRequest#1548459646423.wav"></a-asset-item>
+      <a-asset-item id="backgroundNoise" src="./audio/whitenoise.mp3" response-type="arraybuffer" preload="auto"></a-asset-item>
     </a-assets>
 
     <!-- credits -->
-    <a-entity id="credits">
-      <a-text position="-25.933 18.360 17.099" rotation="0 -45 0" value="A-Frame Spaceballs" text=""></a-text>
-      <a-text position="-25.933 18.0 17.099" rotation="0 -45 0" value="by Katy Madier" text="" sound="src: #backgroundNoise; autoplay: true; maxDistance:6"></a-text>
+    <a-entity id="credits" sound="src: audio/whitenoise.mp3; on: startsound; loop: true; maxDistance: 15; autoplay: true">
+      <a-text position="-25.933 18.36 17.099" rotation="0 -45 0" value="A-Frame Spaceballs" text=""></a-text>
+      <a-text position="-25.933 18 17.099" rotation="0 -45 0" value="by Katy Madier" text=""></a-text>
     </a-entity>
 
     <!-- camera -->
-    <a-entity position="-26.32805 17.85616 21.25161" rotation="-21.735153958287782 -44.86603310551424 0">
+    <a-entity id="camera" position="-26.32805 17.85616 21.25161" rotation="-21.735153958287782 -44.86603310551424 0">
       <a-camera camera="" look-controls="" wasd-controls="" data-aframe-inspector-original-camera="" position="0 0 0" rotation=""></a-camera>
-      <a-animation attribute="position" dur="6000" delay="6000" to="5.70865 3.14291 3.05757"></a-animation>
-      <a-animation attribute="rotation" dur="7000" delay="7000" to="0 43.7052206125792 0"></a-animation>
+      <a-animation attribute="position" begin="startscene" dur="6000" delay="6000" to="5.70865 3.14291 3.05757"></a-animation>
+      <a-animation attribute="rotation" begin="startscene" dur="7000" delay="7000" to="0 43.7052206125792 0"></a-animation>
     </a-entity>
 
     <!-- scene -->
@@ -101,5 +101,13 @@
   </a-scene>
 
 </body>
+<script>
+  document.querySelector('a-scene').addEventListener('loaded', function (){
+    document.querySelector("#camera").querySelector('a-animation').emit('startscene');
+    console.log("starting scene");
+    document.querySelector("#credits").emit('startsound');
+    console.log("starting sound");
+  });
+</script>
 
 </html>
