@@ -4,18 +4,22 @@ I am currently a second-year master's student at the University of Michigan Scho
 
 ## Projects
 ### School Projects
-* [A portfolio site created for SI539 Design of Complex Interfaces](https://katymadier.github.io/schoolwork/portfolio)<br>
+* [Filtering Pixels from a Video | SI659 Advanced AR/VR | 2019](https://katymadier.github.io/schoolwork/SI659/quiz0/javascript)<br>
+* [Recording Audio with Python | SI515 Engineering Applications of Media Technology | 2018](https://katymadier.github.io/schoolwork/SI515/Assignment0)<br>
+* [Mission CTRL: Ionic Mobile App for space travellers with three js | SI669 Developing Mobile Experiences | 2018](https://katymadier.github.io/schoolwork/SI669/Mission_Ctrl)<br>
+* [Portfolio Design | SI539 Design of Complex Interfaces | 2018](https://katymadier.github.io/schoolwork/portfolio)<br>
 
-### AR Demos
-* [Processing camera input and motion sensing (Mobile)](https://katymadier.github.io/demos/demo-camera-orientation/)<br>
-* [A-Frame XR - placing OBJ model in scene (Mobile)](https://katymadier.github.io/demos/demo-aframexr-obj/): Requires WebXR browser<br>
-* [AR.js with OBJ model](https://katymadier.github.io/demos/demo-arjs-obj/): Requires AR.js markers<br>
-* [A-Frame XR & AR.js - positional sound](https://katymadier.github.io/demos/demo-arjs-positional-sound/): Requires AR.js markers<br>
-
-### VR Demos
-* [A-Frame & Sketchup](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
-* [A-Frame with motion and sound for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-sounds/)<br>
-* [A-Frame with physics for Daydream or mobile](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
+### Demos
+* [Tensorflow PoseNet body tracking in VR | 2019](https://katymadier.github.io/demos/tsbodytracking)<br>
+* [Kinect body tracking in VR | 2018](https://katymadier.github.io/demos/moviekinect)<br>
+* [Face tracking with brfv4 library | 2018](https://katymadier.github.io/demos/chatting/dogface)<br>
+* [Processing camera input and motion sensing (Mobile) | 2018](https://katymadier.github.io/demos/demo-camera-orientation/)<br>
+* [A-Frame XR - placing OBJ model in scene (Mobile) | 2018](https://katymadier.github.io/demos/demo-aframexr-obj/): Requires WebXR browser<br>
+* [AR.js with OBJ model | 2018](https://katymadier.github.io/demos/demo-arjs-obj/): Requires AR.js markers<br>
+* [A-Frame XR & AR.js - positional sound | 2018](https://katymadier.github.io/demos/demo-arjs-positional-sound/): Requires AR.js markers<br>
+* [A-Frame with motion and sound for Daydream or mobile | 2018](https://katymadier.github.io/demos/demo-aframe-sounds/)<br>
+* [A-Frame with physics for Daydream or mobile | 2018](https://katymadier.github.io/demos/demo-aframe-physics/)<br> 
+* [A-Frame & Sketchup | 2017](https://katymadier.github.io/demos/demo-aframe-sketchup-poptart/) <br>
 
 
 ## Built With
