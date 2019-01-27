@@ -2,7 +2,7 @@
 
 <img src="tsbodytracking.gif" alt="VRDemo" style="width: 600px;"/>
 
-## The Project
+## The Project [Work-in-Progress]
 
 This is a demo created for use in my Master's Thesis. The thesis focuses on analyzing the social VR landscape to better understand how to make co-located VR experiences more collaborative and social.
 
