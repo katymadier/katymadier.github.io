@@ -31,8 +31,21 @@ try:
     from socket import *
     from pygame.locals import *
 except ImportError as err:
-    print("couldn't load module. %s")
+    print("couldn't load module.")
     sys.exit(2)
+
+
+# audio input
+
+# categorize audio data for type of sound
+
+# the game
+
+### scrape to select category
+
+### tap to select option
+
+### blow to use 
 
 def load_png(name):
     """ Load image and return image object"""
