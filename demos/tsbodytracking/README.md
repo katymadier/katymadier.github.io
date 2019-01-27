@@ -10,7 +10,7 @@ This is a demo created for use in my Master's Thesis. The thesis focuses on anal
 
 This purpose of this demo is to provide a way for mobile VR users to engage in VR experiences together simply by placing their phones in a low-cost VR device like Google cardboard. By using phone camera-based body tracking, VR users do not have to instrument an environment to get realistic body representation in the virtual environment.
 
-We will use this demo to run a user study to discover if body representation in co-located social VR experiences encourages collaboration and increases feelings of togetherness.
+We will use this demo as a part of a user study to discover if body representation in co-located social VR experiences encourages collaboration and increases feelings of togetherness.
 
 ### Additional work to be done
 
