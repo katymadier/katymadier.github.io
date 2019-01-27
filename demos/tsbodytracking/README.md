@@ -1,5 +1,7 @@
 # Tensorflow PoseNet body tracking for Virtual Reality
 
+<img src="https://github.com/katymadier/katymadier.github.io/tree/master/demos/tsbodytrackin.gif" alt="VRDemo" style="width: 600px;"/>
+
 ## The Project
 
 This is a demo created for use in my Master's Thesis. The thesis focuses on analyzing the social VR landscape to better understand how to make co-located VR experiences more collaborative and social.
