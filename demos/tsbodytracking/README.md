@@ -23,7 +23,7 @@ We will use this demo as a part of a user study to discover if body representati
 
 ### Demo
 
-* [live Demo](https://github.com/katymadier/katymadier.github.io/tree/master/demos/tsbodytracking)<br>
+* [live Demo](https://katymadier.github.io/demos/tsbodytracking/)<br>
 * [Video](https://www.useloom.com/share/eed34684bea44e429b0f9992f2712f6f)<br>
 
 
