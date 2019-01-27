@@ -1,6 +1,6 @@
 # Tensorflow PoseNet body tracking for Virtual Reality
 
-<img src="https://katymadier.github.io/demos/tsbodytracking/tsbodytracking.gif" alt="VRDemo" style="width: 600px;"/>
+<img src="tsbodytracking.gif" alt="VRDemo" style="width: 600px;"/>
 
 ## The Project
 
