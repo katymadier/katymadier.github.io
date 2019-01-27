@@ -10,7 +10,7 @@ I am currently a second-year master's student at the University of Michigan Scho
 * [Portfolio Design | SI539 Design of Complex Interfaces | 2018](https://katymadier.github.io/schoolwork/portfolio)<br>
 
 ### Demos
-* [Tensorflow PoseNet body tracking in VR | 2019](https://katymadier.github.io/demos/tsbodytracking)<br>
+* [Tensorflow PoseNet body tracking in VR | 2019](https://github.com/katymadier/katymadier.github.io/tree/master/demos/tsbodytracking)<br>
 * [Kinect body tracking in VR | 2018](https://github.com/katymadier/katymadier.github.io/tree/master/demos/moviekinect)<br>
 * [Face tracking with brfv4 library | 2018](https://katymadier.github.io/demos/chatting/dogface)<br>
 * [Processing camera input and motion sensing (Mobile) | 2018](https://katymadier.github.io/demos/demo-camera-orientation/)<br>
