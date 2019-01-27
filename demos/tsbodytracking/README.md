@@ -41,4 +41,4 @@ We will use this demo as a part of a user study to discover if body representati
 
 ## Acknowledgments
 
-* Thanks to my advisor, Professor Michael Nebeling, and the University of Michigan Information Interaction Lab for supporting the work in my master's thesis.
+Thanks to my advisor, Professor Michael Nebeling, and the University of Michigan Information Interaction Lab for supporting the work in my master's thesis.
