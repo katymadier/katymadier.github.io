@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>VR movie with kinect body tracking</title>
+	<script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+	<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+	<script src="/.common/https.js"></script>
+	<script src="/.common/require.js"></script>
+</head>
+
+<body>
+	<a-scene environment="preset: forest; dressingAmount: 500">
+		<a-assets>
+			<img id="background-src" src="assets/room.jpg">
+		</a-assets>
+		<a-camera id="acam" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera>
+		<a-entity id="body" position="0 1.6 0" ></a-entity>
+		<a-box id="tv" height="7" width="8" position="0 0 5" ></a-box>
+
+	</a-scene>
+	<script>
+		var scene = document.querySelector("a-scene");
+		var body = scene.querySelector("#body");
+		var camera = scene.querySelector("#acam");
+		console.log(camera);
+
+		require(["webrtc", "xd", "kinect2"]).then(function() {
+			XD.on("kinect", function(e) {
+				e.bodyFrame.bodies.forEach(function(b){
+					if(b.tracked) {
+						// if new body index
+						for (var i in Kinect2.JointType) {
+							if (Kinect2.JointType + '.' + i){
+								var joint = document.createElement('a-sphere');
+								joint.setAttribute("material", "color","red");
+								joint.setAttribute("radius", .03);
+								joint.setAttribute("id", i);
+								body.appendChild(joint);
+								var tracking = Kinect2.getJoint(e.bodyFrame, Kinect2.JointType[i]);
+								var position = scene.querySelector("#" + i).setAttribute('position',{x:tracking.cameraX, y:tracking.cameraY, z:tracking.cameraZ});
+							}
+							if (Kinect2.JointType.head){
+								var head = document.createElement('a-sphere');
+								head.setAttribute("material", "color","red");
+								head.setAttribute("radius", .1);
+								head.setAttribute("id", "head");
+								body.appendChild(head);
+								var headtrack = Kinect2.getJoint(e.bodyFrame, Kinect2.JointType.head);
+								var headpos = scene.querySelector("#head").setAttribute('position',{x:headtrack.cameraX, y:headtrack.cameraY, z:headtrack.cameraZ});
+							}
+						}
+					}
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>

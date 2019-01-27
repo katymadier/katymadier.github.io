@@ -1,0 +1,171 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@0.2.3"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  	<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+ </head>
+
+  <body>
+    <a-scene stats environment="preset: forest; dressingAmount: 500">
+      <a-assets>
+       <video id="video"></video>
+     </a-assets>
+      <a-text id="info" style='display:none'></a-text>
+      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
+  		<a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera>
+  		<a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity>
+	  </a-scene>
+
+  </body>
+  <script>
+    // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
+    const video = document.getElementById('video');
+    const videoWidth = 600;
+    const videoHeight = 600;
+    video.width = videoWidth;
+    video.height = videoHeight;
+
+    function isAndroid() {
+      return /Android/i.test(navigator.userAgent);
+    }
+    function isiOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function isMobile() {
+      return isAndroid() || isiOS();
+    }
+    async function setupCamera() {
+      console.log("running camera set up")
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error(
+            'Browser API navigator.mediaDevices.getUserMedia not available');
+      }
+
+      const mobile = isMobile();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {
+          facingMode: 'environment',
+          width: mobile ? undefined : videoWidth,
+          height: mobile ? undefined : videoHeight,
+        },
+      });
+      video.srcObject = stream;
+
+      return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          console.log("resolving video")
+          resolve(video);
+        };
+      });
+    }
+
+    //body tracking with posenet
+    async function detectPoseInRealTime(video) {
+      console.log("running detect pose function")
+      const flipHorizontal = true;
+      const net = await posenet.load(0.5);
+      const imageScaleFactor = .5;
+      const outputStride = 8;
+
+      async function poseDetectionFrame() {
+
+        let poses=[];
+        let minPoseConfidence = 0.1;
+        let minPartConfidence = 0.5;
+
+        const pose = await net.estimateSinglePose(
+            video, imageScaleFactor, flipHorizontal, outputStride);
+        poses.push(pose);
+
+        poses.forEach(({score, keypoints}) => {
+          // console.log("looking at poses")
+          if (score >= minPoseConfidence) {
+            // console.log("score passes")
+            drawSkeleton(keypoints, minPartConfidence);
+          }
+        });
+        requestAnimationFrame(poseDetectionFrame);
+      }
+      poseDetectionFrame();
+    }
+
+    //creates joints
+    function createJoint(part, position){
+      console.log("creating joints")
+      var joint = document.createElement('a-sphere');
+      joint.setAttribute("id", part);
+      body.appendChild(joint);
+      var getJoint = document.getElementById(part);
+      getJoint.setAttribute("radius", .01);
+      if (part == "nose" ){
+        getJoint.setAttribute("material", "color", "red");
+      }
+      if (part=="leftEye"|| part=="rightEye"){
+        getJoint.setAttribute("material", "color", "pink");
+      }
+      if (part=="leftEar"|| part=="rightEar"){
+        getJoint.setAttribute("material", "color", "green");
+      }
+      if (part=="leftShoulder"|| part=="rightShoulder"|| part=="leftElbow"|| part=="rightElbow"|| part=="leftWrist"|| part=="rightWrist"){
+        getJoint.setAttribute("material", "color", "blue");
+      }
+      if (part=="leftHip"|| part=="rightHip"|| part=="leftKnee"|| part=="rightKnee"|| part=="leftAnkle"|| part=="rightAnkle"){
+        getJoint.setAttribute("material", "color", "yellow");
+      } else {
+        return
+      }
+    }
+
+    // updates joint position
+    function moveJoint(scale, part, position){
+      // console.log("moving joints")
+        document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
+    }
+
+    // Draws pose into VR Scene
+    function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
+      // console.log("drawing skeleton")
+      keypoints.forEach((keypoint)=>{
+        if (keypoint.score >= minPartConfidence) {
+          if (document.getElementById(keypoint.part)){
+            moveJoint(scale, keypoint.part, keypoint.position)
+          } else {
+            createJoint(keypoint.part, keypoint.position);
+          }
+        }
+        return
+      })
+    }
+
+    async function loadVideo() {
+      const video = await setupCamera();
+      console.log("playing video")
+      video.play();
+      return video;
+    }
+
+    async function bindPage() {
+      let video
+      try {
+        video = await loadVideo();
+      } catch (e) {
+        let info = document.getElementById('info');
+        info.value = 'this browser does not support video capture,' +
+            'or this device does not have a camera';
+        info.style.display = 'block';
+        throw e;
+      }
+      detectPoseInRealTime(video);
+    }
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+    bindPage();
+
+  </script>
+
+</html>
