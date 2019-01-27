@@ -6,7 +6,7 @@ I am currently a second-year master's student at the University of Michigan Scho
 ### School Projects
 * [Filtering Pixels from a Video | SI659 Advanced AR/VR | 2019](https://katymadier.github.io/schoolwork/SI659/quiz0/javascript)<br>
 * [Recording Audio with Python | SI515 Engineering Applications of Media Technology | 2018](https://katymadier.github.io/schoolwork/SI515/Assignment0)<br>
-* [Mission CTRL: Ionic Mobile App for space travellers with three js | SI669 Developing Mobile Experiences | 2018](https://katymadier.github.io/schoolwork/SI669/Mission_Ctrl)<br>
+* [Mission CTRL: Ionic Mobile App for space travellers with three js | SI669 Developing Mobile Experiences (Group Project) | 2018](https://github.com/careyalc/Mission_Ctrl)<br>
 * [Portfolio Design | SI539 Design of Complex Interfaces | 2018](https://katymadier.github.io/schoolwork/portfolio)<br>
 
 ### Demos
