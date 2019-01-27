@@ -1,4 +1,4 @@
-# Tensorflow PoseNet body tracking for Virtual Reality | 2019
+# Tensorflow PoseNet body tracking for Virtual Reality
 
 ## The Project
 
