@@ -1,4 +1,4 @@
-# Tensorflow PoseNet body tracking for Virtual Reality
+# Tensorflow PoseNet body tracking for virtual reality
 
 <img src="tsbodytracking.gif" alt="VRDemo" style="width: 600px;"/>
 
