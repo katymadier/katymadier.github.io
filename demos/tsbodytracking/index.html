@@ -92,6 +92,25 @@
       }
       poseDetectionFrame();
     }
+    const colorMapping = {
+    	nose: "red",
+      leftEye: "pink",
+      rightEye: "pink",
+      leftEar: "green",
+      rightEar: "green",
+      leftShoulder: "blue",
+      rightShoulder: "blue",
+      leftElbow: "blue",
+      rightElbow: "blue",
+      leftWrist: "blue",
+      rightWrist: "blue",
+      leftHip: "yellow",
+      rightHip: "yellow",
+      leftKnee: "yellow",
+      rightKnee: "yellow",
+      leftAnkle: "yellow",
+      rightAnkle: "yellow"
+    };
 
     //creates joints
     function createJoint(part, position){
@@ -101,23 +120,7 @@
       body.appendChild(joint);
       var getJoint = document.getElementById(part);
       getJoint.setAttribute("radius", .01);
-      if (part == "nose" ){
-        getJoint.setAttribute("material", "color", "red");
-      }
-      if (part=="leftEye"|| part=="rightEye"){
-        getJoint.setAttribute("material", "color", "pink");
-      }
-      if (part=="leftEar"|| part=="rightEar"){
-        getJoint.setAttribute("material", "color", "green");
-      }
-      if (part=="leftShoulder"|| part=="rightShoulder"|| part=="leftElbow"|| part=="rightElbow"|| part=="leftWrist"|| part=="rightWrist"){
-        getJoint.setAttribute("material", "color", "blue");
-      }
-      if (part=="leftHip"|| part=="rightHip"|| part=="leftKnee"|| part=="rightKnee"|| part=="leftAnkle"|| part=="rightAnkle"){
-        getJoint.setAttribute("material", "color", "yellow");
-      } else {
-        return
-      }
+      getJoint.setAttribute("material", "color", colorMapping[part])
     }
 
     // updates joint position
