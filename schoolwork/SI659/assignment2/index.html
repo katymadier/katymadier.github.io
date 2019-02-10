@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>SI659 Assignment 2</title>
-    <script src="https://rawgit.com/aframevr/aframe/16b0111/dist/aframe-master.min.js"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="js/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
-    <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script> -->
+     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
 
     <script>
@@ -25,8 +26,9 @@
         schema: {
           action: {
             swipe: {type:'string', default: "left"},
-            click: {type:'bool', default: false},
-            tap: {type:'bool', default:false}
+            touch: {type:'string', default: "left"},
+            buttonclick: {type:'bool', default: false},
+            buttontap: {type:'bool', default:false},
           }
         },
         update: function() {
@@ -35,28 +37,49 @@
           var action = this.data;
           var controller = this.el;
           controller.addEventListener("trackpadtouchstart", (e) => {
+            //movement start
             start = e.target.components["tracked-controls"].controller.axes[0];
+            if (start <.79){
+              action = {touch:"left"};
+              controller.emit('action', action);
+            }
+            if (start > -.79){
+              action = {touch:"right"};
+              controller.emit('action', action);
+            }
+
+            //gamepadButton
+            if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
+              action={buttontap:true}
+            }
           });
           controller.addEventListener("trackpadtouchend", (e) => {
             end = e.target.components["tracked-controls"].controller.axes[0];
-            if (start-end > 0){
-              action = {swipe:"left"};
+
+          });
+          controller.addEventListener("trackpaddown", (e) => {
+            if (e.target.components["tracked-controls"].controller.buttons[0].pressed==true){
+              // console.log("button clicked")
+              action={gamepadclick:true}
               controller.emit('action', action);
-              //controller.setAttribute('action','swipe left');
-            } else {
-              action = {swipe:"right"};
-              controller.emit('action', action);
-              //controller.setAttribute('action', 'swipe right');
             }
           });
         },
       });
+      AFRAME.registerComponent('collider-check', {
+        dependencies: ['raycaster'],
+        init: function () {
+          this.el.addEventListener('raycaster-intersected', function (e) {
+             this.intersectingRaycaster = e.detail.el.components.raycaster;
+            console.log('Hit a thing', this.intersectingRaycaster);
+          });
+        }
+      });
     </script>
   </head>
   <body>
-    <a-scene physics="gravity:-9.8;friction: 0.1; restitution: .5;">
+    <a-scene environment="preset:arches" physics="gravity:-9.8;friction: 0.1; restitution: .5;">
       <a-assets>
-        <img id="wall" src="models/wall.png">
         <!-- house plant - poly by Google -->
         <a-asset-item id="plant-model" src="models/plant/model.gltf"></a-asset-item>
         <!-- watering can Riofluo Agence événementiel street -->
@@ -68,19 +91,36 @@
 
       <!-- lights -->
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
-      <a-light type="point" intensity=".75" position="1.582 5 4.764"></a-light>
+      <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
       <a-mixin id="lightbox"
                 geometry="primitive: plane;"
                 material="color: #FFF; shader: flat"
                 light="color: #DDDDFF; distance: 120; intensity: .1; type: spot; penumbra: 1; angle: 12;"></a-mixin>
 
+      <!-- from michael's code pen https://codepen.io/mnebeling/pen/EGvxgp -->
+      <a-mixin id="collider" material="opacity: 0.99" event-set__mousedown="scale: 0.9 0.9 0.9" event-set__mouseenter="opacity: 0.8" event-set__mouseleave="opacity: 0.99" event-set__mouseup="scale: 1 1 1"></a-mixin>
+
       <!-- Player -->
-      <a-entity id="cameraRig" position= "1.55 0 6.4" >
-        <a-camera id="head" progressive-controls wasd-controls look-controls>
-          <a-entity id="cursor" cursor="rayOrigin:mouse;" line="visible:false" geometry="primitive: circle; radius: 0.01; segments: 4;" material="color: #FF4444; shader: flat" ></a-entity>
-          <a-entity static-body="shape: box; boxRadius: 0.02;" daydream-controls box-collider="objects: [dynamic-body];" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
-        </a-camera>
+      <a-entity collider-check id="cameraRig" position= "0 0 4.3" rotation="0 -45 0">
+        <a-entity id="controller"
+          raycaster="objects: .clickable"
+          static-body="shape: box; boxRadius: 0.02;"
+          daydream-listener
+          laser-controls
+          line="color: #fff; opacity: 0.75"
+          daydream-controls="hand: right;model:true;armModel:true;"
+          box-collider="objects: [dynamic-body];"
+          teleport-controls="cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; hitCylinderColor: #fff;type:line;hitCylinderHeight:0;hitCylinderRadius:1;landingMaxAngle:10;maxLength:20;">
+        </a-entity>
+        <a-entity camera id="head" progressive-controls wasd-controls look-controls>
+        </a-entity>
+        <a-entity id="cursor"
+          cursor="rayOrigin:mouse;"
+          line="visible:false"
+          geometry="primitive: circle; radius: 0.01; segments: 4;"
+          material="color: #FF4444; shader: flat" ></a-entity>
       </a-entity>
+
 
       <!-- Room -->
       <!-- <rw-room static-body box-collider="objects: [dynamic-body];" position="-2 0 1" material="color:#f4f0eb;side:front;roughness: 1; metalness: 0;emissive: #161616;" height="3.2" width="8" length="8">
@@ -106,26 +146,54 @@
   		</rw-room> -->
 
       <!-- menu -->
-      <a-entity id="menu" position="5.6 1.4 3.5" rotation="0 0 0">
+      <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
           <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
-            <a-entity shadow gltf-model="#plant-model" scale="1 1 1"  position=".238 -.94 .623" rotation="0 180 0"></a-entity>
+            <a-entity id="plant" shadow mixin="collider" class="clickable" gltf-model="#plant-model" scale="1 1 1"  position=".238 -.94 .623" rotation="0 180 0"></a-entity>
         </a-entity>
-        <a-entity shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+        <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
           <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
-          <a-entity shadow gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2"></a-entity>
+          <a-entity id="wateringcan" shadow class="clickable" mixin="collider" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2"></a-entity>
         </a-entity>
-        <a-entity shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+        <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
           <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0"position="0 0 -3"></a-entity> -->
-            <a-entity shadow gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 0 0" position=".036 .270 -.229" ></a-entity>
+            <a-entity id="sun" shadow class="clickable" mixin="collider" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 0 0" position=".036 .270 -.229" ></a-entity>
         </a-entity>
       </a-entity>
 
       <!-- landscape -->
-      <a-box position= "0 0 0" width="75" height="0" depth="75" material="color:#f4f0eb;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-box>
+      <!-- <a-box position= "0 0 0" width="75" height="0" depth="75" material="color:#f4f0eb;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-box> -->
       <a-sky material="color:skyblue"></a-sky>
 
-
     </a-scene>
+    <script>
+    // TODO: move left/move right
+    // TODO: walk forward
+    // TODO: hover object
+    // TODO: select object
+    // TODO: waypoints
+    var camera = document.querySelector('#cameraRig')
+    let ycoord = camera.getAttribute("rotation");
+
+    window.addEventListener('action', function(e){
+        if (e.detail.touch == "left"){
+          camera.object3D.rotation.y += Math.PI/8;
+        }
+        if (e.detail.touch == "right") {
+          camera.object3D.rotation.y -= Math.PI/8;
+        }
+        if (e.detail.buttonclick==true){
+
+        }
+        if (e.detail.buttonclick==true){
+
+        }
+    });
+
+
+
+
+
+    </script>
   </body>
 </html>
