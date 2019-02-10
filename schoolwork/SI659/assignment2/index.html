@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SI659 Assignment 2</title>
+    <script src="https://rawgit.com/aframevr/aframe/16b0111/dist/aframe-master.min.js"></script>
+    <script src="js/aframe-physics-system.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+      <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+
+    <script>
+      AFRAME.registerComponent('setup', {
+        init: function () {
+          this.el.addEventListener('enter-vr', function (evt) {
+            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
+              var cursorFuse= document.getElementById("cursor");
+              cursorFuse.setAttribute('cursor',"fuse:false");
+              cursorFuse.setAttribute('visible',"false");
+            }
+          })
+        }
+      })
+      AFRAME.registerComponent("daydream-listener", {
+        schema: {
+          action: {
+            swipe: {type:'string', default: "left"},
+            click: {type:'bool', default: false},
+            tap: {type:'bool', default:false}
+          }
+        },
+        update: function() {
+          var start;
+          var end;
+          var action = this.data;
+          var controller = this.el;
+          controller.addEventListener("trackpadtouchstart", (e) => {
+            start = e.target.components["tracked-controls"].controller.axes[0];
+          });
+          controller.addEventListener("trackpadtouchend", (e) => {
+            end = e.target.components["tracked-controls"].controller.axes[0];
+            if (start-end > 0){
+              action = {swipe:"left"};
+              controller.emit('action', action);
+              //controller.setAttribute('action','swipe left');
+            } else {
+              action = {swipe:"right"};
+              controller.emit('action', action);
+              //controller.setAttribute('action', 'swipe right');
+            }
+          });
+        },
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene physics="gravity:-9.8;friction: 0.1; restitution: .5;">
+      <a-assets>
+        <img id="wall" src="models/wall.png">
+        <!-- house plant - poly by Google -->
+        <a-asset-item id="plant-model" src="models/plant/model.gltf"></a-asset-item>
+        <!-- watering can Riofluo Agence événementiel street -->
+        <a-asset-item id="wateringcan-model" src="models/wateringcan/wateringcan.gltf"></a-asset-item>
+        <!-- sun - poly by Google -->
+        <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
+
+      </a-assets>
+
+      <!-- lights -->
+      <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
+      <a-light type="point" intensity=".75" position="1.582 5 4.764"></a-light>
+      <a-mixin id="lightbox"
+                geometry="primitive: plane;"
+                material="color: #FFF; shader: flat"
+                light="color: #DDDDFF; distance: 120; intensity: .1; type: spot; penumbra: 1; angle: 12;"></a-mixin>
+
+      <!-- Player -->
+      <a-entity position= "1.55 0 6.4" progressive-controls wasd-controls look-controls>
+        <a-camera >
+          <a-entity id="cursor" cursor="rayOrigin:mouse;" line="visible:false" geometry="primitive: circle; radius: 0.01; segments: 4;" material="color: #FF4444; shader: flat" ></a-entity>
+          <a-entity static-body="shape: box; boxRadius: 0.02;" daydream-controls="hand: right" box-collider="objects: [dynamic-body];"></a-entity>
+        </a-camera>
+      </a-entity>
+
+      <!-- Room -->
+      <!-- <rw-room static-body box-collider="objects: [dynamic-body];" position="-2 0 1" material="color:#f4f0eb;side:front;roughness: 1; metalness: 0;emissive: #161616;" height="3.2" width="8" length="8">
+  			<rw-wall  position="4 0 0" ></rw-wall>
+  			<rw-wall  position="4 0 4" ></rw-wall>
+  			<rw-wall  position="0 0 4" ></rw-wall>
+  			<rw-wall  position="0 0 0" >
+  		  		<rw-doorhole id="holeA"></rw-doorhole>
+  		  		<rw-doorlink from="#holeA" to="#holeB" position="3.6 0 0"></rw-doorlink>
+  			</rw-wall>
+        <rw-floor  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0"></rw-floor>
+        <rw-ceiling  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0;emissive: #797979"></rw-ceiling>
+  		</rw-room>
+  		<rw-room static-body box-collider="objects: [dynamic-body];" position="-6 0 2" material="color:#f4f0eb;side:front;roughness: 1; metalness: 0;emissive: #161616;" height="3.2" width="4" length="4">
+  			<rw-wall  position=" 1 0 -1" ></rw-wall>
+  			<rw-wall  position=" 1 0  1" >
+  				<rw-doorhole id="holeB"></rw-doorhole>
+  			</rw-wall>
+  			<rw-wall  position="-1 0  1"></rw-wall>
+  			<rw-wall  position="-1 0 -1"></rw-wall>
+        <rw-floor  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0"></rw-floor>
+        <rw-ceiling  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0;emissive: #797979"></rw-ceiling>
+  		</rw-room> -->
+
+      <!-- menu -->
+      <a-entity id="menu" position="5.6 1.4 3.5" rotation="0 0 0">
+        <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
+            <a-entity shadow gltf-model="#plant-model" scale="1 1 1"  position=".238 -.94 .623" rotation="0 180 0"></a-entity>
+        </a-entity>
+        <a-entity shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
+          <a-entity shadow gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2"></a-entity>
+        </a-entity>
+        <a-entity shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0"position="0 0 -3"></a-entity> -->
+            <a-entity shadow gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 0 0" position=".036 .270 -.229" ></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- landscape -->
+      <a-box position= "0 0 0" width="75" height="0" depth="75" material="color:#f4f0eb;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-box>
+      <a-sky material="color:skyblue"></a-sky>
+
+
+    </a-scene>
+  </body>
+</html>

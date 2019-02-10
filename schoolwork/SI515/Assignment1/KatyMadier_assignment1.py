@@ -74,6 +74,11 @@ class RecAUD:
         return 10.0*np.log10(a/base)
 
 # categorize audio data for type of sound
+### detect Frequency
+    # def detect(self):
+
+
+
 ### snap to select item through list
     # def select()
 
@@ -205,6 +210,8 @@ class RecAUD:
         self.st = 0
 
 
+
+
 # the music looper
 
     def main(self):
@@ -246,7 +253,6 @@ class RecAUD:
         # ballsprite = pygame.sprite.RenderPlain(ball)
 
         # Blit everything to the screen
-        screen.blit(background, textRender )
         screen.blit(background, (0, 0))
         # pygame.display.flip()
 
@@ -262,11 +268,14 @@ class RecAUD:
                 if event.type == QUIT:
                     return
                 # elif event.type == KEYDOWN:
-                #     # if event.key == K_a:
-                #     #     player1.moveup()
-                #     # if event.key == K_z:
-                #     #     player1.movedown()
-                #     # if event.key == K_UP:
+                #     if event.key == K_a:
+                #         start_record(self)
+                # #     #     player1.moveup()
+                #     if event.key == K_z:
+                #         read_audio(self,filename)
+                # #     #     player1.movedown()
+                #     if event.key == K_UP:
+                #         replay(self)
                 #     #     player2.moveup()
                 #     # if event.key == K_DOWN:
                 #     #     player2.movedown()
@@ -287,42 +296,42 @@ class RecAUD:
             # playersprites.draw(screen)
             # Start the mainloop, which will be indefinite until 'q' is pressed.
 
-            # print('''
-            #
-            #     Press a key to perform that operation...
-            #     r : record audio and save to file (ctrl+c to stop recording and save)
-            #     p : replay audio file
-            #     d : display the spectrogram of the audio file
-            #     1 : apply simple running-mean low-pass filter to audio signal
-            #     q or Q : quit program
-            #
-            # ''')
+            print('''
 
-            # key = click.getchar()
-            # print(key)
+                Press a key to perform that operation...
+                r : record audio and save to file (ctrl+c to stop recording and save)
+                p : replay audio file
+                d : display the spectrogram of the audio file
+                1 : apply simple running-mean low-pass filter to audio signal
+                q or Q : quit program
 
-            # if key == 'q' or key == 'Q':
-            #     mainloop = False
+            ''')
 
-            # if key == 'r':
-            #     print('* starting recording, press ctrl+c to stop...')
-            #     self.start_record()
-            #
-            # if key == 'p':
-            #     print('* replaying clip')
-            #     self.replay()
-            #
-            # if key == 'd':
-            #     print('* displaying..\n\n')
-            #     self.display()
-            #
-            # if key == '1':
-            #     print('* applying lowpass filter')
-            #     self.lowpass()
-            #
-            # if key == '2':
-            #     print('* applying highpass filter')
-            #     self.highpass()
+            key = click.getchar()
+            print(key)
+
+            if key == 'q' or key == 'Q':
+                mainloop = False
+
+            if key == 'r':
+                print('* starting recording, press ctrl+c to stop...')
+                self.start_record()
+
+            if key == 'p':
+                print('* replaying clip')
+                self.replay()
+
+            if key == 'd':
+                print('* displaying..\n\n')
+                self.display()
+
+            if key == '1':
+                print('* applying lowpass filter')
+                self.lowpass()
+
+            if key == '2':
+                print('* applying highpass filter')
+                self.highpass()
 
             pygame.display.flip()
 
