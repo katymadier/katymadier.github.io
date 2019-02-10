@@ -6,7 +6,8 @@
     <script src="https://rawgit.com/aframevr/aframe/16b0111/dist/aframe-master.min.js"></script>
     <script src="js/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
-      <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
 
     <script>
       AFRAME.registerComponent('setup', {
@@ -74,10 +75,10 @@
                 light="color: #DDDDFF; distance: 120; intensity: .1; type: spot; penumbra: 1; angle: 12;"></a-mixin>
 
       <!-- Player -->
-      <a-entity position= "1.55 0 6.4" progressive-controls wasd-controls look-controls>
-        <a-camera >
+      <a-entity id="cameraRig" position= "1.55 0 6.4" >
+        <a-camera id="head" progressive-controls wasd-controls look-controls>
           <a-entity id="cursor" cursor="rayOrigin:mouse;" line="visible:false" geometry="primitive: circle; radius: 0.01; segments: 4;" material="color: #FF4444; shader: flat" ></a-entity>
-          <a-entity static-body="shape: box; boxRadius: 0.02;" daydream-controls="hand: right" box-collider="objects: [dynamic-body];"></a-entity>
+          <a-entity static-body="shape: box; boxRadius: 0.02;" daydream-controls box-collider="objects: [dynamic-body];" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;"></a-entity>
         </a-camera>
       </a-entity>
 
