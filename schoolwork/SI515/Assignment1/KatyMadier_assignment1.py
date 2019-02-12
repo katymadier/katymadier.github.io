@@ -3,12 +3,6 @@
 # Due February 12, 2019
 # Mac OS 10.13.6
 
-# Assignment Instructions
-# Use acoustic tracking to capture some aspect of movement
-# 2 page report
-# flowchart
-# 30 second video
-# code & diagrams
 
 # Credits
 # Much help from https://www.pygame.org/
@@ -100,7 +94,7 @@ class RecAUD:
                         >> KNOCK >> to start recording 5 seconds of audio
 
                     PLAY THE LOOP
-                        >> TAP >> to start & stop playback
+                        >> TAP >> to start playback
 
                     QUIT
                         >> PRESS CTRL C >>
@@ -170,10 +164,10 @@ class RecAUD:
                     >> KNOCK >> to start recording 5 seconds of audio
 
                 PLAY THE LOOP
-                    >> TAP >> to start & stop playback
+                    >> TAP >> to start playback
 
                 QUIT
-                    >> PRESS Q or CTRL C >>
+                    >> PRESS CTRL C >>
 
                 -----------------------------------
 
@@ -241,10 +235,10 @@ class RecAUD:
                     >> KNOCK >> to start recording 5 seconds of audio
 
                 PLAY THE LOOP
-                    >> TAP >> to start & stop playback
+                    >> TAP >> to start playback
 
                 QUIT
-                    >> PRESS Q or CTRL C >>
+                    >> PRESS CTRL C >>
 
                 -----------------------------------
 
@@ -271,10 +265,10 @@ class RecAUD:
         try:
             list = sorted(os.listdir('./audio/'))
             file = list[-1]
-            print("file", file)
+            # print("file", file)
             if (file != '.DS_Store'):
                 filestring = file.split('_')
-                print("filestring", filestring)
+                # print("filestring", filestring)
                 self.number = int(filestring[1])+ 1
                 self.filename = './audio/audio_' +  str("%02d" %  self.number) + '_.wav'
             else:
@@ -288,7 +282,6 @@ class RecAUD:
         for i in range(0, int(self.RATE / self.CHUNK * int(5))):
             self.recordedFrames.append(self.stream_read())
             print("recording 5 seconds of audio")
-            print(self.filename)
 
         self.save_record()
         self.stream_stop()
