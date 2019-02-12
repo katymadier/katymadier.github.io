@@ -35,6 +35,7 @@ try:
     import numpy as np
     # import matplotlib.pyplot as plt
     import pyaudio
+    from scipy.io.wavfile import read
     from pydub import AudioSegment
     from pydub.playback import play
     from pydub.utils import which
@@ -53,20 +54,18 @@ class RecAUD:
         self.CHUNK = 1024
         self.FORMAT = pyaudio.paInt16
         self.CHANNELS = 1
-        self.RATE = 22000
+        self.RATE = 48000
         self.p = pyaudio.PyAudio()
         if startStreaming:
             self.stream_start()
 
         self.frames = []
 
-        self.listening = True
-
         #recordings
-        self.recording = False
         self.number=0
-        self.filename = './audio/audio_' + str(self.number) + '_.wav'
+        self.filename ='./audio/audio_' + str("%02d" %  self.number) + '_.wav'
         self.recordedFrames=[]
+        self.listeningFrames=[]
 
         #loops
         self.mix = None
@@ -74,14 +73,6 @@ class RecAUD:
 
         #playback
         self.playing = False
-
-         # for tape recording (continuous "tape" of recent audio)
-        self.tapeLength=2 #seconds
-        self.tape = np.empty(self.RATE*self.tapeLength)*np.nan
-
-        # interactions
-        self.tap = False
-        self.scrape = False
 
         AudioSegment.converter = which("ffmpeg")
 
@@ -93,112 +84,65 @@ class RecAUD:
 
     def main(self):
         mainloop = True
-        while mainloop:
-            print('''
-
-
-                AUDIO LOOPER
-                by Katy Madier
-
-                -----------------------------------
-
-                ADDING A NEW SOUND
-                    >> TAP >> to start recording 5 seconds of audio
-                    s: start
-
-                    >> DOUBLE TAP >>
-                    v:
-
-                PLAY THE LOOP
-                    >> CLAP >> to start & stop playback
-                    p: play
-                    p: stop
-
-                    >> QUICK SCRAPE >> to speed up
-                    f: fast
-
-                    >> SLOW SCRAPE >> to slow down
-                    d: slow
-
-                CLEAR THE LOOP
-                    >> BLOW >> to clear the audio
-                    c: clear
-
-                QUIT
-                    >> PRESS Q or CTRL C >>
-
-                -----------------------------------
-
-
-            ''')
-
-            key = click.getchar()
-            print(key)
-
-
-            # ADDING A NEW SOUND
-            #     >> TAP >> to start & stop recording function
-            # s: start
-            # s: stop
-            if key == 's':
-                print('* starting recording, press S to stop...')
-                self.start_record()
-
-            #     >> DOUBLE TAP >> to save to the loop
-            #     v: save
-            if key == 'v':
-                print('* saving recording')
-                self.save_record()
-
-
-            # PLAY THE LOOP
-            #     >> CLAP >> to start & stop playback
-            #     p: play
-            #     p: stop
-            if key == 'p':
-                if self.playing == False:
-                    self.replay()
-                else:
-                    self.playing == True
-
-            #     >> QUICK SCRAPE >> to speed up
-            #     f: fast
-            #
-            #     >> SLOW SCRAPE >> to slow down
-            #     d: slow
-
-            # CLEAR THE LOOP
-            #     >> BLOW >> to cancel
-            #     c: cancel
-            if key == 'c':
+        try:
+            while mainloop:
                 print('''
-                * recording cancelled. Press:
-                 s: to add a new sound to the loop
-                 p: to play the loop
-                 q: to QUIT
+
+
+                    AUDIO LOOPER
+                    by Katy Madier
+
+                    To start/restart listening press S
+
+                    -----------------------------------
+
+                    ADDING A NEW SOUND
+                        >> KNOCK >> to start recording 5 seconds of audio
+
+                    PLAY THE LOOP
+                        >> TAP >> to start & stop playback
+
+                    QUIT
+                        >> PRESS CTRL C >>
+
+                    -----------------------------------
+
+
                 ''')
-                self.stream_stop()
 
-            # QUIT
-            #     >> PRESS Q or CTRL C >>
-            if key == 'q' or key == 'Q':
-                mainloop = False
+                    # [not implemented] >> BLOW >> to remove last recording
+                    # [not implemented] >> QUICK SCRAPE >> to speed up
+                    # [not implemented] >> SLOW SCRAPE >> to slow down
 
+                key = click.getchar()
+                print(key)
 
+                if key == 's' or key == 'S':
+                    self.stream_start()
+
+        except KeyboardInterrupt:
+            self.stream_stop()
+            listening = False
+            mainloop = False
 
 ### OPEN LISTENER TO HEAR FOR BODY INPUT
 
     def stream_start(self):
         """connect to the audio device and start a stream"""
-        print("Audio stream is open and waiting for input")
-        self.stream=self.p.open(format=pyaudio.paInt16,channels=1, rate=self.RATE,input=True, frames_per_buffer=self.CHUNK)
+        print("Audio stream is open and waiting for you.")
+        self.listeningStream=self.p.open(format=pyaudio.paInt16,channels=1, rate=self.RATE,input=True, frames_per_buffer=self.CHUNK)
+
+        self.categorizingAudio()
 
     def stream_stop(self):
         """close the stream but keep the PyAudio instance alive."""
         if 'stream' in locals():
-            self.stream.stop_stream()
-            self.stream.close()
-        print(" -- stream CLOSED")
+            listening = False
+            self.listeningStream.stop_stream()
+            self.listeningStream.close()
+            self.recordingStream.stop_stream()
+            self.recordingStream.close()
+        print("Listening stream has closed. To restart press 's'.")
 
     def close(self):
         """gently detach from things."""
@@ -208,107 +152,147 @@ class RecAUD:
 
 ### CLASSIFY SOUND
     def categorizingAudio(self):
+        #take open audio and read frames
+        try:
+            listening = True
+            print('Mic is listening for Taps and Knock')
+            print('''
 
-        fs, data = read(self.filename)
-        data_size = len(data)
 
-        #The number of indexes on 0.15 seconds
-        focus_size = int(0.15 * fs)
+                AUDIO LOOPER
+                by Katy Madier
 
-        focuses = []
-        idx = 0
-        print("Max Frequency", data.max())
-        print("Min Frequency", data.min())
+                To start/restart listening press S
 
-        while idx < len(data):
+                -----------------------------------
 
-            # checking for taps
-            if data[idx]> 4000:
-                print(data[idx])
-                mean_idx = idx + focus_size // 2
-                focuses.append(float(mean_idx) / data_size)
-                print("Tap")
-                self.tap=True
-                idx += focus_size
-            else:
-                self.tap=False
-                # checking for scrapes
-                if 2000 <= data[idx]<= 3000:
+                ADDING A NEW SOUND
+                    >> KNOCK >> to start recording 5 seconds of audio
+
+                PLAY THE LOOP
+                    >> TAP >> to start & stop playback
+
+                QUIT
+                    >> PRESS Q or CTRL C >>
+
+                -----------------------------------
+
+
+            ''')
+            while listening:
+                fs = self.RATE
+                data = np.fromstring(self.listeningStream.read(self.CHUNK, exception_on_overflow = False),dtype=np.int16)
+                data_size = len(data)
+                #The number of indexes on 0.15 seconds
+                focus_size = int(0.15 * fs)
+
+                focuses = []
+                idx = 0
+                # print("Max Frequency", data.max())
+                # print("Min Frequency", data.min())
+
+                while idx < len(data):
+
+                    ## KNOCK
+                    if data[idx]> 3000:
                         print(data[idx])
-                        self.scrape=True
                         mean_idx = idx + focus_size // 2
                         focuses.append(float(mean_idx) / data_size)
-                        print("Scrape")
-                        idx += focus_size
-                else:
-                    self.scrape=False
-                    idx += 1
 
-    ## TAP
-    ## DOUBLE TAP
-    ## BLOW
-    ## CLAP
-    ## QUICK SCRAPE
-    ## SLOW SCRAPE
+                        print("someone knocked - now recording audio")
+                        self.start_record()
+
+                        idx += focus_size
+                        break
+                    else:
+                        ## TAP
+                        if 900 <= data[idx]<= 1100:
+                            print(data[idx])
+                            mean_idx = idx + focus_size // 2
+                            focuses.append(float(mean_idx) / data_size)
+
+                            print("someone tapped - now playing audio")
+                            self.replay()
+
+                            idx += focus_size
+                            break
+                        else:
+                            idx += 1
+
+                ## BLOW
+                ## DOUBLE TAP
+                ## QUICK SCRAPE
+                ## SLOW SCRAPE
+
+
+        except KeyboardInterrupt:
+            print('Mic stopped listening to your Taps and Knocks')
+            print('''
+
+
+                AUDIO LOOPER
+                by Katy Madier
+
+                To start/restart listening press S
+
+                -----------------------------------
+
+                ADDING A NEW SOUND
+                    >> KNOCK >> to start recording 5 seconds of audio
+
+                PLAY THE LOOP
+                    >> TAP >> to start & stop playback
+
+                QUIT
+                    >> PRESS Q or CTRL C >>
+
+                -----------------------------------
+
+
+            ''')
+            self.stream_stop()
+
 
     def stream_read(self):
         """return values for a single chunk"""
-        data = np.fromstring(self.stream.read(self.CHUNK, exception_on_overflow = False),dtype=np.int16)
+        data = np.fromstring(self.recordingStream.read(self.CHUNK, exception_on_overflow = False),dtype=np.int16)
         # print("reading stream", data)
         return data
-
-    # def running_mean(self,x,windowSize):
-    #     cumsum = np.cumsum(np.insert(x, 0, 0))
-    #     return (cumsum[windowSize:] - cumsum[:-windowSize]) / windowSize
-    #
-    # def lowpass(self,cutOffFrequency=1000.0):
-    #     print("Running a lowpass filter", self.frames)
-    #     audio,duration,frames,bps,dt = self.read_audio(self.frames)
-    #     print(audio.shape)
-    #
-    #     freqRatio = (cutOffFrequency/self.RATE)
-    #     N = int(np.sqrt(0.196196 + freqRatio**2)/freqRatio)
-    #
-    #     # Use moving average.
-    #     filtered = self.running_mean(audio, N).astype(audio.dtype)
-    #     print(filtered.shape)
-    #
-    #     # Rewrite to file.
-    #     wav_file = wave.open(self.filename + "_lowpass" , "w")
-    #     wav_file.setparams((1, bps, self.RATE, frames, 'NONE', 'not compressed'))
-    #     wav_file.writeframes(filtered.tobytes('C'))
-    #     wav_file.close()
-
 
 
 ###----------------------
 ### ADDING A NEW SOUND
-    ## IF TAPPED
-    ## IF DOUBLE TAPPED
-    ## IF BLOW
 
-
-### tap to start recording/save recording
+### KNOCK to start recording/save recording
     def start_record(self):
         print("Started recording a new sound.")
+        self.recordingStream=self.p.open(format=pyaudio.paInt16,channels=1, rate=self.RATE,input=True, frames_per_buffer=self.CHUNK)
         # setting file name
         try:
             list = sorted(os.listdir('./audio/'))
             file = list[-1]
             print("file", file)
-            filestring = file.split('_')
-            print("filestring", filestring)
-            self.number = int(filestring[1])+ 1
-            self.filename = './audio/audio_' + str(self.number) + '_.wav'
+            if (file != '.DS_Store'):
+                filestring = file.split('_')
+                print("filestring", filestring)
+                self.number = int(filestring[1])+ 1
+                self.filename = './audio/audio_' +  str("%02d" %  self.number) + '_.wav'
+            else:
+                self.number = 0
+                self.filename = './audio/audio_' + str("%02d" %  self.number) + '_.wav'
         except error as err:
             print("couldn't set filename", error)
 
         # take stream_read data
+        self.recordedFrames = []
         for i in range(0, int(self.RATE / self.CHUNK * int(5))):
-            print("recording 5 seconds of audio")
             self.recordedFrames.append(self.stream_read())
+            print("recording 5 seconds of audio")
+            print(self.filename)
 
         self.save_record()
+        self.stream_stop()
+        self.stream_start()
 
     def save_record(self):
         print('* recording saved to {}'.format(self.filename))
@@ -350,18 +334,17 @@ class RecAUD:
 ###----------------------
 ### PLAYING THE LOOP
 
-### CLAP to start & stop
-
     def replay(self):
         if 'mix.wav' in os.listdir():
-            while self.playing == True:
-                self.numLoops = len(os.listdir('./audio/'))
-                print("Playing ", self.numLoops, " audio loops")
-                self.mix = AudioSegment.from_wav('mix.wav')
-                play(self.mix)
+            self.numLoops = len(os.listdir('./audio/'))
+            print("Playing ", self.numLoops, " audio loops")
+            self.mix = AudioSegment.from_wav('mix.wav')
+            play(self.mix)
+            self.stream_stop()
+            self.stream_start()
 
         else:
-            print("there is no loop, make one with a tap")
+            print("there is no loop, record one with a KNOCK")
 
 
 

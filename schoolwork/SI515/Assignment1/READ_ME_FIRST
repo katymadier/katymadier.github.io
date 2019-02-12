@@ -1,0 +1,10 @@
+
+AUDIO LOOPER
+By Katy Madier
+
+
+
+To run this file, start the katymadier_assignment1.py file with python3. 
+The individual audio recordings from this program will be saved into the audio folder. The mixed loop will be saved in this parent folder. When you want to start a new loop, delete all of the audio and loop files, but keep the audio folder. 
+
+Have fun! 
