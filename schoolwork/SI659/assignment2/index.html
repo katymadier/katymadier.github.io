@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <title>SI659 Assignment 2</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="js/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
-    <!-- <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script> -->
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
      <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+      <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+      <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
 
     <script>
+      // remixed from other code
       AFRAME.registerComponent('setup', {
         init: function () {
           this.el.addEventListener('enter-vr', function (evt) {
@@ -22,6 +23,8 @@
           })
         }
       })
+
+      // remixed from other code
       AFRAME.registerComponent("daydream-listener", {
         schema: {
           action: {
@@ -29,6 +32,8 @@
             touch: {type:'string', default: "left"},
             buttonclick: {type:'bool', default: false},
             buttontap: {type:'bool', default:false},
+            trackpadup: {type:'bool', default:false},
+            trackpaddown: {type:'bool', default:false}
           }
         },
         update: function() {
@@ -58,30 +63,87 @@
 
           });
           controller.addEventListener("trackpaddown", (e) => {
-            if (e.target.components["tracked-controls"].controller.buttons[0].pressed==true){
-              // console.log("button clicked")
-              action={gamepadclick:true}
-              controller.emit('action', action);
-            }
+            console.log(e.target)
+            action={trackpaddown:true}
+            controller.emit('action', action);
+          });
+          controller.addEventListener("trackpadup", (e) => {
+            action={trackpadup:true}
+            controller.emit('action', action);
           });
         },
       });
+        // remixed from aframe
       AFRAME.registerComponent('collider-check', {
         dependencies: ['raycaster'],
+        schema: {
+          intersection: {
+            objectid: {type:'string', default:"name"},
+            location: {type:'array', default: {x:0, y:0, z:0}},
+          }
+        },
         init: function () {
-          this.el.addEventListener('raycaster-intersected', function (e) {
-             this.intersectingRaycaster = e.detail.el.components.raycaster;
-            console.log('Hit a thing', this.intersectingRaycaster);
+          var intersection = this.data;
+          var controller = this.el;
+          var location;
+          var name;
+          var object;
+          var objectclassname;
+
+          controller.addEventListener('raycaster-intersection', function (e) {
+             for (x in e.detail.els){
+               console.log("intersected #" + e.detail.els[x].id)
+                object = document.querySelector("#" + e.detail.els[x].id)
+                object.emit('hover')
+                // objectclassname = e.detail.els[x].className
+             }
           });
+         // tried to change the button, but doesn't seem to work for right on daydream
+          controller.addEventListener('trackpaddown', function(e){
+            if (objectclassname =="clickable" || objectclassname == "movable"){
+              console.log('object not a teleporter, teleportend emitted')
+              controller.emit('teleportend')
+              // controller.setAttribute('teleport-controls', 'button', 'menu')
+            }
+            else {
+              console.log('teleportstart emitted')
+              controller.emit('teleportstart')
+              // controller.setAttribute('teleport-controls', 'button', 'trackpad')
+            }
+          })
+          controller.addEventListener('trackpadup', function(e){
+            console.log('teleportend emitted')
+            controller.emit('teleportend')
+          })
+          controller.addEventListener('click', function(e) {
+            if (e.detail.intersectedEl){
+              name =e.detail.intersectedEl.id;
+              location = e.detail.intersection.point;
+              objectclassname =e.detail.intersectedEl.className;
+
+              if (e.detail.intersectedEl.className){
+                objectclassname = e.detail.intersectedEl.className;
+                // console.log(name, clickable, location)
+                if (objectclassname == "clickable"){
+                  intersection = {
+                    objectid:name,
+                    location:location
+                  }
+                  controller.emit('intersection', intersection);
+                }
+              }
+            }
+          })
         }
       });
+
     </script>
   </head>
   <body>
-    <a-scene environment="preset:arches" physics="gravity:-9.8;friction: 0.1; restitution: .5;">
+    <a-scene stats physics="gravity:-9.8;friction: 0.1; restitution: .5;">
       <a-assets>
-        <!-- house plant - poly by Google -->
-        <a-asset-item id="plant-model" src="models/plant/model.gltf"></a-asset-item>
+        <!-- flower - https://poly.google.com/view/eydI4__jXpi-->
+        <a-asset-item id="plant-model" src="models/plant/flower.gltf"></a-asset-item>
         <!-- watering can Riofluo Agence événementiel street -->
         <a-asset-item id="wateringcan-model" src="models/wateringcan/wateringcan.gltf"></a-asset-item>
         <!-- sun - poly by Google -->
@@ -92,88 +154,66 @@
       <!-- lights -->
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
-      <a-mixin id="lightbox"
-                geometry="primitive: plane;"
-                material="color: #FFF; shader: flat"
-                light="color: #DDDDFF; distance: 120; intensity: .1; type: spot; penumbra: 1; angle: 12;"></a-mixin>
 
-      <!-- from michael's code pen https://codepen.io/mnebeling/pen/EGvxgp -->
-      <a-mixin id="collider" material="opacity: 0.99" event-set__mousedown="scale: 0.9 0.9 0.9" event-set__mouseenter="opacity: 0.8" event-set__mouseleave="opacity: 0.99" event-set__mouseup="scale: 1 1 1"></a-mixin>
+      <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable></a-mixin>
+      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable> </a-mixin>
 
       <!-- Player -->
-      <a-entity collider-check id="cameraRig" position= "0 0 4.3" rotation="0 -45 0">
+      <a-entity id="cameraRig" progressive-controls='objects: [dynamic-body];' position= "0 .5 4.3" rotation="0 -45 0">
+        <a-entity camera id="head" wasd-controls look-controls>
+        </a-entity>
         <a-entity id="controller"
-          raycaster="objects: .clickable"
-          static-body="shape: box; boxRadius: 0.02;"
           daydream-listener
+          collider-check
           laser-controls
+          daydream-controls="right"
+          sphere-collider="objects: [dynamic-body];"
+          static-body="shape: box;"
+          raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
-          daydream-controls="hand: right;model:true;armModel:true;"
-          box-collider="objects: [dynamic-body];"
-          teleport-controls="cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; hitCylinderColor: #fff;type:line;hitCylinderHeight:0;hitCylinderRadius:1;landingMaxAngle:10;maxLength:20;">
+          super-hands
+          teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'
+            >
+
         </a-entity>
-        <a-entity camera id="head" progressive-controls wasd-controls look-controls>
-        </a-entity>
-        <a-entity id="cursor"
-          cursor="rayOrigin:mouse;"
-          line="visible:false"
-          geometry="primitive: circle; radius: 0.01; segments: 4;"
-          material="color: #FF4444; shader: flat" ></a-entity>
       </a-entity>
-
-
-      <!-- Room -->
-      <!-- <rw-room static-body box-collider="objects: [dynamic-body];" position="-2 0 1" material="color:#f4f0eb;side:front;roughness: 1; metalness: 0;emissive: #161616;" height="3.2" width="8" length="8">
-  			<rw-wall  position="4 0 0" ></rw-wall>
-  			<rw-wall  position="4 0 4" ></rw-wall>
-  			<rw-wall  position="0 0 4" ></rw-wall>
-  			<rw-wall  position="0 0 0" >
-  		  		<rw-doorhole id="holeA"></rw-doorhole>
-  		  		<rw-doorlink from="#holeA" to="#holeB" position="3.6 0 0"></rw-doorlink>
-  			</rw-wall>
-        <rw-floor  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0"></rw-floor>
-        <rw-ceiling  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0;emissive: #797979"></rw-ceiling>
-  		</rw-room>
-  		<rw-room static-body box-collider="objects: [dynamic-body];" position="-6 0 2" material="color:#f4f0eb;side:front;roughness: 1; metalness: 0;emissive: #161616;" height="3.2" width="4" length="4">
-  			<rw-wall  position=" 1 0 -1" ></rw-wall>
-  			<rw-wall  position=" 1 0  1" >
-  				<rw-doorhole id="holeB"></rw-doorhole>
-  			</rw-wall>
-  			<rw-wall  position="-1 0  1"></rw-wall>
-  			<rw-wall  position="-1 0 -1"></rw-wall>
-        <rw-floor  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0"></rw-floor>
-        <rw-ceiling  material="color:#f4f0eb;side:double;roughness: 1; metalness: 0;emissive: #797979"></rw-ceiling>
-  		</rw-room> -->
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
-            <a-entity id="plant" shadow mixin="collider" class="clickable" gltf-model="#plant-model" scale="1 1 1"  position=".238 -.94 .623" rotation="0 180 0"></a-entity>
+          <a-entity id="plant" shadow="" onclick="spawn(id)" class="clickable" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
+            </a-entity>
         </a-entity>
         <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0" position="0 0 -3"></a-entity> -->
-          <a-entity id="wateringcan" shadow class="clickable" mixin="collider" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2"></a-entity>
+          <a-entity id="wateringcan" shadow class="clickable" onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
         <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <!-- <a-entity mixin="lightbox" material="transparent: true;" rotation="0 180 0"position="0 0 -3"></a-entity> -->
-            <a-entity id="sun" shadow class="clickable" mixin="collider" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 0 0" position=".036 .270 -.229" ></a-entity>
+            <a-entity id="sun" shadow class="clickable" onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity>
       </a-entity>
 
       <!-- landscape -->
-      <!-- <a-box position= "0 0 0" width="75" height="0" depth="75" material="color:#f4f0eb;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-box> -->
+      <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" event-set__down="_event: trackpaddown; emit(teleportstart)" event-set__up="_event: trackpadup; emit(teleportend)" class="teleportable"></a-cylinder>
       <a-sky material="color:skyblue"></a-sky>
 
     </a-scene>
     <script>
-    // TODO: move left/move right
     // TODO: walk forward
     // TODO: hover object
     // TODO: select object
     // TODO: waypoints
-    var camera = document.querySelector('#cameraRig')
-    let ycoord = camera.getAttribute("rotation");
+    // TODO: swipe right to teleport, swipe left to select objects
+
+    var camera = document.querySelector('#cameraRig');
+    var ycoord = camera.getAttribute("rotation");
+    var scene = document.querySelector('a-scene');
+    // var sun = document.querySelector('#sun');
+    // var plant = document.querySelector('#plant');
+    // var wateringcan = document.querySelector('#wateringcan');
+    var newObject;
+    var intersectedObject;
+    var intersectionLocation;
 
     window.addEventListener('action', function(e){
         if (e.detail.touch == "left"){
@@ -182,17 +222,34 @@
         if (e.detail.touch == "right") {
           camera.object3D.rotation.y -= Math.PI/8;
         }
-        if (e.detail.buttonclick==true){
+        if (e.detail.trackpaddown==true){
+          console.log("trackpad pressed down")
 
         }
-        if (e.detail.buttonclick==true){
-
+        if (e.detail.trackpadup==true){
+          console.log("trackpad released")
         }
     });
 
+    // spawn on click and attach to raycaster - make draggable & grabbable
+    window.addEventListener('intersection', function (e) {
+      if (e.detail){
+        intersectedObject = e.detail.objectid;
+        intersectionLocation = e.detail.location;
+        // console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+      }
+      else {
+        console.log("intersection event, but no intersection data")
+      }
+    });
 
-
-
+    function spawn(id){
+      newObject = document.createElement('a-entity');
+      newObject.setAttribute('mixin', id+"Mix");
+      newObject.setAttribute("position", intersectionLocation)
+      scene.appendChild(newObject);
+      // console.log("you made a ", id, "at", intersectionLocation, "!")
+    }
 
     </script>
   </body>
