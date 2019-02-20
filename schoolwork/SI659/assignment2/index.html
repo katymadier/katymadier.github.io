@@ -14,11 +14,18 @@
       // remixed from other code
       AFRAME.registerComponent('setup', {
         init: function () {
+          var cursorFuse= document.getElementById("cursor");
+          var camrig = document.querySelector('cameraRig');
+
           this.el.addEventListener('enter-vr', function (evt) {
             if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
-              var cursorFuse= document.getElementById("cursor");
               cursorFuse.setAttribute('cursor',"fuse:false");
               cursorFuse.setAttribute('visible',"false");
+            }
+            else {
+              cursorFuse.setAttribute('cursor',"fuse:true");
+              cameraRig.setAttribute('position', '0 2 4.3');
+
             }
           })
         }
@@ -151,6 +158,9 @@
 
       </a-assets>
 
+      <!-- sound -->
+      <a-sound id="sound" src="src: url(sounds/Birds-chirping-sound.mp3)" autoplay="true" position="0 2 5"></a-sound>
+
       <!-- lights -->
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
@@ -160,10 +170,16 @@
       <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable> </a-mixin>
 
       <!-- Player -->
-      <a-entity id="cameraRig" progressive-controls='objects: [dynamic-body];' position= "0 .5 4.3" rotation="0 -45 0">
+      <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
         <a-entity camera id="head" wasd-controls look-controls>
+          <a-entity text="value:Katy Madier | SI659 Assignment 2" position="-0.19745 -0.49031 -0.86589"></a-entity>
+          <a-entity id="cursor" raycaster="showline: true; objects: .intersectable" line=" color: #000; opacity: .5;" cursor= "fuse: true; fuseTimeout: 500" geometry="primitive: ring; radiusOuter: 0.015; radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -1">
+            <a-animation begin="mouseenter" easing="ease-in" attribute="scale" fill="forward" from="1.25 1.25 1.25" to=".5 .5 .5"></a-animation>
+            <a-animation begin="mouseleave" easing="ease-out" attribute="scale" fill="forward" from=".5 .5 .5" to="1 1 1"></a-animation>
+          </a-entity>
         </a-entity>
         <a-entity id="controller"
+          progressive-controls='objects: [dynamic-body];'
           daydream-listener
           collider-check
           laser-controls
@@ -175,7 +191,6 @@
           super-hands
           teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'
             >
-
         </a-entity>
       </a-entity>
 
@@ -200,10 +215,11 @@
     </a-scene>
     <script>
     // TODO: walk forward
-    // TODO: hover object
-    // TODO: select object
     // TODO: waypoints
     // TODO: swipe right to teleport, swipe left to select objects
+    // TODO: add sound
+    // TODO: add controller menu
+    // TODO: add text to camera
 
     var camera = document.querySelector('#cameraRig');
     var ycoord = camera.getAttribute("rotation");
