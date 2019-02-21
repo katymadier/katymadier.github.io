@@ -32,12 +32,102 @@
     </a-entity>
   </a-scene>
   <script>
+
+    // TODO: for every camera in the scene create a new player
+    // TODO: If available, grab player info, set color to random
+    var player
+
+
     // var firebase = firebase.app()
     // var defaultStorage = firebase.storage();
-    var defaultDatabase = firebase.database();
+    var database = firebase.database();
     // console.log("firebase: ", firebase)
     // console.log("firebase storage: ", defaultStorage)
-    console.log("firebase database: ", defaultDatabase)
+    console.log("firebase database: ", database)
+    console.log("firebase reference: ", firebase.database.Reference)
+
+    var tempPlayerCoords =   {
+        "player1" : {
+            "position": {
+              "x": "0",
+              "y": "0",
+              "z": "0",
+            },
+            "rotation": {
+              "x": "0",
+              "y": "0",
+              "z": "0",
+            },
+        },
+        "player2": {
+            "position": {
+              "x": "0",
+              "y": "0",
+              "z": "0",
+            },
+            "rotation": {
+              "x": "0",
+              "y": "0",
+              "z": "0",
+            },
+        },
+      }
+
+
+    var tempPlayers =  {
+        "player1" : {
+          "name" : "Joe",
+          "color" : "red",
+        },
+        "player2": {
+          "name": "Sue",
+          "color": "blue",
+        },
+      }
+
+    var i;
+    for (i = 0; i < tempPlayers; i++) {
+      player = tempPlayers[i]
+      
+      firebase.database().ref('tempPlayerCoords/' + player).set({
+         position: position,
+         rotation: rotation
+       }, function(error) {
+         if (error) {
+           console.log("writing failed", error)
+           // The write failed...
+         } else {
+           console.log("writing saved successfully")
+           // Data saved successfully!
+         }
+       });
+
+       firebase.database().ref('tempPlayers/' + player).set({
+          position: position,
+          rotation: rotation
+        }, function(error) {
+          if (error) {
+            console.log("writing failed", error)
+            // The write failed...
+          } else {
+            console.log("writing saved successfully")
+            // Data saved successfully!
+          }
+        });
+    }
+
+     var tempPlayerCoordsData = firebase.database().ref('tempPlayerCoords/' + player);
+     tempPlayerCoordsData.on('value', function(snapshot) {
+       console.log(snapshot.val());
+       // updateStarCount(postElement, snapshot.val());
+     });
+     var tempPlayerData = firebase.database().ref('tempPlayer/' + player);
+     tempPlayerData.on('value', function(snapshot) {
+       console.log(snapshot.val());
+       // updateStarCount(postElement, snapshot.val());
+     });
+
+
   </script>
 </body>
 </html>
