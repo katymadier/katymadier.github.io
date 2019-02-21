@@ -1,306 +1,40 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Study Scenario 3</title>
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <script src="js/aframe-physics-system.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@0.2.3"></script>
-
-    <script>
-      // remixed from other code
-      AFRAME.registerComponent('setup', {
-        init: function () {
-          this.el.addEventListener('enter-vr', function (evt) {
-            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
-              var cursorFuse= document.getElementById("cursor");
-              cursorFuse.setAttribute('cursor',"fuse:false");
-              cursorFuse.setAttribute('visible',"false");
-            }
-          })
-        }
-      })
-
-      // remixed from other code
-      AFRAME.registerComponent("daydream-listener", {
-        schema: {
-          action: {
-            swipe: {type:'string', default: "left"},
-            touch: {type:'string', default: "left"},
-            buttonclick: {type:'bool', default: false},
-            buttontap: {type:'bool', default:false},
-          }
-        },
-        update: function() {
-          var start;
-          var end;
-          var action = this.data;
-          var controller = this.el;
-          controller.addEventListener("trackpadtouchstart", (e) => {
-            //movement start
-            start = e.target.components["tracked-controls"].controller.axes[0];
-            if (start <.79){
-              action = {touch:"left"};
-              controller.emit('action', action);
-            }
-            if (start > -.79){
-              action = {touch:"right"};
-              controller.emit('action', action);
-            }
-
-            //gamepadButton
-            if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
-              action={buttontap:true}
-            }
-          });
-          controller.addEventListener("trackpadtouchend", (e) => {
-            end = e.target.components["tracked-controls"].controller.axes[0];
-
-          });
-          controller.addEventListener("trackpaddown", (e) => {
-            if (e.target.components["tracked-controls"].controller.buttons[0].pressed==true){
-              // console.log("button clicked")
-              action={gamepadclick:true}
-              controller.emit('action', action);
-            }
-          });
-        },
-      });
-        // remixed from aframe
-      AFRAME.registerComponent('collider-check', {
-        dependencies: ['raycaster'],
-        init: function () {
-          this.el.addEventListener('raycaster-intersection', function (e) {
-            console.log("whole event", e.detail.intersections)
-             this.intersectingRaycaster = e.detail.els;
-            console.log('Hit a thing - ', this.intersectingRaycaster);
-          });
-        }
-      });
-    </script>
-  </head>
-
-  <body>
-    <a-scene stats physics="gravity:-9.8;friction: 0.1; restitution: .5;">
-      <a-assets>
-        <!-- sun - poly by Google -->
-        <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
-         <video id="video"></video>
-      </a-assets>
-
-      <a-text id="info" style='display:none'></a-text>
-      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
-      <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera>
-      <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity>
-
-      <!-- lights -->
-      <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
-      <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
-
-
-      <!-- Player -->
-      <a-entity id="cameraRig" daydream-listener position= "0 .5 4.3" rotation="0 -45 0">
-        <a-entity camera id="head" wasd-controls look-controls>
-        </a-entity>
-        <a-entity collider-check id="controller"
-          static-body="shape: box; boxRadius: 0.02;"
-          box-collider="objects: [dynamic-body];"
-          raycaster="objects: .clickable"
-          line="color: #fff; opacity: 0.75"
-          laser-controls
-          daydream-controls="hand: right;model:true;armModel:true;"
-          teleport-controls="cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; hitCylinderColor: #fff;type:line;hitCylinderHeight:0;hitCylinderRadius:1;landingMaxAngle:10;maxLength:20;">
-        </a-entity>
-        <a-entity id="cursor-light" position="0 0 0">
-          <a-entity light="type:spot; castShadow:true; angle: 12.5; color: #FBE0D8; intensity: .6; penumbra: 1;"></a-entity>
-          <a-entity id="cursor" raycaster="showline: true; objects: .intersectable" line=" color: #000; opacity: .5;" cursor= "fuse: true; fuseTimeout: 500" geometry="primitive: ring; radiusOuter: 0.015; radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -1">
-            <a-animation begin="mouseenter" easing="ease-in" attribute="scale" fill="forward" from="1.25 1.25 1.25" to=".5 .5 .5"></a-animation>
-            <a-animation begin="mouseleave" easing="ease-out" attribute="scale" fill="forward" from=".5 .5 .5" to="1 1 1"></a-animation>
-          </a-entity>
-      </a-entity>
-
-      <!-- landscape -->
-      <a-cylinder position= "0 0 0" radius="75" height="0.1" material="color:#fff;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-cylinder>
-      <a-sky material="color:#fff"></a-sky>
-
-    </a-scene>
-    <script>
-
-
-    var camera = document.querySelector('#cameraRig');
-    var ycoord = camera.getAttribute("rotation");
-    var scene = document.querySelector('a-scene');
-    // var sun = document.querySelector('#sun');
-    var selectedobject;
-
-
-
-    window.addEventListener('action', function(e){
-        if (e.detail.touch == "left"){
-          camera.object3D.rotation.y += Math.PI/8;
-        }
-        if (e.detail.touch == "right") {
-          camera.object3D.rotation.y -= Math.PI/8;
-        }
-        if (e.detail.buttonclick==true){
-
-        }
-        if (e.detail.buttonclick==true){
-
-        }
-    });
-
-
-
-    // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
-    const video = document.getElementById('video');
-    const videoWidth = 600;
-    const videoHeight = 600;
-    video.width = videoWidth;
-    video.height = videoHeight;
-
-    function isAndroid() {
-      return /Android/i.test(navigator.userAgent);
-    }
-    function isiOS() {
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-    function isMobile() {
-      return isAndroid() || isiOS();
-    }
-    async function setupCamera() {
-      console.log("running camera set up")
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error(
-            'Browser API navigator.mediaDevices.getUserMedia not available');
-      }
-
-      const mobile = isMobile();
-      const stream = await navigator.mediaDevices.getUserMedia({
-        'audio': false,
-        'video': {
-          facingMode: 'environment',
-          width: mobile ? undefined : videoWidth,
-          height: mobile ? undefined : videoHeight,
-        },
-      });
-      video.srcObject = stream;
-
-      return new Promise((resolve) => {
-        video.onloadedmetadata = () => {
-          console.log("resolving video")
-          resolve(video);
-        };
-      });
-    }
-
-    //body tracking with posenet
-    async function detectPoseInRealTime(video) {
-      console.log("running detect pose function")
-      const flipHorizontal = true;
-      const net = await posenet.load(0.5);
-      const imageScaleFactor = .5;
-      const outputStride = 8;
-
-      async function poseDetectionFrame() {
-
-        let poses=[];
-        let minPoseConfidence = 0.1;
-        let minPartConfidence = 0.5;
-
-        const pose = await net.estimateSinglePose(
-            video, imageScaleFactor, flipHorizontal, outputStride);
-        poses.push(pose);
-
-        poses.forEach(({score, keypoints}) => {
-          // console.log("looking at poses")
-          if (score >= minPoseConfidence) {
-            // console.log("score passes")
-            drawSkeleton(keypoints, minPartConfidence);
-          }
-        });
-        requestAnimationFrame(poseDetectionFrame);
-      }
-      poseDetectionFrame();
-    }
-    const colorMapping = {
-      nose: "red",
-      leftEye: "pink",
-      rightEye: "pink",
-      leftEar: "green",
-      rightEar: "green",
-      leftShoulder: "blue",
-      rightShoulder: "blue",
-      leftElbow: "blue",
-      rightElbow: "blue",
-      leftWrist: "blue",
-      rightWrist: "blue",
-      leftHip: "yellow",
-      rightHip: "yellow",
-      leftKnee: "yellow",
-      rightKnee: "yellow",
-      leftAnkle: "yellow",
-      rightAnkle: "yellow"
+<head>
+  <title>My A-Frame Scene</title>
+  <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCB1GuVAvGIhoIYBt40hdVLFH6fXsnMfME",
+      authDomain: "study1-b2670.firebaseapp.com",
+      databaseURL: "https://study1-b2670.firebaseio.com",
+      projectId: "study1-b2670",
+      storageBucket: "study1-b2670.appspot.com",
+      messagingSenderId: "485798371643"
     };
+    firebase.initializeApp(config);
+  </script>
 
-    //creates joints
-    function createJoint(part, position){
-      console.log("creating joints")
-      var joint = document.createElement('a-sphere');
-      joint.setAttribute("id", part);
-      body.appendChild(joint);
-      var getJoint = document.getElementById(part);
-      getJoint.setAttribute("radius", .01);
-      getJoint.setAttribute("material", "color", colorMapping[part])
-    }
+  <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-firebase-component@4.0.3/dist/aframe-firebase-component.min.js"></script>
 
-    // updates joint position
-    function moveJoint(scale, part, position){
-      // console.log("moving joints")
-        document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
-    }
+</head>
 
-    // Draws pose into VR Scene
-    function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
-      // console.log("drawing skeleton")
-      keypoints.forEach((keypoint)=>{
-        if (keypoint.score >= minPartConfidence) {
-          if (document.getElementById(keypoint.part)){
-            moveJoint(scale, keypoint.part, keypoint.position)
-          } else {
-            createJoint(keypoint.part, keypoint.position);
-          }
-        }
-        return
-      })
-    }
+<body>
+  <a-scene firebase="apiKey: AIzaSyCB1GuVAvGIhoIYBt40hdVLFH6fXsnMfME;
+                     authDomain: study1-b2670.firebaseapp.com;
+                     databaseURL: https://study1-b2670.firebaseio.com;
+                     storageBucket: study1-b2670.appspot.com">
+    <a-assets>
+      <!-- Using mixins to decrease amount of data send over the wire. -->
+      <a-mixin id="avatar-head"
+              geometry="primitive: box; depth: 0.3; height: 0.3; width: 0.3"
+              material="color: #222"></a-mixin>
+    </a-assets>
 
-    async function loadVideo() {
-      const video = await setupCamera();
-      console.log("playing video")
-      video.play();
-      return video;
-    }
-
-    async function bindPage() {
-      let video
-      try {
-        video = await loadVideo();
-      } catch (e) {
-        let info = document.getElementById('info');
-        info.value = 'this browser does not support video capture,' +
-            'or this device does not have a camera';
-        info.style.display = 'block';
-        throw e;
-      }
-      detectPoseInRealTime(video);
-    }
-    navigator.getUserMedia = navigator.getUserMedia ||
-        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
-    bindPage();
-
-    </script>
-  </body>
-</html>
+    <a-entity id="avatar" mixin="avatar-head"
+              camera look-controls wasd-controls
+              firebase-broadcast="components: mixin, position, rotation"
+              position="0 1.8 5">
+    </a-entity>
+  </a-scene>
+</body>
