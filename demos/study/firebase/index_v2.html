@@ -92,6 +92,7 @@
     var i;
     for (i = 0; i < tempPlayers.length; i++) {
       player = tempPlayers[i]
+      console.log(player)
 
       firebase.database().ref('tempPlayerCoords/' + player).set({
          position: position,
