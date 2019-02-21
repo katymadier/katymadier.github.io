@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>My A-Frame Scene</title>
-  <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase-database.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -10,7 +10,7 @@
       databaseURL: "https://study1-b2670.firebaseio.com",
       storageBucket: "study1-b2670.appspot.com",
     };
-     var firebase = firebase.initializeApp(config);
+     firebase.initializeApp(config);
   </script>
 
   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
@@ -32,7 +32,12 @@
     </a-entity>
   </a-scene>
   <script>
+    var firebase = firebase.app()
+    var defaultStorage = firebase.storage();
+    var defaultDatabase = firebase.database();
     console.log("firebase: ", firebase)
+    // console.log("firebase storage: ", defaultStorage)
+    console.log("firebase database: ", defaultDatabase)
   </script>
 </body>
 </html>
