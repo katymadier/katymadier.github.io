@@ -47,10 +47,7 @@
     // var firebase = firebase.app()
     // var defaultStorage = firebase.storage();
     var database = firebase.database();
-    // console.log("firebase: ", firebase)
-    // console.log("firebase storage: ", defaultStorage)
     console.log("firebase database: ", database)
-    console.log("firebase reference: ", firebase.database.Reference)
 
     var tempPlayerCoords =   {
         "player1" : {
@@ -91,8 +88,9 @@
         },
       }
 
+    console.log(tempPlayers, tempPlayerCoords)
     var i;
-    for (i = 0; i < tempPlayers; i++) {
+    for (i = 0; i < tempPlayers.length; i++) {
       player = tempPlayers[i]
 
       firebase.database().ref('tempPlayerCoords/' + player).set({
