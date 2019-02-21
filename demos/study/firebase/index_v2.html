@@ -8,9 +8,7 @@
       apiKey: "AIzaSyCB1GuVAvGIhoIYBt40hdVLFH6fXsnMfME",
       authDomain: "study1-b2670.firebaseapp.com",
       databaseURL: "https://study1-b2670.firebaseio.com",
-      projectId: "study1-b2670",
       storageBucket: "study1-b2670.appspot.com",
-      messagingSenderId: "485798371643"
     };
     firebase.initializeApp(config);
   </script>
@@ -18,15 +16,11 @@
   <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-database.js"></script>
 
   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-firebase-component@4.0.3/dist/aframe-firebase-component.min.js"></script>
 
 </head>
 
 <body>
-  <a-scene firebase="apiKey: AIzaSyCB1GuVAvGIhoIYBt40hdVLFH6fXsnMfME;
-                     authDomain: study1-b2670.firebaseapp.com;
-                     databaseURL: https://study1-b2670.firebaseio.com;
-                     storageBucket: study1-b2670.appspot.com">
+  <a-scene>
     <a-assets>
       <!-- Using mixins to decrease amount of data send over the wire. -->
       <a-mixin id="avatar-head"
@@ -36,7 +30,6 @@
 
     <a-entity id="avatar" mixin="avatar-head"
               camera look-controls wasd-controls
-              firebase-broadcast="components: mixin, position, rotation"
               position="0 1.8 5">
     </a-entity>
   </a-scene>
