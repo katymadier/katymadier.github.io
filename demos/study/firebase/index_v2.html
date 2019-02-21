@@ -10,7 +10,7 @@
       databaseURL: "https://study1-b2670.firebaseio.com",
       storageBucket: "study1-b2670.appspot.com",
     };
-     firebase.initializeApp(config);
+     var app = firebase.initializeApp(config);
   </script>
 
   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
@@ -34,7 +34,7 @@
   <script>
     // var firebase = firebase.app()
     // var defaultStorage = firebase.storage();
-    var defaultDatabase = firebase.database();
+    var defaultDatabase = app.database();
     // console.log("firebase: ", firebase)
     // console.log("firebase storage: ", defaultStorage)
     console.log("firebase database: ", defaultDatabase)
