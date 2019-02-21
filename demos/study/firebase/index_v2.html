@@ -10,7 +10,7 @@
       databaseURL: "https://study1-b2670.firebaseio.com",
       storageBucket: "study1-b2670.appspot.com",
     };
-    firebase.initializeApp(config);
+     var firebase = firebase.initializeApp(config);
   </script>
 
   <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
@@ -32,7 +32,7 @@
     </a-entity>
   </a-scene>
   <script>
-    console.log("firebase: ", document.querySelector('a-scene').systems.firebase.firebase)
+    console.log("firebase: ", firebase)
   </script>
 </body>
 </html>
