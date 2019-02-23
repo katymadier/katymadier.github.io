@@ -131,7 +131,7 @@
 
               if (e.detail.intersectedEl.className){
                 objectclassname = e.detail.intersectedEl.className;
-                // console.log(name, clickable, location)
+                console.log(name, clickable, location)
                 if (objectclassname == "clickable"){
                   intersection = {
                     objectid:name,
@@ -183,24 +183,13 @@
             <a-animation begin="mouseleave" easing="ease-out" attribute="scale" fill="forward" from=".5 .5 .5" to="1 1 1"></a-animation>
           </a-entity> -->
         </a-entity>
-        <!-- <a-entity id="controller"
-          daydream-listener
-          collider-check
-          raycaster="objects:.clickable, .movable, .teleportable"
-          line="color: #fff; opacity: 0.75"
-          static-body="shape: box;"
-          sphere-collider="objects: [dynamic-body];"
-          super-hands
-          daydream-controls="right"
-          laser-controls
-            >
-        </a-entity> -->
         <a-entity id="controller"
           daydream-listener
           collider-check
           raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
           laser-controls
+          static-body="shape: box;"
           sphere-collider="objects: [dynamic-body];"
           super-hands
           daydream-controls="right"
@@ -208,9 +197,7 @@
         </a-entity>
       </a-entity>
 
-      <!-- laser-controls
-      progressive-controls
-      static-body="shape: box;"
+      <!-- 
       teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'-->
 
 
