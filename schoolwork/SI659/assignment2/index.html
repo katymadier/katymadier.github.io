@@ -182,10 +182,8 @@
           daydream-listener
           collider-check
           sphere-collider="objects: [dynamic-body];"
-          static-body="shape: box;"
           raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
-          teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'
           laser-controls
           super-hands
           daydream-controls="right"
@@ -194,7 +192,9 @@
       </a-entity>
 
       <!-- laser-controls
-      progressive-controls -->
+      progressive-controls
+      static-body="shape: box;"
+      teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'-->
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
