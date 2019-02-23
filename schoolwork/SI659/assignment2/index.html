@@ -240,9 +240,9 @@
       console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
 
-    function movecamera(id){
-      console.log(id)
-      var newpos = document.getElementById(id).getAttribute("position")
+    function movecamera(object){
+      console.log(object.id)
+      var newpos = document.getElementById(object.id).getAttribute("position")
       console.log("moving to", newpos)
       document.getElementById('cameraRig').setAttribute("position", newpos) ;
     }
