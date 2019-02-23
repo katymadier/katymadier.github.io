@@ -156,6 +156,7 @@
         <a-asset-item id="wateringcan-model" src="models/wateringcan/wateringcan.gltf"></a-asset-item>
         <!-- sun - poly by Google -->
         <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
+        <audio id="river" src="river.mp3" preload="auto"></audio>
 
       </a-assets>
 
@@ -166,9 +167,9 @@
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
 
-      <a-mixin id="plantMix" shadow gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
-      <a-mixin id="wateringcanMix" shadow dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
-      <a-mixin id="sunMix" shadow  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin>
+      <a-mixin id="plantMix" shadow gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable sound="src: url(bongo.mp3); on: click" ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable sound="src: url(bongo.mp3); on: click"></a-mixin>
+      <a-mixin id="sunMix" shadow  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable sound="src: url(bongo.mp3); on: click"> </a-mixin>
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
