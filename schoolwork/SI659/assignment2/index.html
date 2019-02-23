@@ -241,8 +241,9 @@
     }
 
     function movecamera(id){
-        console.log("moving to", document.getElementById(id).position)
-      document.getElementById('cameraRig').setAttribute("position", document.getElementById(id).position ) ;
+      var newpos=document.getElementById(id).getAttribute("position")
+      console.log("moving to", newpos)
+      document.getElementById('cameraRig').setAttribute("position", newpos) ;
     }
 
     </script>
