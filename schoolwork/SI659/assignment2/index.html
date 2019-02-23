@@ -178,7 +178,6 @@
           </a-entity> -->
         </a-entity>
         <a-entity id="controller"
-          progressive-controls='objects: [dynamic-body];'
           daydream-listener
           collider-check
           daydream-controls="right"
@@ -192,7 +191,8 @@
         </a-entity>
       </a-entity>
   <!-- laser-controls -->
-  
+    <!-- progressive-controls='objects: [dynamic-body];' -->
+
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
