@@ -214,7 +214,10 @@
       </a-entity>
 
       <!-- landscape -->
-      <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" event-set__down="_event: trackpaddown; emit(teleportstart)" event-set__up="_event: trackpadup; emit(teleportend)" class="teleportable"></a-cylinder>
+      <!-- <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" event-set__down="_event: trackpaddown; emit(teleportstart)" event-set__up="_event: trackpadup; emit(teleportend)" class="teleportable"></a-cylinder> -->
+
+      <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" class="teleportable"></a-cylinder>
+
       <a-sky material="color:skyblue"></a-sky>
 
     </a-scene>
