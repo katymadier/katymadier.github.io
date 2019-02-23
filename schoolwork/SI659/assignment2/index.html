@@ -101,20 +101,20 @@
           });
          // tried to change the button, but doesn't seem to work for right on daydream
           controller.addEventListener('trackpaddown', function(e){
-            if (objectclassname =="clickable" || objectclassname == "movable"){
-              console.log('object not a teleporter, teleportend emitted')
-              controller.emit('teleportend')
-              // controller.setAttribute('teleport-controls', 'button', 'menu')
-            }
-            else {
-              console.log('teleportstart emitted')
-              controller.emit('teleportstart')
-              // controller.setAttribute('teleport-controls', 'button', 'trackpad')
-            }
+            // if (objectclassname =="clickable" || objectclassname == "movable"){
+            //   console.log('object not a teleporter, teleportend emitted')
+            //   controller.emit('teleportend')
+            //   // controller.setAttribute('teleport-controls', 'button', 'menu')
+            // }
+            // else {
+            //   console.log('teleportstart emitted')
+            //   controller.emit('teleportstart')
+            //   // controller.setAttribute('teleport-controls', 'button', 'trackpad')
+            // }
           })
           controller.addEventListener('trackpadup', function(e){
-            console.log('teleportend emitted')
-            controller.emit('teleportend')
+            // console.log('teleportend emitted')
+            // controller.emit('teleportend')
           })
           controller.addEventListener('click', function(e) {
             if (e.detail.intersectedEl){
