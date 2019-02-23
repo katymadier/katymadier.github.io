@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>SI659 Assignment 2</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
-     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
-      <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
 
 
     <script>
@@ -99,6 +100,7 @@
                 // objectclassname = e.detail.els[x].className
              }
           });
+
          // tried to change the button, but doesn't seem to work for right on daydream
           controller.addEventListener('trackpaddown', function(e){
             // if (objectclassname =="clickable" || objectclassname == "movable"){
@@ -159,9 +161,13 @@
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
 
-      <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
-      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable></a-mixin>
-      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable> </a-mixin>
+      <!-- <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin> -->
+
+      <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin>
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
