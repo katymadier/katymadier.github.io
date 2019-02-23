@@ -6,7 +6,7 @@
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
      <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
-    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+    <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
       <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
 
 
@@ -181,9 +181,9 @@
           static-body="shape: box;"
           raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
-          super-hands
           teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'
           laser-controls
+          super-hands
             >
         </a-entity>
       </a-entity>
