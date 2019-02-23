@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>SI659 Assignment 2</title>
-    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
@@ -98,31 +98,36 @@
                 object.emit('hover')
                 // objectclassname = e.detail.els[x].className
              }
+
           });
 
          // tried to change the button, but doesn't seem to work for right on daydream
-          controller.addEventListener('trackpaddown', function(e){
-              console.log("trackpad down details", e)
-            // if (objectclassname =="clickable" || objectclassname == "movable"){
-            //   console.log('object not a teleporter, teleportend emitted')
-            //   controller.emit('teleportend')
-            //   // controller.setAttribute('teleport-controls', 'button', 'menu')
-            // }
-            // else {
-            //   console.log('teleportstart emitted')
-            //   controller.emit('teleportstart')
-            //   // controller.setAttribute('teleport-controls', 'button', 'trackpad')
-            // }
-          })
-          controller.addEventListener('trackpadup', function(e){
-            // console.log('teleportend emitted')
-            // controller.emit('teleportend')
-          })
+          // controller.addEventListener('trackpaddown', function(e){
+          //     console.log("trackpad down details", e)
+          //   if (objectclassname =="clickable" || objectclassname == "movable"){
+          //     console.log('object not a teleporter, teleportend emitted')
+          //     controller.emit('teleportend')
+          //     // controller.setAttribute('teleport-controls', 'button', 'menu')
+          //   }
+          //   else {
+          //     console.log('teleportstart emitted')
+          //     controller.emit('teleportstart')
+          //     // controller.setAttribute('teleport-controls', 'button', 'trackpad')
+          //   }
+          // })
+          // controller.addEventListener('trackpadup', function(e){
+          //   console.log('teleportend emitted')
+          //   controller.emit('teleportend')
+          // })
+
           controller.addEventListener('click', function(e) {
+            console.log(e)
             if (e.detail.intersectedEl){
               name =e.detail.intersectedEl.id;
               location = e.detail.intersection.point;
               objectclassname =e.detail.intersectedEl.className;
+              clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
+              clickedobject.emit('click')
 
               if (e.detail.intersectedEl.className){
                 objectclassname = e.detail.intersectedEl.className;
@@ -269,7 +274,7 @@
       if (e.detail){
         intersectedObject = e.detail.objectid;
         intersectionLocation = e.detail.location;
-        // console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+        console.log("some stuff was intersected", intersectedObject, intersectionLocation)
       }
       else {
         console.log("intersection event, but no intersection data")
@@ -281,7 +286,7 @@
       newObject.setAttribute('mixin', id+"Mix");
       newObject.setAttribute("position", intersectionLocation)
       scene.appendChild(newObject);
-      // console.log("you made a ", id, "at", intersectionLocation, "!")
+      console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
     function move(id){
         console.log("moving to", document.getElementById(id).position)
