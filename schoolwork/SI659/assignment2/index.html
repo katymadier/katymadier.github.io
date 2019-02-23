@@ -5,7 +5,7 @@
     <title>SI659 Assignment 2</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
 
@@ -93,7 +93,7 @@
 
           controller.addEventListener('raycaster-intersection', function (e) {
              for (x in e.detail.els){
-               console.log("intersected #" + e.detail.els[x].id)
+               // console.log("intersected #" + e.detail.els[x].id)
                 object = document.querySelector("#" + e.detail.els[x].id)
                 object.emit('hover')
                 // objectclassname = e.detail.els[x].className
@@ -121,7 +121,7 @@
           // })
 
           controller.addEventListener('click', function(e) {
-            console.log(e)
+            // console.log(e)
             if (e.detail.intersectedEl){
               name =e.detail.intersectedEl.id;
               location = e.detail.intersection.point;
@@ -156,6 +156,8 @@
         <a-asset-item id="wateringcan-model" src="models/wateringcan/wateringcan.gltf"></a-asset-item>
         <!-- sun - poly by Google -->
         <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
+        <!-- <audio id="bongo" src="sounds/bongo.mp3" preload="auto"></audio>
+        <audio id="birds" src="sounds/Birds-chirping-sound.mp3" preload="auto"></audio> -->
 
       </a-assets>
 
@@ -166,27 +168,42 @@
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
 
-      <a-mixin id="plantMix" shadow class="clickable moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click" ></a-mixin>
-      <a-mixin id="wateringcanMix" shadow class="clickable moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"></a-mixin>
-      <a-mixin id="sunMix" shadow  class="clickable moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"> </a-mixin>
+      <a-mixin id="plantMix" shadow class="clickable moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click" ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow class="clickable moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click"></a-mixin>
+      <a-mixin id="sunMix" shadow  class="clickable moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click"> </a-mixin>
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
-        <a-entity camera id="head" wasd-controls look-controls progressive-controls>
+        <a-entity camera id="head" wasd-controls look-controls >
           <a-entity text="value:Katy Madier | SI659 Assignment 2" position="-0.19745 -0.49031 -0.86589"></a-entity>
         </a-entity>
         <a-entity id="controller"
+          daydream-listener
           collider-check
-          raycaster="objects:.clickable, .movable, .teleportable"
-          line="color: #fff; opacity: 0.75"
-          laser-controls
-          static-body="shape: box;"
+          raycaster="showLine: true; objects:.clickable, .movable, .teleportable"
           sphere-collider="objects: [dynamic-body];"
           super-hands
           daydream-controls
+          laser-controls
             >
         </a-entity>
       </a-entity>
+
+      <!-- <a-entity id="controller"
+        daydream-listener
+        collider-check
+        raycaster="showLine: true; objects:.clickable, .movable, .teleportable"
+        line="color: #fff; opacity: 0.75"
+        static-body="shape: box;"
+        sphere-collider="objects: [dynamic-body];"
+        super-hands="colliderEvent: raycaster-intersection;
+                           colliderEventProperty: els;
+                           colliderEndEvent:raycaster-intersection-cleared;
+                           colliderEndEventProperty: clearedEls;"
+        daydream-controls
+        laser-controls
+          >
+      </a-entity> -->
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
@@ -228,11 +245,11 @@
           camera.object3D.rotation.y -= Math.PI/8;
         }
         if (e.detail.trackpaddown==true){
-          console.log("trackpad pressed down")
+          // console.log("trackpad pressed down")
 
         }
         if (e.detail.trackpadup==true){
-          console.log("trackpad released")
+          // console.log("trackpad released")
         }
     });
 
@@ -241,7 +258,7 @@
       if (e.detail){
         intersectedObject = e.detail.objectid;
         intersectionLocation = e.detail.location;
-        console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+        // console.log("some stuff was intersected", intersectedObject, intersectionLocation)
       }
       else {
         console.log("intersection event, but no intersection data")
@@ -253,13 +270,12 @@
       newObject.setAttribute('mixin', id+"Mix");
       newObject.setAttribute("position", intersectionLocation)
       scene.appendChild(newObject);
-      console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
+      // console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
 
     function movecamera(object){
-      console.log(object.id)
       var newpos = document.getElementById(object.id).getAttribute("position")
-      console.log("moving to", newpos)
+      // console.log("moving to", newpos)
       document.getElementById('cameraRig').setAttribute("position", newpos) ;
     }
 
