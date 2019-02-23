@@ -102,9 +102,7 @@
 
          // tried to change the button, but doesn't seem to work for right on daydream
           controller.addEventListener('trackpaddown', function(e){
-            for (x in e.detail.els){
-              console.log("trackpad down details", x)
-            }
+              console.log("trackpad down details", e)
             // if (objectclassname =="clickable" || objectclassname == "movable"){
             //   console.log('object not a teleporter, teleportend emitted')
             //   controller.emit('teleportend')
