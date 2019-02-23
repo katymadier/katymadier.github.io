@@ -13,67 +13,67 @@
 
     <script>
       // // remixed from other code
-      // AFRAME.registerComponent('setup', {
-      //   init: function () {
-      //     var cursorFuse= document.getElementById("cursor");
-      //
-      //     this.el.addEventListener('enter-vr', function (evt) {
-      //       if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
-      //         cursorFuse.setAttribute('cursor',"fuse:false");
-      //         cursorFuse.setAttribute('visible',"false");
-      //       }
-      //     })
-      //   }
-      // })
-      //
-      // // remixed from other code
-      // AFRAME.registerComponent("daydream-listener", {
-      //   schema: {
-      //     action: {
-      //       swipe: {type:'string', default: "left"},
-      //       touch: {type:'string', default: "left"},
-      //       buttonclick: {type:'bool', default: false},
-      //       buttontap: {type:'bool', default:false},
-      //       trackpadup: {type:'bool', default:false},
-      //       trackpaddown: {type:'bool', default:false}
-      //     }
-      //   },
-      //   update: function() {
-      //     var start;
-      //     var end;
-      //     var action = this.data;
-      //     var controller = this.el;
-      //     controller.addEventListener("trackpadtouchstart", (e) => {
-      //       //movement start
-      //       start = e.target.components["tracked-controls"].controller.axes[0];
-      //       if (start <.79){
-      //         action = {touch:"left"};
-      //         controller.emit('action', action);
-      //       }
-      //       if (start > -.79){
-      //         action = {touch:"right"};
-      //         controller.emit('action', action);
-      //       }
-      //
-      //       //gamepadButton
-      //       if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
-      //         action={buttontap:true}
-      //       }
-      //     });
-      //     controller.addEventListener("trackpadtouchend", (e) => {
-      //       end = e.target.components["tracked-controls"].controller.axes[0];
-      //
-      //     });
-      //     controller.addEventListener("trackpaddown", (e) => {
-      //       action={trackpaddown:true}
-      //       controller.emit('action', action);
-      //     });
-      //     controller.addEventListener("trackpadup", (e) => {
-      //       action={trackpadup:true}
-      //       controller.emit('action', action);
-      //     });
-      //   },
-      // });
+      AFRAME.registerComponent('setup', {
+        init: function () {
+          var cursorFuse= document.getElementById("cursor");
+
+          this.el.addEventListener('enter-vr', function (evt) {
+            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
+              cursorFuse.setAttribute('cursor',"fuse:false");
+              cursorFuse.setAttribute('visible',"false");
+            }
+          })
+        }
+      })
+
+      // remixed from other code
+      AFRAME.registerComponent("daydream-listener", {
+        schema: {
+          action: {
+            swipe: {type:'string', default: "left"},
+            touch: {type:'string', default: "left"},
+            buttonclick: {type:'bool', default: false},
+            buttontap: {type:'bool', default:false},
+            trackpadup: {type:'bool', default:false},
+            trackpaddown: {type:'bool', default:false}
+          }
+        },
+        update: function() {
+          var start;
+          var end;
+          var action = this.data;
+          var controller = this.el;
+          controller.addEventListener("trackpadtouchstart", (e) => {
+            //movement start
+            start = e.target.components["tracked-controls"].controller.axes[0];
+            if (start <.79){
+              action = {touch:"left"};
+              controller.emit('action', action);
+            }
+            if (start > -.79){
+              action = {touch:"right"};
+              controller.emit('action', action);
+            }
+
+            //gamepadButton
+            if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
+              action={buttontap:true}
+            }
+          });
+          controller.addEventListener("trackpadtouchend", (e) => {
+            end = e.target.components["tracked-controls"].controller.axes[0];
+
+          });
+          controller.addEventListener("trackpaddown", (e) => {
+            action={trackpaddown:true}
+            controller.emit('action', action);
+          });
+          controller.addEventListener("trackpadup", (e) => {
+            action={trackpadup:true}
+            controller.emit('action', action);
+          });
+        },
+      });
         // remixed from aframe
       AFRAME.registerComponent('collider-check', {
         dependencies: ['raycaster'],
