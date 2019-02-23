@@ -65,7 +65,7 @@
 
           });
           controller.addEventListener("trackpaddown", (e) => {
-            console.log(e.target)
+            console.log(e)
             action={trackpaddown:true}
             controller.emit('action', action);
           });
@@ -171,7 +171,7 @@
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
-        <a-entity camera id="head" wasd-controls look-controls>
+        <a-entity camera id="head" wasd-controls look-controls progressive-controls>
           <a-entity text="value:Katy Madier | SI659 Assignment 2" position="-0.19745 -0.49031 -0.86589"></a-entity>
           <!-- <a-entity id="cursor" raycaster="showline: true; objects: .intersectable" line=" color: #000; opacity: .5;" cursor= "fuse: true; fuseTimeout: 500" geometry="primitive: ring; radiusOuter: 0.015; radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -1">
             <a-animation begin="mouseenter" easing="ease-in" attribute="scale" fill="forward" from="1.25 1.25 1.25" to=".5 .5 .5"></a-animation>
