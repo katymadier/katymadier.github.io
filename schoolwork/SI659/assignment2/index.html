@@ -178,7 +178,7 @@
             <a-animation begin="mouseleave" easing="ease-out" attribute="scale" fill="forward" from=".5 .5 .5" to="1 1 1"></a-animation>
           </a-entity> -->
         </a-entity>
-        <a-entity id="controller"
+        <!-- <a-entity id="controller"
           daydream-listener
           collider-check
           raycaster="objects:.clickable, .movable, .teleportable"
@@ -188,6 +188,12 @@
           super-hands
           daydream-controls="right"
           laser-controls
+            >
+        </a-entity> -->
+        <a-entity id="controller"
+          sphere-collider="objects: [dynamic-body];"
+          super-hands
+          daydream-controls="right"
             >
         </a-entity>
       </a-entity>
