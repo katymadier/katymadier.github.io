@@ -165,9 +165,9 @@
       <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
       <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin> -->
 
-      <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
-      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
-      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin>
+      <a-mixin id="plantMix" shadow  gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow   dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="sunMix" shadow  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin>
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
