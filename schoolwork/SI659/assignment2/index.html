@@ -23,7 +23,6 @@
               cursorFuse.setAttribute('visible',"false");
             }
             else {
-              cursorFuse.setAttribute('cursor',"fuse:true");
               cameraRig.setAttribute('position', '0 2 4.3');
 
             }
@@ -182,7 +181,6 @@
           progressive-controls='objects: [dynamic-body];'
           daydream-listener
           collider-check
-          laser-controls
           daydream-controls="right"
           sphere-collider="objects: [dynamic-body];"
           static-body="shape: box;"
@@ -193,7 +191,8 @@
             >
         </a-entity>
       </a-entity>
-
+  <!-- laser-controls -->
+  
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
