@@ -188,7 +188,7 @@
         </a-entity>
       </a-entity>
 
-      <a-entity id="waypoint" shadow="" onclick="move(id)" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
+      <a-entity id="waypoint" shadow="" onclick="movecamera(id)" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
@@ -240,7 +240,7 @@
       console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
 
-    function move(id){
+    function movecamera(id){
         console.log("moving to", document.getElementById(id).position)
       document.getElementById('cameraRig').position = document.getElementById(id).position;
     }
