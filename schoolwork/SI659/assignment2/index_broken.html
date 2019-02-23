@@ -8,72 +8,72 @@
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
-
+    <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
 
 
     <script>
-      // // remixed from other code
-      // AFRAME.registerComponent('setup', {
-      //   init: function () {
-      //     var cursorFuse= document.getElementById("cursor");
-      //
-      //     this.el.addEventListener('enter-vr', function (evt) {
-      //       if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
-      //         cursorFuse.setAttribute('cursor',"fuse:false");
-      //         cursorFuse.setAttribute('visible',"false");
-      //       }
-      //     })
-      //   }
-      // })
-      //
-      // // remixed from other code
-      // AFRAME.registerComponent("daydream-listener", {
-      //   schema: {
-      //     action: {
-      //       swipe: {type:'string', default: "left"},
-      //       touch: {type:'string', default: "left"},
-      //       buttonclick: {type:'bool', default: false},
-      //       buttontap: {type:'bool', default:false},
-      //       trackpadup: {type:'bool', default:false},
-      //       trackpaddown: {type:'bool', default:false}
-      //     }
-      //   },
-      //   update: function() {
-      //     var start;
-      //     var end;
-      //     var action = this.data;
-      //     var controller = this.el;
-      //     controller.addEventListener("trackpadtouchstart", (e) => {
-      //       //movement start
-      //       start = e.target.components["tracked-controls"].controller.axes[0];
-      //       if (start <.79){
-      //         action = {touch:"left"};
-      //         controller.emit('action', action);
-      //       }
-      //       if (start > -.79){
-      //         action = {touch:"right"};
-      //         controller.emit('action', action);
-      //       }
-      //
-      //       //gamepadButton
-      //       if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
-      //         action={buttontap:true}
-      //       }
-      //     });
-      //     controller.addEventListener("trackpadtouchend", (e) => {
-      //       end = e.target.components["tracked-controls"].controller.axes[0];
-      //
-      //     });
-      //     controller.addEventListener("trackpaddown", (e) => {
-      //       action={trackpaddown:true}
-      //       controller.emit('action', action);
-      //     });
-      //     controller.addEventListener("trackpadup", (e) => {
-      //       action={trackpadup:true}
-      //       controller.emit('action', action);
-      //     });
-      //   },
-      // });
+      // remixed from other code
+      AFRAME.registerComponent('setup', {
+        init: function () {
+          var cursorFuse= document.getElementById("cursor");
+
+          this.el.addEventListener('enter-vr', function (evt) {
+            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
+              cursorFuse.setAttribute('cursor',"fuse:false");
+              cursorFuse.setAttribute('visible',"false");
+            }
+          })
+        }
+      })
+
+      // remixed from other code
+      AFRAME.registerComponent("daydream-listener", {
+        schema: {
+          action: {
+            swipe: {type:'string', default: "left"},
+            touch: {type:'string', default: "left"},
+            buttonclick: {type:'bool', default: false},
+            buttontap: {type:'bool', default:false},
+            trackpadup: {type:'bool', default:false},
+            trackpaddown: {type:'bool', default:false}
+          }
+        },
+        update: function() {
+          var start;
+          var end;
+          var action = this.data;
+          var controller = this.el;
+          controller.addEventListener("trackpadtouchstart", (e) => {
+            //movement start
+            start = e.target.components["tracked-controls"].controller.axes[0];
+            if (start <.79){
+              action = {touch:"left"};
+              controller.emit('action', action);
+            }
+            if (start > -.79){
+              action = {touch:"right"};
+              controller.emit('action', action);
+            }
+
+            //gamepadButton
+            if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
+              action={buttontap:true}
+            }
+          });
+          controller.addEventListener("trackpadtouchend", (e) => {
+            end = e.target.components["tracked-controls"].controller.axes[0];
+
+          });
+          controller.addEventListener("trackpaddown", (e) => {
+            action={trackpaddown:true}
+            controller.emit('action', action);
+          });
+          controller.addEventListener("trackpadup", (e) => {
+            action={trackpadup:true}
+            controller.emit('action', action);
+          });
+        },
+      });
         // remixed from aframe
       AFRAME.registerComponent('collider-check', {
         dependencies: ['raycaster'],
@@ -166,16 +166,25 @@
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
 
+      <!-- <a-mixin id="plantMix" shadow class="clickable movable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="wateringcanMix" shadow class="clickable movable"  dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  onclick="emit(teleportend)" onmousedown="emit(teleportend)" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+      <a-mixin id="sunMix" shadow class="clickable movable"  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" onclick="emit(teleportend)" onmousedown="emit(teleportend)" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin> -->
+
       <a-mixin id="plantMix" shadow gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
       <a-mixin id="wateringcanMix" shadow dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable grabbable stretchable draggable dropppable ></a-mixin>
       <a-mixin id="sunMix" shadow  dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable dropppable > </a-mixin>
 
       <!-- Player -->
       <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
-        <a-entity camera id="head" progressive-controls>
+        <a-entity camera id="head" wasd-controls look-controls progressive-controls>
           <a-entity text="value:Katy Madier | SI659 Assignment 2" position="-0.19745 -0.49031 -0.86589"></a-entity>
+          <!-- <a-entity id="cursor" raycaster="showline: true; objects: .intersectable" line=" color: #000; opacity: .5;" cursor= "fuse: true; fuseTimeout: 500" geometry="primitive: ring; radiusOuter: 0.015; radiusInner: 0.01; segmentsTheta: 32" material="color: #283644; shader: flat" position="0 0 -1">
+            <a-animation begin="mouseenter" easing="ease-in" attribute="scale" fill="forward" from="1.25 1.25 1.25" to=".5 .5 .5"></a-animation>
+            <a-animation begin="mouseleave" easing="ease-out" attribute="scale" fill="forward" from=".5 .5 .5" to="1 1 1"></a-animation>
+          </a-entity> -->
         </a-entity>
         <a-entity id="controller"
+          daydream-listener
           collider-check
           raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
@@ -187,6 +196,10 @@
             >
         </a-entity>
       </a-entity>
+
+      <!--
+      teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'-->
+
 
       <a-entity id="waypoint" shadow="" onclick="move(id)" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
 
@@ -205,20 +218,43 @@
       </a-entity>
 
       <!-- landscape -->
+      <!-- <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" event-set__down="_event: trackpaddown; emit(teleportstart)" event-set__up="_event: trackpadup; emit(teleportend)" class="teleportable"></a-cylinder> -->
+
       <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-cylinder>
 
       <a-sky material="color:skyblue"></a-sky>
 
     </a-scene>
     <script>
-
+    // TODO: walk forward
+    // TODO: swipe right to teleport, swipe left to select objects
+    // TODO: add controller menu
 
     var camera = document.querySelector('#cameraRig');
     var ycoord = camera.getAttribute("rotation");
     var scene = document.querySelector('a-scene');
+    // var sun = document.querySelector('#sun');
+    // var plant = document.querySelector('#plant');
+    // var wateringcan = document.querySelector('#wateringcan');
     var newObject;
     var intersectedObject;
     var intersectionLocation;
+
+    window.addEventListener('action', function(e){
+        if (e.detail.touch == "left"){
+          camera.object3D.rotation.y += Math.PI/8;
+        }
+        if (e.detail.touch == "right") {
+          camera.object3D.rotation.y -= Math.PI/8;
+        }
+        if (e.detail.trackpaddown==true){
+          console.log("trackpad pressed down")
+
+        }
+        if (e.detail.trackpadup==true){
+          console.log("trackpad released")
+        }
+    });
 
     // spawn on click and attach to raycaster - make draggable & grabbable
     window.addEventListener('intersection', function (e) {
