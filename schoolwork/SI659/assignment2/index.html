@@ -192,7 +192,8 @@
         </a-entity> -->
         <a-entity id="controller"
           daydream-listener
-          raycaster
+          collider-check
+          raycaster="objects:.clickable, .movable, .teleportable"
           line="color: #fff; opacity: 0.75"
           laser-controls
           sphere-collider="objects: [dynamic-body];"
@@ -208,7 +209,7 @@
       teleport-controls= 'cameraRig: #cameraRig; teleportOrigin:#cameraRig; curveHitColor:#fff; curveMissColor: #ffffff00;hitCylinderColor: #fff; type:line; hitCylinderHeight:0.1; hitCylinderRadius:.2; maxLength:20; startEvents: teleportstart; endEvents: teleportend; collisionEntities: #ground'-->
 
 
-      <a-entity id="box" shadow="" onclick="move()" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
+      <a-entity id="waypoint" shadow="" onclick="move(id)" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
@@ -282,9 +283,9 @@
       scene.appendChild(newObject);
       // console.log("you made a ", id, "at", intersectionLocation, "!")
     }
-    function move(){
-        console.log("moving to", this.position)
-      document.getElementById('cameraRig').position = this.position;
+    function move(id){
+        console.log("moving to", document.getElementById(id).position)
+      document.getElementById('cameraRig').position = document.getElementById(id).position;
     }
 
     </script>
