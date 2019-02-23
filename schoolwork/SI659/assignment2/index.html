@@ -15,16 +15,11 @@
       AFRAME.registerComponent('setup', {
         init: function () {
           var cursorFuse= document.getElementById("cursor");
-          var camrig = document.querySelector('cameraRig');
 
           this.el.addEventListener('enter-vr', function (evt) {
             if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
               cursorFuse.setAttribute('cursor',"fuse:false");
               cursorFuse.setAttribute('visible',"false");
-            }
-            else {
-              cameraRig.setAttribute('position', '0 2 4.3');
-
             }
           })
         }
@@ -178,6 +173,8 @@
           </a-entity> -->
         </a-entity>
         <a-entity id="controller"
+          laser-controls
+          progressive-controls='objects: [dynamic-body];'
           daydream-listener
           collider-check
           daydream-controls="right"
@@ -190,8 +187,6 @@
             >
         </a-entity>
       </a-entity>
-  <!-- laser-controls -->
-    <!-- progressive-controls='objects: [dynamic-body];' -->
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
