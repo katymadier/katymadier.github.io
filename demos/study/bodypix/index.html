@@ -100,6 +100,16 @@
         // }).then(function(segmentation){
         //   console.log(segmentation);
         // })
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const videoWidth = 600;
+        const videoHeight = 600;
+        video.width = videoWidth;
+        video.height = videoHeight;
+        const canvasWidth = 600;
+        const canvasHeight = 600;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
 
         const net = await bodyPix.load(.25);
         console.log(net)
