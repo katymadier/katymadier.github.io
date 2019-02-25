@@ -91,6 +91,7 @@
         const net = await bodyPix.load();
         console.log("net", net)
         const partSegmentation = await net.estimatePartSegmentation(video);
+        console.log("partSegmentation", partSegmentation)
 
         const warm = [
           [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
@@ -104,6 +105,7 @@
         const invert = true;
 
         const coloredPartImage = bodyPix.toColoredPartImageData(partSegmentation, warm);
+        console.log(coloredPartImage)
         const opacity = 0.7;
         const flipHorizontal = true;
         const maskBlurAmount = 0;
@@ -115,7 +117,6 @@
       }
       poseDetectionFrame();
     }
-
 
     // const colorMapping = {
     //   nose: "red",
