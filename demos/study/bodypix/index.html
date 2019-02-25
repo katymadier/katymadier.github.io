@@ -12,8 +12,8 @@
     <a-scene stats>
       <a-assets>
          <video id="video" crossorigin="anonymous"></video>
-         <canvas src="image.png" id="canvas"></canvas>
-         <img id="image"></img>
+         <canvas id="canvas"></canvas>
+         <img src="image.png"  id="image" crossorigin="anonymous"></img>
       </a-assets>
       <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
