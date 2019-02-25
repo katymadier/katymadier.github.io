@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <title>BodyPix Demo</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-    <!-- Load TensorFlow.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3"></script>
-    <!-- Load BodyPix -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@0.0.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
   </head>
 
   <body>
@@ -93,7 +91,7 @@
 
         var imageElement = document.getElementById('video');
 
-        bodyPix.load().then(function(net){
+        bodyPix.load(.25).then(function(net){
           return net.estimatePersonSegmentation(imageElement, outputStride, segmentationThreshold)
         }).then(function(segmentation){
           console.log(segmentation);
