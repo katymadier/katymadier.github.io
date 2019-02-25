@@ -91,10 +91,8 @@
         var outputStride = 16;
         var segmentationThreshold = 0.5;
 
-        var imageElement = document.getElementById('video');
-
         bodyPix.load(.25).then(function(net){
-          return net.estimatePersonSegmentation(imageElement, outputStride, segmentationThreshold)
+          return net.estimatePersonSegmentation(video, outputStride, segmentationThreshold)
         }).then(function(segmentation){
           console.log(segmentation);
         })
