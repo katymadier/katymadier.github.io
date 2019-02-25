@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+ </head>
+
+  <body>
+    <img id='image' src='image.png'/>
+  </body>
+  <script>
+    var outputStride = 16;
+    var segmentationThreshold = 0.5;
+
+    var imageElement = document.getElementById('image');
+
+    bodyPix.load().then(function(net){
+      return net.estimatePersonSegmentation(imageElement, outputStride, segmentationThreshold)
+    }).then(function(segmentation){
+      console.log(segmentation);
+    })
+  </script>
+</html>
