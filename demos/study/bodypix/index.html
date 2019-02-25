@@ -65,7 +65,7 @@
 
     //body tracking with posenet
     async function detectPoseInRealTime(video) {
-      console.log("running realtime")
+      // console.log("running realtime")
       const outputStride = 16;
       const segmentationThreshold = 0.5;
       // const net = await posenet.load(0.5);
@@ -73,7 +73,6 @@
       // const outputStride = 8;
 
       async function poseDetectionFrame() {
-        console.log("running pose detection")
 
         // let poses=[];
         // let minPoseConfidence = 0.1;
@@ -91,6 +90,7 @@
         //});
 
         bodyPix.load().then(function(net){
+          console.log("net", net)
           return net.estimatePartSegmentation(video, outputStride, segmentationThreshold)
         }).then(function(partSegmentation){
           console.log(partSegmentation);
@@ -109,7 +109,7 @@
         //   [41, 234, 141], [51, 240, 128], [64, 243, 116], [79, 246, 105],
         //   [96, 247, 97],  [115, 246, 91], [134, 245, 88], [155, 243, 88]
         // ];
-        // 
+        //
         // const invert = true;
         //
         // const coloredPartImage = bodyPix.toColoredPartImageData(partSegmentation, warm);
