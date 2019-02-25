@@ -90,6 +90,7 @@
         //});
         var outputStride = 16;
         var segmentationThreshold = 0.5;
+        console.log("bodyPix", bodyPix)
 
         bodyPix.load(.25).then(function(net){
           return net.estimatePersonSegmentation(video, outputStride, segmentationThreshold)
