@@ -16,7 +16,7 @@
          <video id="video" crossorigin="anonymous"></video>
          <canvas id="canvas"></canvas>
       </a-assets>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" material="src:#canvas"></a-plane>
+      <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
       <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
       <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
@@ -26,10 +26,15 @@
 
     // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
     const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
     const videoWidth = 600;
     const videoHeight = 600;
     video.width = videoWidth;
     video.height = videoHeight;
+    const canvasWidth = 600;
+    const canvasHeight = 600;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 
     function isAndroid() {
       return /Android/i.test(navigator.userAgent);
@@ -98,7 +103,7 @@
         //   console.log(segmentation);
         // })
 
-        const net = await bodyPix.load();
+        const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(video);
 
         const warm = [
@@ -118,7 +123,6 @@
         const opacity = 0.7;
         const flipHorizontal = true;
         const maskBlurAmount = 0;
-        const canvas = document.getElementById('canvas');
         // draw the colored part image on top of the original image onto a canvas.  The colored part image will be drawn semi-transparent, with an opacity of 0.7, allowing for the original image to be visible under.
         bodyPix.drawMask(
             canvas, video, coloredPartImageData, opacity, maskBlurAmount,
