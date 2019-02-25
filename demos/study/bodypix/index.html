@@ -70,7 +70,7 @@
       // const imageScaleFactor = .5;
       // const outputStride = 8;
 
-      async function poseDetectionFrame(video) {
+      async function poseDetectionFrame() {
 
         // let poses=[];
         // let minPoseConfidence = 0.1;
@@ -86,15 +86,23 @@
         //     drawSkeleton(keypoints, minPartConfidence);
         //   }
         //});
-        const outputStride = 16;
-        const segmentationThreshold = 0.5;
+        var outputStride = 16;
+        var segmentationThreshold = 0.5;
+
+        var imageElement = document.getElementById('video');
 
         bodyPix.load().then(function(net){
-          console.log("net", net)
-          return net.estimatePartSegmentation(video, outputStride, segmentationThreshold)
-        }).then(function(partSegmentation){
-          console.log(partSegmentation);
+          return net.estimatePersonSegmentation(imageElement, outputStride, segmentationThreshold)
+        }).then(function(segmentation){
+          console.log(segmentation);
         })
+
+        // bodyPix.load().then(function(net){
+        //   console.log("net", net)
+        //   return net.estimatePartSegmentation(video, outputStride, segmentationThreshold)
+        // }).then(function(partSegmentation){
+        //   console.log(partSegmentation);
+        // })
         //
         // const net = await bodyPix.load();
         // console.log("net", net)
