@@ -117,14 +117,16 @@
         const invert = true;
 
         // the colored part image is an rgb image with a corresponding color from thee rainbow colors for each part at each pixel, and black pixels where there is no part.
-        const coloredPartImage = bodyPix.toColoredPartImageData(partSegmentation, warm);
+        const coloredPartImageData = bodyPix.toColoredPartImageData(partSegmentation, warm);
         const opacity = 0.7;
         const flipHorizontal = true;
         const maskBlurAmount = 0;
+        const pixelCellWidth = 10.0;
         // draw the colored part image on top of the original image onto a canvas.  The colored part image will be drawn semi-transparent, with an opacity of 0.7, allowing for the original image to be visible under.
-        bodyPix.drawMask(
-            canvas, video, coloredPartImageData, opacity, maskBlurAmount,
-            flipHorizontal);
+
+       bodyPix.drawPixelatedMask(
+           canvas, video, coloredPartImageData, opacity,
+           maskBlurAmount, flipHorizontal, pixelCellWidth);
 
         requestAnimationFrame(poseDetectionFrame);
       }
