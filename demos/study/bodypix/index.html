@@ -103,6 +103,7 @@
 
         const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(video);
+        console.log("partSegmentation", partSegmentation)
 
         const warm = [
           [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
@@ -122,7 +123,6 @@
         const flipHorizontal = true;
         const maskBlurAmount = 0;
         const pixelCellWidth = 10.0;
-        // draw the colored part image on top of the original image onto a canvas.  The colored part image will be drawn semi-transparent, with an opacity of 0.7, allowing for the original image to be visible under.
 
        bodyPix.drawPixelatedMask(
            canvas, video, coloredPartImageData, opacity,
