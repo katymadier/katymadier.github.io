@@ -239,7 +239,7 @@
 
     async function loadVideo() {
       try {
-        video = await setupCamera();
+        const video = await setupCamera();
       } catch (e) {
         let info = document.getElementById('info');
         info.value = 'this browser does not support video capture,' +
