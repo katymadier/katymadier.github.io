@@ -11,7 +11,7 @@
   <body>
     <a-scene stats>
       <a-assets>
-         <video id="video"></video>
+         <video id="video" crossorigin="anonymous"></video>
       </a-assets>
 
       <a-text id="info" style='display:none'></a-text>
@@ -89,6 +89,7 @@
         //});
 
         const net = await bodyPix.load();
+        console.log("net", net)
         const partSegmentation = await net.estimatePartSegmentation(video);
 
         const warm = [
@@ -169,6 +170,7 @@
     // }
 
     async function loadVideo() {
+      console.log("loading video")
       const video = await setupCamera();
       console.log("playing video")
       video.play();
