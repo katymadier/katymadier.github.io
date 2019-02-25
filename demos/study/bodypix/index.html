@@ -102,6 +102,7 @@
         // })
 
         const net = await bodyPix.load(.25);
+        console.log(net)
         const partSegmentation = await net.estimatePartSegmentation(video);
         console.log("partSegmentation", partSegmentation)
 
