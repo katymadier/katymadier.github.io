@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>BodyPix Demo</title>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+  </head>
+
+  <body>
+    <a-scene stats>
+      <a-assets>
+         <video id="video"></video>
+      </a-assets>
+
+      <a-text id="info" style='display:none'></a-text>
+      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
+      <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
+      <!-- <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity> -->
+    </a-scene>
+    <script>
+
+    // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
+    const video = document.getElementById('video');
+    const videoWidth = 600;
+    const videoHeight = 600;
+    video.width = videoWidth;
+    video.height = videoHeight;
+
+    function isAndroid() {
+      return /Android/i.test(navigator.userAgent);
+    }
+    function isiOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function isMobile() {
+      return isAndroid() || isiOS();
+    }
+    async function setupCamera() {
+      console.log("running camera set up")
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error(
+            'Browser API navigator.mediaDevices.getUserMedia not available');
+      }
+
+      const mobile = isMobile();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {
+          facingMode: 'environment',
+          width: mobile ? undefined : videoWidth,
+          height: mobile ? undefined : videoHeight,
+        },
+      });
+      video.srcObject = stream;
+
+      return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          console.log("resolving video")
+          resolve(video);
+        };
+      });
+    }
+
+    //body tracking with posenet
+    async function detectPoseInRealTime(video) {
+      console.log("running realtime")
+      // const net = await posenet.load(0.5);
+      // const imageScaleFactor = .5;
+      // const outputStride = 8;
+
+      async function poseDetectionFrame() {
+        console.log("running pose detection")
+
+        // let poses=[];
+        // let minPoseConfidence = 0.1;
+        // let minPartConfidence = 0.5;
+
+        // const pose = await net.estimateSinglePose(
+        //     video, imageScaleFactor, flipHorizontal, outputStride);
+        // poses.push(pose);
+        // poses.forEach(({score, keypoints}) => {
+        //   // console.log("looking at poses")
+        //   if (score >= minPoseConfidence) {
+        //     // console.log("score passes")
+        //     drawSkeleton(keypoints, minPartConfidence);
+        //   }
+        //});
+
+        const net = await bodyPix.load();
+        const partSegmentation = await net.estimatePartSegmentation(video);
+
+        const warm = [
+          [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
+          [84, 101, 214], [75, 113, 221], [66, 125, 224], [56, 138, 226],
+          [48, 150, 224], [40, 163, 220], [33, 176, 214], [29, 188, 205],
+          [26, 199, 194], [26, 210, 182], [28, 219, 169], [33, 227, 155],
+          [41, 234, 141], [51, 240, 128], [64, 243, 116], [79, 246, 105],
+          [96, 247, 97],  [115, 246, 91], [134, 245, 88], [155, 243, 88]
+        ];
+
+        const invert = true;
+
+        const coloredPartImage = bodyPix.toColoredPartImageData(partSegmentation, warm);
+        const opacity = 0.7;
+        const flipHorizontal = true;
+        const maskBlurAmount = 0;
+        bodyPix.drawMask(
+            canvas, imageElement, coloredPartImageData, opacity, maskBlurAmount,
+            flipHorizontal);
+
+        requestAnimationFrame(poseDetectionFrame);
+      }
+      poseDetectionFrame();
+    }
+
+
+    // const colorMapping = {
+    //   nose: "red",
+    //   leftEye: "pink",
+    //   rightEye: "pink",
+    //   leftEar: "green",
+    //   rightEar: "green",
+    //   leftShoulder: "blue",
+    //   rightShoulder: "blue",
+    //   leftElbow: "blue",
+    //   rightElbow: "blue",
+    //   leftWrist: "blue",
+    //   rightWrist: "blue",
+    //   leftHip: "yellow",
+    //   rightHip: "yellow",
+    //   leftKnee: "yellow",
+    //   rightKnee: "yellow",
+    //   leftAnkle: "yellow",
+    //   rightAnkle: "yellow"
+    // };
+
+    // //creates joints
+    // function createJoint(part, position){
+    //   console.log("creating joints")
+    //   var joint = document.createElement('a-sphere');
+    //   joint.setAttribute("id", part);
+    //   body.appendChild(joint);
+    //   var getJoint = document.getElementById(part);
+    //   getJoint.setAttribute("radius", .01);
+    //   getJoint.setAttribute("material", "color", colorMapping[part])
+    // }
+    //
+    // // updates joint position
+    // function moveJoint(scale, part, position){
+    //   // console.log("moving joints")
+    //     document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
+    // }
+    //
+    // // Draws pose into VR Scene
+    // function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
+    //   // console.log("drawing skeleton")
+    //   keypoints.forEach((keypoint)=>{
+    //     if (keypoint.score >= minPartConfidence) {
+    //       if (document.getElementById(keypoint.part)){
+    //         moveJoint(scale, keypoint.part, keypoint.position)
+    //       } else {
+    //         createJoint(keypoint.part, keypoint.position);
+    //       }
+    //     }
+    //     return
+    //   })
+    // }
+
+    async function loadVideo() {
+      const video = await setupCamera();
+      console.log("playing video")
+      video.play();
+      return video;
+    }
+
+    async function bindPage() {
+      let video
+      try {
+        video = await loadVideo();
+      } catch (e) {
+        let info = document.getElementById('info');
+        info.value = 'this browser does not support video capture,' +
+            'or this device does not have a camera';
+        info.style.display = 'block';
+        throw e;
+      }
+      detectPoseInRealTime(video);
+    }
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+    bindPage();
+
+    </script>
+  </body>
+</html>
