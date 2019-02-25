@@ -12,19 +12,22 @@
     <a-scene stats>
       <a-assets>
          <video id="video" crossorigin="anonymous"></video>
-         <canvas id="canvas"></canvas>
+         <canvas src="image.png" id="canvas"></canvas>
+         <img id="image"></img>
       </a-assets>
       <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
-      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
+      <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
       <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
       <!-- <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity> -->
     </a-scene>
     <script>
 
     // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
+
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
+    const image = document.getElementById('image');
     const videoWidth = 600;
     const videoHeight = 600;
     video.width = videoWidth;
@@ -46,65 +49,66 @@
     ];
 
 
-    function isAndroid() {
-      return /Android/i.test(navigator.userAgent);
-    }
-    function isiOS() {
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-    function isMobile() {
-      return isAndroid() || isiOS();
-    }
+    // function isAndroid() {
+    //   return /Android/i.test(navigator.userAgent);
+    // }
+    // function isiOS() {
+    //   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // }
+    // function isMobile() {
+    //   return isAndroid() || isiOS();
+    // }
+    //
+    // function stopExistingVideoCapture() {
+    //   if (video && video.srcObject) {
+    //     video.srcObject.getTracks().forEach(track => {
+    //       track.stop();
+    //     })
+    //     video.srcObject = null;
+    //   }
+    // }
+    //
+    // async function setupCamera() {
+    //   console.log("running camera set up")
+    //   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    //     throw new Error(
+    //         'Browser API navigator.mediaDevices.getUserMedia not available');
+    //   }
+    //
+    //   stopExistingVideoCapture();
+    //
+    //   const mobile = isMobile();
+    //   const stream = await navigator.mediaDevices.getUserMedia({
+    //     'audio': false,
+    //     'video': {
+    //       facingMode: 'environment',
+    //       width: mobile ? undefined : videoWidth,
+    //       height: mobile ? undefined : videoHeight,
+    //     },
+    //   });
+    //   video.srcObject = stream;
+    //
+    //   return new Promise((resolve) => {
+    //     video.onloadedmetadata = () => {
+    //       console.log("resolving video")
+    //       resolve(video);
+    //     };
+    //   });
+    //
+    // }
 
-    function stopExistingVideoCapture() {
-      if (video && video.srcObject) {
-        video.srcObject.getTracks().forEach(track => {
-          track.stop();
-        })
-        video.srcObject = null;
-      }
-    }
-
-    async function setupCamera() {
-      console.log("running camera set up")
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error(
-            'Browser API navigator.mediaDevices.getUserMedia not available');
-      }
-
-      stopExistingVideoCapture();
-
-      const mobile = isMobile();
-      const stream = await navigator.mediaDevices.getUserMedia({
-        'audio': false,
-        'video': {
-          facingMode: 'environment',
-          width: mobile ? undefined : videoWidth,
-          height: mobile ? undefined : videoHeight,
-        },
-      });
-      video.srcObject = stream;
-
-      return new Promise((resolve) => {
-        video.onloadedmetadata = () => {
-          console.log("resolving video")
-          resolve(video);
-        };
-      });
-
-    }
     function segmentBodyInRealTime() {
       async function bodySegmentationFrame() {
         const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(
-            video, outputStride, segmentationThreshold);
+            image, outputStride, segmentationThreshold);
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             partSegmentation, warm);
 
-        // bodyPix.drawPixelatedMask(
-        //     canvas, video, coloredPartImageData, opacity,
-        //     maskBlurAmount, flipHorizontally, pixelCellWidth);
+        bodyPix.drawPixelatedMask(
+            canvas, image, coloredPartImageData, opacity,
+            maskBlurAmount, flipHorizontally, pixelCellWidth);
 
         // bodyPix.drawMask(
         //     canvas, video, coloredPartImageData, opacity,
@@ -235,28 +239,28 @@
     //   })
     // }
 
-    async function loadVideo() {
-      try {
-        const video = await setupCamera();
-      } catch (e) {
-        let info = document.getElementById('info');
-        info.value = 'this browser does not support video capture,' +
-            'or this device does not have a camera';
-        info.style.display = 'block';
-        throw e;
-      }
-      console.log("playing video")
-      video.play();
-      // return video
-    }
+    // async function loadVideo() {
+    //   try {
+    //     const video = await setupCamera();
+    //   } catch (e) {
+    //     let info = document.getElementById('info');
+    //     info.value = 'this browser does not support video capture,' +
+    //         'or this device does not have a camera';
+    //     info.style.display = 'block';
+    //     throw e;
+    //   }
+    //   console.log("playing video")
+    //   video.play();
+    //   // return video
+    // }
 
     async function bindPage() {
       console.log("binding page")
-      await loadVideo();
+      // await loadVideo();
       segmentBodyInRealTime();
     }
-    navigator.getUserMedia = navigator.getUserMedia ||
-        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    // navigator.getUserMedia = navigator.getUserMedia ||
+    //     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     bindPage();
 
