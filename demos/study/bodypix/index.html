@@ -66,8 +66,6 @@
     //body tracking with posenet
     async function detectPoseInRealTime(video) {
       // console.log("running realtime")
-      const outputStride = 16;
-      const segmentationThreshold = 0.5;
       // const net = await posenet.load(0.5);
       // const imageScaleFactor = .5;
       // const outputStride = 8;
@@ -88,6 +86,8 @@
         //     drawSkeleton(keypoints, minPartConfidence);
         //   }
         //});
+        const outputStride = 16;
+        const segmentationThreshold = 0.5;
 
         bodyPix.load().then(function(net){
           console.log("net", net)
