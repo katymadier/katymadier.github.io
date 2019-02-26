@@ -14,6 +14,7 @@
     var imageElement = document.getElementById('image');
 
     bodyPix.load().then(function(net){
+      console.log("net", net)
       return net.estimatePersonSegmentation(imageElement, outputStride, segmentationThreshold)
     }).then(function(segmentation){
       console.log(segmentation);

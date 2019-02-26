@@ -13,21 +13,21 @@
       <a-assets>
          <video id="video" crossorigin="anonymous"></video>
          <canvas id="canvas"></canvas>
-         <img src="image.png"  id="image" crossorigin="anonymous"></img>
+         <!-- <img src="image.png"  id="image" crossorigin="anonymous"></img> -->
       </a-assets>
       <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
-      <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
+      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
       <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
       <!-- <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity> -->
     </a-scene>
     <script>
 
-    // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
+    // code for body tracking remixed for VR from Tensorflow & BodyPix https://github.com/tensorflow/tfjs-models/tree/master/body-pix#person-segmentation
 
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
-    const image = document.getElementById('image');
+    // const image = document.getElementById('image');
     const videoWidth = 600;
     const videoHeight = 600;
     video.width = videoWidth;
@@ -49,65 +49,65 @@
     ];
 
 
-    // function isAndroid() {
-    //   return /Android/i.test(navigator.userAgent);
-    // }
-    // function isiOS() {
-    //   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    // }
-    // function isMobile() {
-    //   return isAndroid() || isiOS();
-    // }
-    //
-    // function stopExistingVideoCapture() {
-    //   if (video && video.srcObject) {
-    //     video.srcObject.getTracks().forEach(track => {
-    //       track.stop();
-    //     })
-    //     video.srcObject = null;
-    //   }
-    // }
-    //
-    // async function setupCamera() {
-    //   console.log("running camera set up")
-    //   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    //     throw new Error(
-    //         'Browser API navigator.mediaDevices.getUserMedia not available');
-    //   }
-    //
-    //   stopExistingVideoCapture();
-    //
-    //   const mobile = isMobile();
-    //   const stream = await navigator.mediaDevices.getUserMedia({
-    //     'audio': false,
-    //     'video': {
-    //       facingMode: 'environment',
-    //       width: mobile ? undefined : videoWidth,
-    //       height: mobile ? undefined : videoHeight,
-    //     },
-    //   });
-    //   video.srcObject = stream;
-    //
-    //   return new Promise((resolve) => {
-    //     video.onloadedmetadata = () => {
-    //       console.log("resolving video")
-    //       resolve(video);
-    //     };
-    //   });
-    //
-    // }
+    function isAndroid() {
+      return /Android/i.test(navigator.userAgent);
+    }
+    function isiOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function isMobile() {
+      return isAndroid() || isiOS();
+    }
+
+    function stopExistingVideoCapture() {
+      if (video && video.srcObject) {
+        video.srcObject.getTracks().forEach(track => {
+          track.stop();
+        })
+        video.srcObject = null;
+      }
+    }
+
+    async function setupCamera() {
+      console.log("running camera set up")
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error(
+            'Browser API navigator.mediaDevices.getUserMedia not available');
+      }
+
+      stopExistingVideoCapture();
+
+      const mobile = isMobile();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {
+          facingMode: 'environment',
+          width: mobile ? undefined : videoWidth,
+          height: mobile ? undefined : videoHeight,
+        },
+      });
+      video.srcObject = stream;
+
+      return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          console.log("resolving video")
+          resolve(video);
+        };
+      });
+
+    }
 
     function segmentBodyInRealTime() {
       async function bodySegmentationFrame() {
         const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(
-            image, outputStride, segmentationThreshold);
+            video, outputStride, segmentationThreshold);
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             partSegmentation, warm);
 
         bodyPix.drawPixelatedMask(
-            canvas, image, coloredPartImageData, opacity,
+            canvas, video, coloredPartImageData, opacity,
             maskBlurAmount, flipHorizontally, pixelCellWidth);
 
         // bodyPix.drawMask(
@@ -120,72 +120,6 @@
       bodySegmentationFrame();
     }
 
-
-    // //body tracking with posenet
-    // async function detectPoseInRealTime(video) {
-    //   console.log("running realtime")
-    //   // const net = await posenet.load(0.5);
-    //   // const imageScaleFactor = .5;
-    //   // const outputStride = 8;
-    //   const net = await bodyPix.load(.25);
-    //   console.log(net)
-    //   const partSegmentation = await net.estimatePartSegmentation(video);
-    //   console.log("partSegmentation", partSegmentation)
-    //
-    //   const warm = [
-    //     [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
-    //     [84, 101, 214], [75, 113, 221], [66, 125, 224], [56, 138, 226],
-    //     [48, 150, 224], [40, 163, 220], [33, 176, 214], [29, 188, 205],
-    //     [26, 199, 194], [26, 210, 182], [28, 219, 169], [33, 227, 155],
-    //     [41, 234, 141], [51, 240, 128], [64, 243, 116], [79, 246, 105],
-    //     [96, 247, 97],  [115, 246, 91], [134, 245, 88], [155, 243, 88]
-    //   ];
-    //
-    //
-    //   const invert = true;
-    //
-    //   // the colored part image is an rgb image with a corresponding color from thee rainbow colors for each part at each pixel, and black pixels where there is no part.
-    //   const coloredPartImageData = bodyPix.toColoredPartImageData(partSegmentation, warm);
-    //   const opacity = 0.7;
-    //   const flipHorizontal = true;
-    //   const maskBlurAmount = 0;
-    //   const pixelCellWidth = 10.0;
-    //
-    //  bodyPix.drawPixelatedMask(
-    //      canvas, video, coloredPartImageData, opacity,
-    //      maskBlurAmount, flipHorizontal, pixelCellWidth);
-    //
-    //   requestAnimationFrame(poseDetectionFrame);
-    //
-    //   async function poseDetectionFrame() {
-    //
-    //     // let poses=[];
-    //     // let minPoseConfidence = 0.1;
-    //     // let minPartConfidence = 0.5;
-    //
-    //     // const pose = await net.estimateSinglePose(
-    //     //     video, imageScaleFactor, flipHorizontal, outputStride);
-    //     // poses.push(pose);
-    //     // poses.forEach(({score, keypoints}) => {
-    //     //   // console.log("looking at poses")
-    //     //   if (score >= minPoseConfidence) {
-    //     //     // console.log("score passes")
-    //     //     drawSkeleton(keypoints, minPartConfidence);
-    //     //   }
-    //     //});
-    //     // var outputStride = 16;
-    //     // var segmentationThreshold = 0.5;
-    //     //
-    //     // await bodyPix.load(.25).then(function(net){
-    //     //   return net.estimatePersonSegmentation(video, outputStride, segmentationThreshold)
-    //     // }).then(function(segmentation){
-    //     //   console.log(segmentation);
-    //     // })
-    //
-    //
-    //   }
-    //   poseDetectionFrame();
-    // }
 
     // const colorMapping = {
     //   nose: "red",
@@ -239,28 +173,28 @@
     //   })
     // }
 
-    // async function loadVideo() {
-    //   try {
-    //     const video = await setupCamera();
-    //   } catch (e) {
-    //     let info = document.getElementById('info');
-    //     info.value = 'this browser does not support video capture,' +
-    //         'or this device does not have a camera';
-    //     info.style.display = 'block';
-    //     throw e;
-    //   }
-    //   console.log("playing video")
-    //   video.play();
-    //   // return video
-    // }
+    async function loadVideo() {
+      try {
+        const video = await setupCamera();
+      } catch (e) {
+        let info = document.getElementById('info');
+        info.value = 'this browser does not support video capture,' +
+            'or this device does not have a camera';
+        info.style.display = 'block';
+        throw e;
+      }
+      console.log("playing video")
+      video.play();
+      return video
+    }
 
     async function bindPage() {
       console.log("binding page")
-      // await loadVideo();
+      await loadVideo();
       segmentBodyInRealTime();
     }
-    // navigator.getUserMedia = navigator.getUserMedia ||
-    //     navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
     bindPage();
 
