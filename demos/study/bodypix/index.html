@@ -27,7 +27,7 @@
          <video id="video" crossorigin="anonymous"></video>
          <canvas id="canvas"></canvas>
       </a-assets>
-      <a-cylinder position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-cylinder>
+      <a-cylinder position="-2 2 -4" rotation="0 0 0" width="4" height="4" material="src:#canvas"></a-cylinder>
       <a-text id="info" style='display:none'></a-text>
       <a-video src="#video" width="2" height="2" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
@@ -105,7 +105,7 @@
         const partSegmentation = await net.estimatePartSegmentation(
             video, outputStride, segmentationThreshold);
         // console.log("segmentation", partSegmentation)
-        for (x in partSegmentation.data){
+        for (let x in partSegmentation.data){
           if (x=1){
             console.log("x", x)
             bodyParts += x;
