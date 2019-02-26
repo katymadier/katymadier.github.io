@@ -29,7 +29,7 @@
       </a-assets>
       <a-cylinder position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-cylinder>
       <a-text id="info" style='display:none'></a-text>
-      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
+      <a-video src="#video" width="2" height="2" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
@@ -42,7 +42,6 @@
 
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
-    // const image = document.getElementById('image');
     const videoWidth = 600;
     const videoHeight = 600;
     video.width = videoWidth;
@@ -50,7 +49,7 @@
 
     const opacity = .7;
     const outputStride = 8;
-    const segmentationThreshold = 0.5;
+    const segmentationThreshold = .8;
     const flipHorizontally = true;
     const maskBlurAmount = 0;
     const pixelCellWidth = 10.0;
@@ -74,7 +73,7 @@
     }
 
     async function setupCamera() {
-      console.log("running camera set up")
+      // console.log("running camera set up")
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error(
             'Browser API navigator.mediaDevices.getUserMedia not available');
@@ -93,22 +92,28 @@
 
       return new Promise((resolve) => {
         video.onloadedmetadata = () => {
-          console.log("resolving video")
+          // console.log("resolving video")
           resolve(video);
         };
       });
 
     }
-
+    const bodyParts=[]
     function segmentBodyInRealTime() {
       async function bodySegmentationFrame() {
         const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(
             video, outputStride, segmentationThreshold);
-        console.log("segmentation", partSegmentation)
+        // console.log("segmentation", partSegmentation)
+        for (x in partSegmentation.data){
+          if (x=1){
+            console.log("x", x)
+            bodyParts += x;
+          }
+        }
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
-            partSegmentation, warm);
+            bodyParts, warm);
 
         bodyPix.drawPixelatedMask(
             canvas, video, coloredPartImageData, opacity,
@@ -129,13 +134,13 @@
         info.style.display = 'block';
         throw e;
       }
-      console.log("playing video")
+      // console.log("playing video")
       video.play();
       return video
     }
 
     async function bindPage() {
-      console.log("binding page")
+      // console.log("binding page")
       await loadVideo();
       segmentBodyInRealTime();
     }
