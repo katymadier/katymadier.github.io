@@ -98,7 +98,6 @@
       });
 
     }
-    const bodyParts=[]
     function segmentBodyInRealTime() {
       async function bodySegmentationFrame() {
         const net = await bodyPix.load(.25);
@@ -107,7 +106,7 @@
         // console.log("segmentation", partSegmentation)
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
-            bodyParts, warm);
+            partSegmentation, warm);
 
         bodyPix.drawPixelatedMask(
             canvas, video, coloredPartImageData, opacity,
