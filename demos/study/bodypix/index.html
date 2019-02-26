@@ -47,7 +47,7 @@
     video.width = videoWidth;
     video.height = videoHeight;
 
-    const opacity = .7;
+    const opacity = 0;
     const outputStride = 8;
     const segmentationThreshold = .8;
     const flipHorizontally = true;
@@ -105,12 +105,6 @@
         const partSegmentation = await net.estimatePartSegmentation(
             video, outputStride, segmentationThreshold);
         // console.log("segmentation", partSegmentation)
-        for (let x in partSegmentation.data){
-          if (x=1){
-            bodyParts.push(partSegmentation.data[x]);
-          }
-        }
-        console.log(bodyParts)
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             bodyParts, warm);
