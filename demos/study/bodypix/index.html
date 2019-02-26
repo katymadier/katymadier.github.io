@@ -1,11 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <title>BodyPix Demo</title>
     <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.15.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+    <style>
+     body {
+       margin: 0;
+       width: 100%;
+     }
+     .footer {
+       position: fixed;
+       left: 0;
+       bottom: 0;
+       width: 100%;
+       color: black;
+     }
+     .footer-text {
+         max-width: 600px;
+         text-align: center;
+         margin: auto;
+     }
+     .footer-text, #colors {
+       font-family: Arial, Helvetica, sans-serif;
+     }
+     #colors {
+       margin: 0;
+       padding: 0;
+       list-style: none;
+     }
+     #colors li {
+       margin: 0;
+     }
+     #colors .color {
+       width: 50px;
+       height: 1em;
+     }
+     #colors li div {
+       display: inline-block;
+     }
+     .footer-menu {
+       display: none;
+     }
+     /* mobile */
+     @media only screen and (max-width: 850px) {
+       .footer {
+         height: 46px;
+       }
+       .footer-text {
+         display: none;
+       }
+       #main {
+         width: 100%;
+         height: 100%;
+         overflow: hidden;
+       }
+     }
+    </style>
   </head>
 
   <body>
@@ -17,7 +71,12 @@
       </a-assets>
       <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
-      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
+      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        display: none;
+        "></a-video>
       <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
       <!-- <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity> -->
     </a-scene>
