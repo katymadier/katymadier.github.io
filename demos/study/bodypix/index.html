@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,47 +11,7 @@
        margin: 0;
        width: 100%;
      }
-     .footer {
-       position: fixed;
-       left: 0;
-       bottom: 0;
-       width: 100%;
-       color: black;
-     }
-     .footer-text {
-         max-width: 600px;
-         text-align: center;
-         margin: auto;
-     }
-     .footer-text, #colors {
-       font-family: Arial, Helvetica, sans-serif;
-     }
-     #colors {
-       margin: 0;
-       padding: 0;
-       list-style: none;
-     }
-     #colors li {
-       margin: 0;
-     }
-     #colors .color {
-       width: 50px;
-       height: 1em;
-     }
-     #colors li div {
-       display: inline-block;
-     }
-     .footer-menu {
-       display: none;
-     }
-     /* mobile */
      @media only screen and (max-width: 850px) {
-       .footer {
-         height: 46px;
-       }
-       .footer-text {
-         display: none;
-       }
        #main {
          width: 100%;
          height: 100%;
@@ -67,7 +26,6 @@
       <a-assets>
          <video id="video" crossorigin="anonymous"></video>
          <canvas id="canvas"></canvas>
-         <!-- <img src="image.png"  id="image" crossorigin="anonymous"></img> -->
       </a-assets>
       <a-plane position="-2 2 -4" rotation="0 90 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
@@ -77,10 +35,8 @@
         transform: scaleX(-1);
         display: none;
         "></a-video>
-      <!-- <a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera> -->
-      <!-- <a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity> -->
     </a-scene>
-    <script>
+    <script type="module">
 
     // code for body tracking remixed for VR from Tensorflow & BodyPix https://github.com/tensorflow/tfjs-models/tree/master/body-pix#person-segmentation
 
@@ -98,15 +54,6 @@
     const flipHorizontally = true;
     const maskBlurAmount = 0;
     const pixelCellWidth = 10.0;
-    const warm = [
-      [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
-      [84, 101, 214], [75, 113, 221], [66, 125, 224], [56, 138, 226],
-      [48, 150, 224], [40, 163, 220], [33, 176, 214], [29, 188, 205],
-      [26, 199, 194], [26, 210, 182], [28, 219, 169], [33, 227, 155],
-      [41, 234, 141], [51, 240, 128], [64, 243, 116], [79, 246, 105],
-      [96, 247, 97],  [115, 246, 91], [134, 245, 88], [155, 243, 88]
-    ];
-
 
     function isAndroid() {
       return /Android/i.test(navigator.userAgent);
@@ -118,23 +65,12 @@
       return isAndroid() || isiOS();
     }
 
-    function stopExistingVideoCapture() {
-      if (video && video.srcObject) {
-        video.srcObject.getTracks().forEach(track => {
-          track.stop();
-        })
-        video.srcObject = null;
-      }
-    }
-
     async function setupCamera() {
       console.log("running camera set up")
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error(
             'Browser API navigator.mediaDevices.getUserMedia not available');
       }
-
-      stopExistingVideoCapture();
 
       const mobile = isMobile();
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -163,75 +99,17 @@
             video, outputStride, segmentationThreshold);
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
-            partSegmentation, warm);
+            partSegmentation, partColorScales.warm);
 
         bodyPix.drawPixelatedMask(
             canvas, video, coloredPartImageData, opacity,
             maskBlurAmount, flipHorizontally, pixelCellWidth);
-
-        // bodyPix.drawMask(
-        //     canvas, video, coloredPartImageData, opacity,
-        //     maskBlurAmount, flipHorizontally);
 
         requestAnimationFrame(bodySegmentationFrame);
       }
 
       bodySegmentationFrame();
     }
-
-
-    // const colorMapping = {
-    //   nose: "red",
-    //   leftEye: "pink",
-    //   rightEye: "pink",
-    //   leftEar: "green",
-    //   rightEar: "green",
-    //   leftShoulder: "blue",
-    //   rightShoulder: "blue",
-    //   leftElbow: "blue",
-    //   rightElbow: "blue",
-    //   leftWrist: "blue",
-    //   rightWrist: "blue",
-    //   leftHip: "yellow",
-    //   rightHip: "yellow",
-    //   leftKnee: "yellow",
-    //   rightKnee: "yellow",
-    //   leftAnkle: "yellow",
-    //   rightAnkle: "yellow"
-    // };
-
-    // //creates joints
-    // function createJoint(part, position){
-    //   console.log("creating joints")
-    //   var joint = document.createElement('a-sphere');
-    //   joint.setAttribute("id", part);
-    //   body.appendChild(joint);
-    //   var getJoint = document.getElementById(part);
-    //   getJoint.setAttribute("radius", .01);
-    //   getJoint.setAttribute("material", "color", colorMapping[part])
-    // }
-    //
-    // // updates joint position
-    // function moveJoint(scale, part, position){
-    //   // console.log("moving joints")
-    //     document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
-    // }
-    //
-    // // Draws pose into VR Scene
-    // function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
-    //   // console.log("drawing skeleton")
-    //   keypoints.forEach((keypoint)=>{
-    //     if (keypoint.score >= minPartConfidence) {
-    //       if (document.getElementById(keypoint.part)){
-    //         moveJoint(scale, keypoint.part, keypoint.position)
-    //       } else {
-    //         createJoint(keypoint.part, keypoint.position);
-    //       }
-    //     }
-    //     return
-    //   })
-    // }
-
     async function loadVideo() {
       try {
         const video = await setupCamera();
@@ -258,5 +136,5 @@
     bindPage();
 
     </script>
-  </body>
+</body>
 </html>
