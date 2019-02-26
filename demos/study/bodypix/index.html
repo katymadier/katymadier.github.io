@@ -27,7 +27,7 @@
          <video id="video" crossorigin="anonymous"></video>
          <canvas id="canvas"></canvas>
       </a-assets>
-      <a-cylinder position="-2 2 -4" rotation="0 180 0" width="4" height="4" material="src:#canvas"></a-cylinder>
+      <a-plane position="-2 2 -4" rotation="0 180 0" width="4" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
       <a-video src="#video" width="2" height="2" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
@@ -105,6 +105,9 @@
             video, outputStride, segmentationThreshold);
         // console.log("segmentation", partSegmentation)
 
+        // 1 is the body, 0 is not the body, -1 is not found
+
+        // deconstruct this function to find the blocks being generated.
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             partSegmentation, warm);
 
