@@ -107,10 +107,10 @@
         // console.log("segmentation", partSegmentation)
         for (let x in partSegmentation.data){
           if (x=1){
-            console.log("x", x)
             bodyParts.push(x);
           }
         }
+        console.log(bodyParts)
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             bodyParts, warm);
