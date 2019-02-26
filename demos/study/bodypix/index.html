@@ -105,6 +105,7 @@
         const net = await bodyPix.load(.25);
         const partSegmentation = await net.estimatePartSegmentation(
             video, outputStride, segmentationThreshold);
+        console.log("segmentation", partSegmentation)
 
         const coloredPartImageData = bodyPix.toColoredPartImageData(
             partSegmentation, warm);
