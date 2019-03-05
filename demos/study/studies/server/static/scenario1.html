@@ -1,0 +1,178 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+
+    <!-- superhands -->
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+
+    <!-- networked aframe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="easyrtc/easyrtc.js"></script>
+    <script src="https://unpkg.com/networked-aframe/dist/networked-aframe.min.js"></script>
+
+    <!-- extras -->
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+    <script src="js/spawn-in-circle.component.js"></script>
+  </head>
+  <body>
+    <a-scene networked-scene="
+      room: handcontrollers;
+      debug: true;
+    ">
+    <a-assets>
+      <!-- Templates -->
+
+       <!-- Player -->
+       <template id="player-template">
+         <a-entity></a-entity>
+       </template>
+
+       <!-- Head -->
+       <template id="head-template">
+         <a-entity class="avatar">
+           <a-sphere class="head"
+             color="#ffffff"
+             scale="0.45 0.5 0.4"
+           ></a-sphere>
+           <a-entity class="face"
+             position="0 0.05 0"
+           >
+             <a-sphere class="eye"
+               color="#efefef"
+               position="0.16 0.1 -0.35"
+               scale="0.12 0.12 0.12"
+             >
+               <a-sphere class="pupil"
+                 color="#000"
+                 position="0 0 -1"
+                 scale="0.2 0.2 0.2"
+               ></a-sphere>
+             </a-sphere>
+             <a-sphere class="eye"
+               color="#efefef"
+               position="-0.16 0.1 -0.35"
+               scale="0.12 0.12 0.12"
+             >
+               <a-sphere class="pupil"
+                 color="#000"
+                 position="0 0 -1"
+                 scale="0.2 0.2 0.2"
+               ></a-sphere>
+             </a-sphere>
+           </a-entity>
+         </a-entity>
+       </template>
+
+       <!-- leftHand -->
+       <!-- <template id="left-hand-template">
+         <a-entity
+          static-body="shape: sphere; sphereRadius: 0.001"
+           sphere-collider="objects: a-box"
+           super-hands
+           hand-controls="left">
+           <a-box scale="0.1 0.1 0.1"></a-box>
+         </a-entity>
+       </template> -->
+       <!-- rightHand -->
+       <template id="right-hand-template">
+         <a-entity
+         sphere-collider="objects: a-box"
+         super-hands
+         daydream-controls
+         laser-controls
+         tracked-controls>
+          <a-box scale="0.1 0.1 0.1" ></a-box>
+        </a-entity>
+       </template>
+    </a-assets>
+    <a-sky color="white"></a-sky>
+    <a-entity id="player"
+      networked="template:#player-template;attachTemplateToLocal:false;"
+      spawn-in-circle="radius:3"
+      wasd-controls>
+        <a-entity
+        camera="userHeight: 1.6"
+        look-controls
+        networked="template:#head-template;attachTemplateToLocal:false;">
+          <a-sphere class="head"
+                  random-color
+                  visible="false"
+                ></a-sphere>
+        </a-entity>
+        <!-- <a-entity
+          networked="template:#right-hand-template;"
+          static-body="shape: sphere; sphereRadius: 0.001"
+          sphere-collider="objects: a-box"
+          daydream-controls
+          laser-controls
+          tracked-controls
+          ></a-entity> -->
+
+        <!-- <a-entity
+          networked="template:#left-hand-template;"></a-entity> -->
+        <a-entity
+          networked="template:#right-hand-template;"
+
+          ></a-entity>
+    </a-entity>
+
+     <a-box
+      hoverable grabbable stretchable draggable dropppable
+      color="blue"
+      position="0 0 -1"
+      shadow
+      ></a-box>
+
+    <!-- add random head & hand combo -->
+    <!-- get head & hand models-->
+    <!-- hand tracking-->
+    <!-- face tracking-->
+
+
+    <!-- furniture menu -->
+    <!-- room --><!-- furniture menu --><!-- furniture menu -->
+
+  </a-scene>
+  </body>
+  <script>
+    // Define custom schema for syncing avatar color, set by random-color
+    NAF.schemas.add({
+      template: '#head-template',
+      components: [
+        'position',
+        'rotation',
+        {
+          selector: '.head',
+          component: 'material'
+        }
+      ]
+    });
+    NAF.schemas.add({
+      template: '#player-template',
+      components: [
+        'position',
+        'rotation'
+      ]
+    });
+    // NAF.schemas.add({
+    //   template: '#left-hand-template',
+    //   components: [
+    //     'position',
+    //     'rotation'
+    //   ]
+    // });
+    NAF.schemas.add({
+      template: '#right-hand-template',
+      components: [
+        'position',
+        'rotation'
+      ]
+    });
+    // Called by Networked-Aframe when connected to server
+    function onConnect () {
+      console.log("onConnect");
+    }
+  </script>
+</html>
