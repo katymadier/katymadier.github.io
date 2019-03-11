@@ -1,5 +1,5 @@
 # SI515 Assignment 2
-##Off The Cuff: An Ad-hoc Web-based VR Controller for Smartphones and Smartwatches
+## Off The Cuff: An Ad-hoc Web-based VR Controller for Smartphones and Smartwatches
 
 This is an exploration of web-based VR interaction design techniques using a smartphone and smartwatch as ad-hoc VR controllers. Using data captured from the device’s inertial measurement unit (IMU), gestures are classified for use in three VR tasks: (1) switching between two controller models, (2) throwing a paper airplane, and (3) tossing a kite.
 
