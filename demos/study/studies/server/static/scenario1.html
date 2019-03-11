@@ -1,10 +1,13 @@
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-
-    <!-- superhands -->
+    <meta charset="UTF-8">
+    <title>Scenario 3: Toss the ball</title>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
 
     <!-- networked aframe -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
@@ -13,14 +16,14 @@
 
     <!-- extras -->
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
     <script src="js/spawn-in-circle.component.js"></script>
   </head>
   <body>
-    <a-scene networked-scene="
-      room: handcontrollers;
-      debug: true;
-    ">
+    <a-scene
+        environment
+        physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.7"
+        networked-scene="room: handcontrollers;debug: true;"
+        >
     <a-assets>
       <!-- Templates -->
 
@@ -65,35 +68,50 @@
          </a-entity>
        </template>
 
-       <!-- leftHand -->
-       <!-- <template id="left-hand-template">
-         <a-entity
-          static-body="shape: sphere; sphereRadius: 0.001"
-           sphere-collider="objects: a-box"
-           super-hands
-           hand-controls="left">
-           <a-box scale="0.1 0.1 0.1"></a-box>
-         </a-entity>
-       </template> -->
        <!-- rightHand -->
        <template id="right-hand-template">
          <a-entity
-         sphere-collider="objects: a-box"
-         super-hands
-         daydream-controls
-         laser-controls
-         tracked-controls>
+           raycaster="showLine: true"
+           daydream-controls
+           collision-filter="collisionForces: false"
+           sphere-collider="objects: [dynamic-body]"
+           static-body="shape: sphere"
+           super-hands=" colliderEvent: raycaster-intersection;
+                         colliderEventProperty: els;
+                         colliderEndEvent:raycaster-intersection-cleared;
+                         colliderEndEventProperty: clearedEls;"
+          >
           <a-box scale="0.1 0.1 0.1" ></a-box>
         </a-entity>
        </template>
+
+       <!-- balls -->
+       <template id="ball-template">
+         <a-entity id="ballMix"
+         shadow
+         geometry="primitive: sphere; radius: .25"
+         material="color: blue"
+         hoverable grabbable stretchable draggable dropppable
+         dynamic-body="shape: sphere; mass: .5"
+         radius=".25"
+         ></a-entity>
+       </template>
+
     </a-assets>
+
+
+    <!-- Terrain -->
+    <a-box width="75" height="0.1" depth="75" static-body visible="false"></a-box>
     <a-sky color="white"></a-sky>
+
+
+    <!-- Player -->
     <a-entity id="player"
       networked="template:#player-template;attachTemplateToLocal:false;"
       spawn-in-circle="radius:3"
       wasd-controls>
         <a-entity
-        camera="userHeight: 1.6"
+        camera="userHeight: 0.6"
         look-controls
         networked="template:#head-template;attachTemplateToLocal:false;">
           <a-sphere class="head"
@@ -101,38 +119,35 @@
                   visible="false"
                 ></a-sphere>
         </a-entity>
-        <!-- <a-entity
-          networked="template:#right-hand-template;"
-          static-body="shape: sphere; sphereRadius: 0.001"
-          sphere-collider="objects: a-box"
-          daydream-controls
-          laser-controls
-          tracked-controls
-          ></a-entity> -->
-
-        <!-- <a-entity
-          networked="template:#left-hand-template;"></a-entity> -->
         <a-entity
           networked="template:#right-hand-template;"
-
           ></a-entity>
     </a-entity>
 
-     <a-box
-      hoverable grabbable stretchable draggable dropppable
-      color="blue"
-      position="0 0 -1"
-      shadow
-      ></a-box>
+
+    <!-- menu -->
+    <a-entity id="menu" position="3 2 -3" rotation="0 90 0">
+      <a-entity id="menuBtn"
+        shadow
+        geometry="primitive: plane"
+        material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7"
+        dynamic-body="shape: box; mass:0;"
+        event-set__mousedown="position: 0 0 .1; onclick:spawn('ball-template')"
+        event-set__mouseup="position: 0 0 0"
+        event-set__mouseenter="material.opacity:1"
+        event-set__mouseleave="material.opacity:.5"
+        >
+        <a-entity rotation="0 180 0" scale="2 2 2"
+        text="value:Add A Ball; color: #000; align: center; width: 2"
+        ></a-entity>
+      </a-entity>
+    </a-entity>
 
     <!-- add random head & hand combo -->
     <!-- get head & hand models-->
     <!-- hand tracking-->
     <!-- face tracking-->
 
-
-    <!-- furniture menu -->
-    <!-- room --><!-- furniture menu --><!-- furniture menu -->
 
   </a-scene>
   </body>
@@ -156,15 +171,15 @@
         'rotation'
       ]
     });
-    // NAF.schemas.add({
-    //   template: '#left-hand-template',
-    //   components: [
-    //     'position',
-    //     'rotation'
-    //   ]
-    // });
     NAF.schemas.add({
       template: '#right-hand-template',
+      components: [
+        'position',
+        'rotation'
+      ]
+    });
+    NAF.schemas.add({
+      template: '#ball-template',
       components: [
         'position',
         'rotation'
@@ -174,5 +189,22 @@
     function onConnect () {
       console.log("onConnect");
     }
+
+
+    var newObject;
+    var scene = document.querySelector('a-scene');
+    var menubutton = document.getElementById('menuBtn');
+
+    function spawn(id){
+      newObject = document.createElement('a-entity');
+      newObject.setAttribute('networked', 'template: #'+id+';attachTemplateToLocal:false;');
+      newObject.setAttribute('position', {x:0,y:2,z:-2});
+      scene.appendChild(newObject);
+    }
+
+    scene.addEventListener('loaded', ()=> {
+      spawn('ball-template')
+    })
+
   </script>
 </html>
