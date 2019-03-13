@@ -21,7 +21,8 @@
         <a-asset-item id="paperAirplaneModel" src="models/paperairplane/Paper Airplane.gltf"></a-asset-item>
         <!-- kite by Google Poly https://poly.google.com/view/8Qq-NaPoBt6 -->
         <a-asset-item id="kiteModel" src="models/kite/Kite.gltf"></a-asset-item>
-
+        
+<!-- velocity = '1 6 -5' -->
 
         <a-mixin id="paperAirplaneMix"
           position="0 1.6 0"
@@ -29,7 +30,6 @@
           scale=".002 .002 .002"
           dynamic-body = "shape: box; mass:2; linearDamping:.5; angularDamping:0"
         ></a-mixin>
-        <!-- velocity = '1 6 -5' -->
 
         <a-mixin id="kiteMix"
           position="0 1.6 0"
@@ -38,7 +38,6 @@
           scale=".000001 .000001 .000001"
           dynamic-body = "shape: box; mass:2; linearDamping:1; angularDamping:0"
         ></a-mixin>
-          <!-- velocity = '1 20 -2' -->
 
         <a-mixin id="planeArmMix"
           gltf-model="#paperAirplaneModel"
@@ -78,14 +77,10 @@
   </body>
   <script>
     var scene = document.querySelector('a-scene')
-    var absolute;
     var alpha;
     var beta;
     var gamma;
     var acceleration;
-    var accelerationIncludingGravity;
-    var rotationRate;
-    var interval;
     var armModel = document.getElementById('armModel');
     var armPosition = armModel.getAttribute('position')
     var arm="none";
@@ -99,6 +94,7 @@
       alpha = event.alpha;
       beta = event.beta;
       gamma = event.gamma;
+      // console.log(alpha, beta, gamma)
       selectModelType()
     });
 
@@ -125,12 +121,48 @@
       none: ''
     }
 
+    // throw airplane top (253, -178 85) bottom (90 -63 -79)
+    // toss kite bottom (90, 0 0) bottom (160 78 0)
     const orientationMapping = {
       airplaneLow: {beta:-1, gamma:-90},
       airplaneHigh: {beta:6, gamma:0},
       kiteLow: {beta:80, alpha:200},
       kiteHigh: {beta:90, alpha: 360},
     }
+    // const orientationMapping = {
+    //   airplaneLow: {alpha: 0, beta: -178, gamma:85},
+    //   airplaneHigh: {alpha: 90, beta: -63, gamma:-79},
+    //   kiteLow: {alpha:90, beta:0, gamma:-5},
+    //   kiteHigh: {alpha:160, beta:78, gamma:5},
+    // }
+    // function selectModelType(){
+    //   if(
+    //     // Toss up in the air, face flat to vertical
+    //       alpha > orientationMapping['kiteLow'].alpha &&
+    //       alpha < orientationMapping['kiteHigh'].alpha &&
+    //       beta > orientationMapping['kiteLow'].beta &&
+    //       beta < orientationMapping['kiteHigh'].beta
+    //       // gamma < orientationMapping['kiteLow'].gamma &&
+    //       // gamma > orientationMapping['kiteHigh'].gamma
+    //     ){
+    //     changeArm('kite')
+    //     arm='kite'
+    //     console.log("Arm is a kite")
+    //   }
+    //   if(
+    //     // Throw from shoulder portrait and like tossing an airplane.
+    //     // alpha < orientationMapping['airplaneLow'].alpha &&
+    //     // alpha > orientationMapping['airplaneHigh'].alpha &&
+    //     beta > orientationMapping['airplaneLow'].beta &&
+    //     beta < orientationMapping['airplaneHigh'].beta &&
+    //     gamma < orientationMapping['airplaneLow'].gamma &&
+    //     gamma > orientationMapping['airplaneHigh'].gamma
+    //   ){
+    //     changeArm('airplane')
+    //     arm='airplane'
+    //     console.log("Arm is a plane")
+    //   }
+    // }
 
     function selectModelType(){
       if(
@@ -171,14 +203,6 @@
           // console.log("kite is fast")
           flyKite(3)
         };
-        // if(
-        //   speedMax.x > accelerationMapping['medium'].x ||
-        //   speedMax.y > accelerationMapping['medium'].y ||
-        //   speedMax.z > accelerationMapping['medium'].z
-        // ){
-        //   // console.log("kite is medium")
-        //   flyKite(3)
-        // }
       }
       if (arm=='airplane'){
         if(
@@ -189,14 +213,6 @@
           // console.log("plane is fast")
            throwPlane(3)
         };
-        // if(
-        //   speedMax.x > accelerationMapping['medium'].x ||
-        //   speedMax.y > accelerationMapping['medium'].y ||
-        //   speedMax.z > accelerationMapping['medium'].z
-        // ){
-        //   // console.log("kite is medium")
-        //   throwPlane(3)
-        // }
       }
     }
 
@@ -240,7 +256,6 @@
         newPlane.setAttribute('mixin', 'paperAirplaneMix');
         newPlane.setAttribute('firebase-broadcast', 'components: mixin, position, rotation')
         newPlane.setAttribute('id', "newPlane"+ planes)
-        newPlane.setAttribute('velocity', "newPlane"+ planes)
         newPlane.setAttribute('position', {x:0,y:1.2,z:-1});
         scene.appendChild(newPlane);
         console.log("making a plane", planes)
