@@ -75,7 +75,6 @@ AFRAME.registerComponent('collider-check', {
        }
 
     });
-
     controller.addEventListener('click', function(e) {
       console.log(e)
       if (e.detail.intersectedEl){

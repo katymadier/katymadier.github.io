@@ -11,7 +11,7 @@
     <script src="js/daydream-component.js"></script>
   </head>
   <body>
-    <a-scene stats physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.7">
+    <a-scene stats physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; ">
       <a-assets>
         <!-- flower - https://poly.google.com/view/eydI4__jXpi-->
         <a-asset-item id="plant-model" src="models/plant/Flower.gltf"></a-asset-item>
@@ -24,7 +24,7 @@
 
         <a-mixin id="plantMix" shadow class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable dropppable ></a-mixin>
 
-        <a-mixin id="wateringcanMix" shadow class="moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01" hoverable grabbable stretchable draggable dropppable ></a-mixin>
+        <a-mixin id="wateringcanMix" shadow class="moveable" dynamic-body="shape: box; mass: 2" gltf-model="#wateringcan-model" scale=".01 .01 .01" hoverable grabbable stretchable draggable dropppable ></a-mixin>
 
         <a-mixin id="sunMix" shadow  class="moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6"   hoverable grabbable stretchable draggable dropppable > </a-mixin>
 
