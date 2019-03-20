@@ -86,7 +86,7 @@ AFRAME.registerComponent('collider-check', {
         clickedobject.emit('click')
         if (e.detail.intersectedEl.className){
           objectclassname = e.detail.intersectedEl.className;
-          console.log(name, moveable, location)
+          console.log(name, location)
           if (objectclassname == "moveable"){
             intersection = {
               objectid:name,
