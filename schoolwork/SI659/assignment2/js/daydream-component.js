@@ -76,7 +76,7 @@ AFRAME.registerComponent('collider-check', {
           objectclassname = e.detail.els[x].className
        }
     });
-    controller.addEventListener('click', function(e) {
+    controller.addEventListener('trackpaddown', function(e) {
       console.log(e)
       if (e.detail.intersectedEl){
         name =e.detail.intersectedEl.id;
