@@ -22,16 +22,16 @@
         <!-- sun - poly by Google -->
         <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
 
-        <a-mixin id="plantMix" shadow class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click" ></a-mixin>
+        <a-mixin id="plantMix" shadow class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable dropppable ></a-mixin>
 
-        <a-mixin id="wateringcanMix" shadow class="moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"></a-mixin>
+        <a-mixin id="wateringcanMix" shadow class="moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01" hoverable grabbable stretchable draggable dropppable ></a-mixin>
 
-        <a-mixin id="sunMix" shadow  class="moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6"   hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"> </a-mixin>
+        <a-mixin id="sunMix" shadow  class="moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6"   hoverable grabbable stretchable draggable dropppable > </a-mixin>
 
       </a-assets>
 
       <!-- sound -->
-      <a-sound id="sound" src="src: url(sounds/Birds-chirping-sound.mp3)" autoplay="true" loop="true" position="0 2 5"></a-sound>
+      <!-- <a-sound id="sound" src="src: url(sounds/Birds-chirping-sound.mp3)" autoplay="true" loop="true" position="0 2 5"></a-sound> -->
 
       <!-- lights -->
       <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
