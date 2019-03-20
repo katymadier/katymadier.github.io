@@ -3,116 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>SI659 Assignment 2</title>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
-
-    <script>
-      // remixed from aframe listener code
-      // https://github.com/aframevr/aframe/blob/master/docs/introduction/interactions-and-controllers.md
-      AFRAME.registerComponent("daydream-listener", {
-        schema: {
-          action: {
-            swipe: {type:'string', default: "left"},
-            touch: {type:'string', default: "left"},
-            buttonclick: {type:'bool', default: false},
-            buttontap: {type:'bool', default:false},
-            trackpadup: {type:'bool', default:false},
-            trackpaddown: {type:'bool', default:false}
-          }
-        },
-        update: function() {
-          var start;
-          var end;
-          var action = this.data;
-          var controller = this.el;
-          controller.addEventListener("trackpadtouchstart", (e) => {
-            //movement start
-            start = e.target.components["tracked-controls"].controller.axes[0];
-            if (start <.79){
-              action = {touch:"left"};
-              controller.emit('action', action);
-            }
-            if (start > -.79){
-              action = {touch:"right"};
-              controller.emit('action', action);
-            }
-
-            //gamepadButton
-            if (e.target.components["tracked-controls"].controller.buttons[0].touched==true){
-              action={buttontap:true}
-            }
-          });
-          controller.addEventListener("trackpadtouchend", (e) => {
-            end = e.target.components["tracked-controls"].controller.axes[0];
-
-          });
-          controller.addEventListener("trackpaddown", (e) => {
-            action={trackpaddown:true}
-            controller.emit('action', action);
-          });
-          controller.addEventListener("trackpadup", (e) => {
-            action={trackpadup:true}
-            controller.emit('action', action);
-          });
-        },
-      });
-
-      // remixed from aframe instructions
-      AFRAME.registerComponent('collider-check', {
-        dependencies: ['raycaster'],
-        schema: {
-          intersection: {
-            objectid: {type:'string', default:"name"},
-            location: {type:'array', default: {x:0, y:0, z:0}},
-          }
-        },
-        init: function () {
-          var intersection = this.data;
-          var controller = this.el;
-          var location;
-          var name;
-          var object;
-          var objectclassname;
-
-          controller.addEventListener('raycaster-intersection', function (e) {
-             for (x in e.detail.els){
-               // console.log("intersected #" + e.detail.els[x].id)
-                object = document.querySelector("#" + e.detail.els[x].id)
-                object.emit('hover')
-                // objectclassname = e.detail.els[x].className
-             }
-
-          });
-
-          controller.addEventListener('click', function(e) {
-            // console.log(e)
-            if (e.detail.intersectedEl){
-              name =e.detail.intersectedEl.id;
-              location = e.detail.intersection.point;
-              objectclassname =e.detail.intersectedEl.className;
-              clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
-              // clickedobject.emit('click')
-
-              if (e.detail.intersectedEl.className){
-                objectclassname = e.detail.intersectedEl.className;
-                // console.log(name, moveable, location)
-                if (objectclassname == "moveable"){
-                  intersection = {
-                    objectid:name,
-                    location:location
-                  }
-                  controller.emit('intersection', intersection);
-                }
-              }
-            }
-          })
-        }
-      });
-
-    </script>
+    <script src="js/daydream-component.js"></script>
   </head>
   <body>
     <a-scene stats physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.7">
