@@ -18,6 +18,7 @@ AFRAME.registerComponent("daydream-listener", {
     var action = this.data;
     var controller = this.el;
     controller.addEventListener("touchstart", (e) => {
+      console.log(e)
       //movement start
       start = e.target.components["tracked-controls"].controller.axes[0];
       if (start <.79){
@@ -35,6 +36,7 @@ AFRAME.registerComponent("daydream-listener", {
       }
     });
     controller.addEventListener("touchend", (e) => {
+      console.log(e)
       end = e.target.components["tracked-controls"].controller.axes[0];
 
     });
