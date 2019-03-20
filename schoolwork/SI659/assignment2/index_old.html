@@ -10,6 +10,20 @@
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
 
     <script>
+      // remixed from aframe instructions
+      AFRAME.registerComponent('setup', {
+        init: function () {
+          var cursorFuse= document.getElementById("cursor");
+
+          this.el.addEventListener('enter-vr', function (evt) {
+            if (AFRAME.utils.device.isMobile() || AFRAME.utils.device.isDaydream()) {
+              cursorFuse.setAttribute('cursor',"fuse:false");
+              cursorFuse.setAttribute('visible',"false");
+            }
+          })
+        }
+      })
+
       // remixed from aframe listener code
       // https://github.com/aframevr/aframe/blob/master/docs/introduction/interactions-and-controllers.md
       AFRAME.registerComponent("daydream-listener", {
@@ -87,6 +101,25 @@
 
           });
 
+         // tried to change the button, but doesn't seem to work for right on daydream
+          // controller.addEventListener('trackpaddown', function(e){
+          //     console.log("trackpad down details", e)
+          //   if (objectclassname =="clickable" || objectclassname == "movable"){
+          //     console.log('object not a teleporter, teleportend emitted')
+          //     controller.emit('teleportend')
+          //     // controller.setAttribute('teleport-controls', 'button', 'menu')
+          //   }
+          //   else {
+          //     console.log('teleportstart emitted')
+          //     controller.emit('teleportstart')
+          //     // controller.setAttribute('teleport-controls', 'button', 'trackpad')
+          //   }
+          // })
+          // controller.addEventListener('trackpadup', function(e){
+          //   console.log('teleportend emitted')
+          //   controller.emit('teleportend')
+          // })
+
           controller.addEventListener('click', function(e) {
             // console.log(e)
             if (e.detail.intersectedEl){
@@ -98,8 +131,8 @@
 
               if (e.detail.intersectedEl.className){
                 objectclassname = e.detail.intersectedEl.className;
-                // console.log(name, moveable, location)
-                if (objectclassname == "moveable"){
+                // console.log(name, clickable, location)
+                if (objectclassname == "clickable"){
                   intersection = {
                     objectid:name,
                     location:location
@@ -115,24 +148,22 @@
     </script>
   </head>
   <body>
-    <a-scene stats physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.7">
+    <a-scene stats physics="gravity:-9.8;friction: 0.1; restitution: .5;">
       <a-assets>
         <!-- flower - https://poly.google.com/view/eydI4__jXpi-->
         <a-asset-item id="plant-model" src="models/plant/Flower.gltf"></a-asset-item>
-
         <!-- watering can Riofluo Agence événementiel street -->
         <a-asset-item id="wateringcan-model" src="models/wateringcan/wateringcan.gltf"></a-asset-item>
-
         <!-- sun - poly by Google -->
         <a-asset-item id="sun-model" src="models/sun/Sun_01.gltf"></a-asset-item>
-        <audio id="bongo" src="sounds/bongo.mp3" preload="auto"></audio>
-        <audio id="birds" src="sounds/Birds-chirping-sound.mp3" preload="auto"></audio>
+        <!-- <audio id="bongo" src="sounds/bongo.mp3" preload="auto"></audio>
+        <audio id="birds" src="sounds/Birds-chirping-sound.mp3" preload="auto"></audio> -->
 
-        <a-mixin id="plantMix" shadow class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click" ></a-mixin>
+        <a-mixin id="plantMix" shadow class="clickable moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" dynamic-body="shape: box; mass: 2" hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click" ></a-mixin>
 
-        <a-mixin id="wateringcanMix" shadow class="moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01" hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"></a-mixin>
+        <a-mixin id="wateringcanMix" shadow class="clickable moveable" dynamic-body="shape: box; mass: 5" gltf-model="#wateringcan-model" scale=".01 .01 .01"  hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click"></a-mixin>
 
-        <a-mixin id="sunMix" shadow  class="moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6"   hoverable grabbable stretchable draggable dropppable sound="src: url(sounds/bongo.mp3); on:click"> </a-mixin>
+        <a-mixin id="sunMix" shadow  class="clickable moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable clickable grabbable stretchable draggable droppable sound="src: url(sounds/bongo.mp3); on:click"> </a-mixin>
 
       </a-assets>
 
@@ -151,7 +182,7 @@
         <a-entity id="controller"
           daydream-listener
           collider-check
-          raycaster="showLine: true; objects:.movable, .teleportable"
+          raycaster="showLine: true; objects:.clickable, .movable, .teleportable"
           daydream-controls
           collision-filter="collisionForces: false"
           sphere-collider="objects: [dynamic-body]"
@@ -167,14 +198,14 @@
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="plant" shadow="" sound="src: url(sounds/bongo.mp3); on:click" onclick="spawn(id)" class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
+          <a-entity id="plant" shadow="" sound="src: url(sounds/bongo.mp3); on:click" onclick="spawn(id)" class="clickable" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
             </a-entity>
         </a-entity>
         <a-entity  shadow sound="src: url(sounds/bongo.mp3); on:click" geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="wateringcan" shadow class="moveable" onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
+          <a-entity id="wateringcan" shadow class="clickable" onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
         <a-entity  shadow sound="src: url(sounds/bongo.mp3); on:click" geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-            <a-entity id="sun" shadow class="moveable" onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
+            <a-entity id="sun" shadow class="clickable" onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity>
       </a-entity>
 
