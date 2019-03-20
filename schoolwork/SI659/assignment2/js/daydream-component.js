@@ -17,7 +17,7 @@ AFRAME.registerComponent("daydream-listener", {
     var end;
     var action = this.data;
     var controller = this.el;
-    controller.addEventListener("trackpadtouchstart", (e) => {
+    controller.addEventListener("touchstart", (e) => {
       //movement start
       start = e.target.components["tracked-controls"].controller.axes[0];
       if (start <.79){
@@ -34,7 +34,7 @@ AFRAME.registerComponent("daydream-listener", {
         action={buttontap:true}
       }
     });
-    controller.addEventListener("trackpadtouchend", (e) => {
+    controller.addEventListener("touchend", (e) => {
       end = e.target.components["tracked-controls"].controller.axes[0];
 
     });
