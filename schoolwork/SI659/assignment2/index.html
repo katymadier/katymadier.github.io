@@ -38,7 +38,22 @@
       <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light>
 
       <!-- Player -->
-      <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
+      <a-entity wasd-controls id="player">
+        <a-entity camera look-controls position="0 1.6 0" geometry="primitive: sphere; radius: .5;" material="color: black;"></a-entity>
+        <a-entity id="righthand"
+          raycaster="showLine: true"
+          daydream-listener
+          daydream-controls
+          collision-filter="collisionForces: false"
+          sphere-collider="objects: [dynamic-body]"
+          static-body="shape: sphere"
+          super-hands=" colliderEvent: raycaster-intersection;
+                        colliderEventProperty: els;
+                        colliderEndEvent:raycaster-intersection-cleared;
+                        colliderEndEventProperty: clearedEls;"
+        ></a-entity>
+      </a-entity>
+      <!-- <a-entity id="cameraRig" position= "0 .5 4.3" rotation="0 -45 0">
         <a-entity camera id="head" wasd-controls look-controls >
           <a-entity text="value:Katy Madier | SI659 Assignment 2" position="-0.19745 -0.49031 -0.86589"></a-entity>
         </a-entity>
@@ -56,7 +71,7 @@
                         colliderEndEventProperty: clearedEls;"
           >
         </a-entity>
-      </a-entity>
+      </a-entity> -->
 
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 0 0">
@@ -83,7 +98,7 @@
     <script>
 
 
-    var camera = document.querySelector('#cameraRig');
+    var camera = document.querySelector('#player');
     var ycoord = camera.getAttribute("rotation");
     var scene = document.querySelector('a-scene');
     var newObject;
@@ -98,11 +113,11 @@
           camera.object3D.rotation.y -= Math.PI/8;
         }
         if (e.detail.trackpaddown==true){
-          // console.log("trackpad pressed down")
+          console.log("trackpad pressed down")
 
         }
         if (e.detail.trackpadup==true){
-          // console.log("trackpad released")
+          console.log("trackpad released")
         }
     });
 
@@ -111,7 +126,7 @@
       if (e.detail){
         intersectedObject = e.detail.objectid;
         intersectionLocation = e.detail.location;
-        // console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+        console.log("some stuff was intersected", intersectedObject, intersectionLocation)
       }
       else {
         console.log("intersection event, but no intersection data")
@@ -123,13 +138,13 @@
       newObject.setAttribute('mixin', id+"Mix");
       newObject.setAttribute("position", intersectionLocation)
       scene.appendChild(newObject);
-      // console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
+      console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
 
     function movecamera(object){
       var newpos = document.getElementById(object.id).getAttribute("position")
-      // console.log("moving to", newpos)
-      document.getElementById('cameraRig').setAttribute("position", newpos) ;
+      console.log("moving to", newpos)
+      document.getElementById('player').setAttribute("position", newpos) ;
     }
 
     </script>
