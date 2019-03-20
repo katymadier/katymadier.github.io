@@ -68,26 +68,26 @@ AFRAME.registerComponent('collider-check', {
 
     controller.addEventListener('raycaster-intersection', function (e) {
        for (x in e.detail.els){
-         // console.log("intersected #" + e.detail.els[x].id)
+         console.log("intersected #" + e.detail.els[x].id)
           object = document.querySelector("#" + e.detail.els[x].id)
           object.emit('hover')
-          // objectclassname = e.detail.els[x].className
+          objectclassname = e.detail.els[x].className
        }
 
     });
 
     controller.addEventListener('click', function(e) {
-      // console.log(e)
+      console.log(e)
       if (e.detail.intersectedEl){
         name =e.detail.intersectedEl.id;
         location = e.detail.intersection.point;
         objectclassname =e.detail.intersectedEl.className;
         clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
-        // clickedobject.emit('click')
+        clickedobject.emit('click')
 
         if (e.detail.intersectedEl.className){
           objectclassname = e.detail.intersectedEl.className;
-          // console.log(name, moveable, location)
+          console.log(name, moveable, location)
           if (objectclassname == "moveable"){
             intersection = {
               objectid:name,
