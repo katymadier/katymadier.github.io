@@ -18,7 +18,7 @@ AFRAME.registerComponent("daydream-listener", {
     var action = this.data;
     var controller = this.el;
     controller.addEventListener("touchstart", (e) => {
-      console.log(e)
+      // console.log(e)
       //movement start
       start = e.target.components["tracked-controls"].controller.axes[0];
       if (start <.79){
@@ -36,7 +36,7 @@ AFRAME.registerComponent("daydream-listener", {
       }
     });
     controller.addEventListener("touchend", (e) => {
-      console.log(e)
+      // console.log(e)
       end = e.target.components["tracked-controls"].controller.axes[0];
 
     });
@@ -75,7 +75,6 @@ AFRAME.registerComponent('collider-check', {
           object.emit('hover')
           objectclassname = e.detail.els[x].className
        }
-
     });
     controller.addEventListener('click', function(e) {
       console.log(e)
@@ -85,7 +84,6 @@ AFRAME.registerComponent('collider-check', {
         objectclassname =e.detail.intersectedEl.className;
         clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
         clickedobject.emit('click')
-
         if (e.detail.intersectedEl.className){
           objectclassname = e.detail.intersectedEl.className;
           console.log(name, moveable, location)
