@@ -35,11 +35,10 @@
       <a-entity wasd-controls id="player" position="0 0 6" >
         <a-entity camera look-controls geometry="primitive: sphere; radius: .5;" material="color: black;"></a-entity>
         <a-entity id="righthand"
-          raycaster="showLine: true; objects: .moveable"
           daydream-listener
           collider-check
+          raycaster="showLine: true; objects: .moveable"
           daydream-controls
-          collision-filter="collisionForces: false"
           sphere-collider="objects: [dynamic-body]"
           static-body="shape: sphere"
           super-hands=" colliderEvent: raycaster-intersection;
@@ -52,14 +51,14 @@
       <!-- menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 45 0">
         <!-- <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="plant" shadow="" onclick="spawn(id)" class="moveable" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
+          <a-entity id="plant" shadow="" onclick="spawn(id)" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
             </a-entity>
         </a-entity> -->
         <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="wateringcan" shadow class="moveable" onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
+          <a-entity id="wateringcan" shadow onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
         <!-- <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-            <a-entity id="sun" shadow class="moveable" onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
+            <a-entity id="sun" shadow onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity> -->
       </a-entity>
 
