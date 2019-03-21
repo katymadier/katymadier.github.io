@@ -104,159 +104,159 @@
 //
 //
 //
+
+// remixed from other code
+AFRAME.registerComponent("daydream-listener", {
+  schema: {
+    action: {
+      swipe: {type:'string', default: "left"},
+      touch: {type:'string', default: "left"},
+      buttonclick: {type:'bool', default: false},
+      buttontap: {type:'bool', default:false},
+      trackpadup: {type:'bool', default:false},
+      trackpaddown: {type:'bool', default:false}
+    }
+  },
+  update: function() {
+    var xAxis;
+    var yAxis;
+    var action = this.data;
+    var controller = this.el;
+    controller.addEventListener("touchstart", (e) => {
+      // AFRAME.log("touchstarted")
+      xAxis = e.target.components['tracked-controls'].controller.axes[0]
+      yAxis = e.target.components['tracked-controls'].controller.axes[1]
+      // left side
+      if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("started at left")
+        // AFRAME.log(xAxis)
+        action = {touch:"left"};
+        controller.emit('action', action);
+      }
+      // right side
+      if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("started at right")
+        // AFRAME.log(xAxis)
+        action = {touch:"right"};
+        controller.emit('action', action);
+      }
+      // top
+      if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("started at top")
+        // AFRAME.log(yAxis)
+        action = {touch:"top"};
+        controller.emit('action', action);
+      }
+      // bottom
+      if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("started at bottom")
+        // AFRAME.log(yAxis)
+        action = {touch:"bottom"};
+        controller.emit('action', action);
+      }
+    });
+    controller.addEventListener("touchend", (e) => {
+      // AFRAME.log("touchended")
+      xAxis = e.target.components['tracked-controls'].controller.axes[0]
+      yAxis = e.target.components['tracked-controls'].controller.axes[1]
+      // left side
+      if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("ended at left")
+        // AFRAME.log(xAxis)
+        action = {touch:"left"};
+        controller.emit('action', action);
+      }
+      // right side
+      if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("ended at right")
+        // AFRAME.log(xAxis)
+        action = {touch:"right"};
+        controller.emit('action', action);
+      }
+      // top
+      if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("ended at top")
+        // AFRAME.log(yAxis)
+        action = {touch:"top"};
+        controller.emit('action', action);
+      }
+      // bottom
+      if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("ended at bottom")
+        // AFRAME.log(yAxis)
+        action = {touch:"bottom"};
+        controller.emit('action', action);
+      }
+    });
+
+    controller.addEventListener("trackpadtouchstart", (e) => {
+      //movement start
+      xAxis = e.target.components['tracked-controls'].controller.axes[0]
+      yAxis = e.target.components['tracked-controls'].controller.axes[1]
+      // AFRAME.log("start" + start);
+
+      // left side
+      if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("touched left")
+        // AFRAME.log(xAxis)
+        action = {touch:"left"};
+        controller.emit('action', action);
+      }
+      // right side
+      if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
+        // AFRAME.log("touched right")
+        // AFRAME.log(xAxis)
+        action = {touch:"right"};
+        controller.emit('action', action);
+      }
+      // top
+      if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("touched top")
+        // AFRAME.log(yAxis)
+        action = {touch:"top"};
+        controller.emit('action', action);
+      }
+      // bottom
+      if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
+        // AFRAME.log("touched bottom")
+        // AFRAME.log(yAxis)
+        action = {touch:"bottom"};
+        controller.emit('action', action);
+      }
+    });
+
+    // controller.addEventListener("trackpadtouchend", (e) => {
+    //     end = e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]
+    //     AFRAME.log("end" + end);
+    // });
+    controller.addEventListener("trackpaddown", (e) => {
+      // AFRAME.log("clicked" + e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]);
+      // createbug("clicked", e);
+      action={trackpaddown:true}
+      controller.emit('action', action);
+    });
+    controller.addEventListener("trackpadup", (e) => {
+      // AFRAME.log("released" + e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]);
+      // createbug("released", e);
+      action={trackpadup:true}
+      controller.emit('action', action);
+    });
+  },
+});
+
+// do some stuff with the trackpad actions
+// window.addEventListener('action', function(e){
+//     if (e.detail.touch == "left"){
+//       camera.object3D.rotation.y += Math.PI/8;
+//     }
+//     if (e.detail.touch == "right") {
+//       camera.object3D.rotation.y -= Math.PI/8;
+//     }
+//     if (e.detail.trackpaddown==true){
+//       // console.log("trackpad pressed down")
 //
-// // // remixed from other code
-// // AFRAME.registerComponent("daydream-listener", {
-// //   schema: {
-// //     action: {
-// //       swipe: {type:'string', default: "left"},
-// //       touch: {type:'string', default: "left"},
-// //       buttonclick: {type:'bool', default: false},
-// //       buttontap: {type:'bool', default:false},
-// //       trackpadup: {type:'bool', default:false},
-// //       trackpaddown: {type:'bool', default:false}
-// //     }
-// //   },
-// //   update: function() {
-// //     var xAxis;
-// //     var yAxis;
-// //     var action = this.data;
-// //     var controller = this.el;
-// //     controller.addEventListener("touchstart", (e) => {
-// //       // AFRAME.log("touchstarted")
-// //       xAxis = e.target.components['tracked-controls'].controller.axes[0]
-// //       yAxis = e.target.components['tracked-controls'].controller.axes[1]
-// //       // left side
-// //       if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("started at left")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"left"};
-// //         controller.emit('action', action);
-// //       }
-// //       // right side
-// //       if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("started at right")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"right"};
-// //         controller.emit('action', action);
-// //       }
-// //       // top
-// //       if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("started at top")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"top"};
-// //         controller.emit('action', action);
-// //       }
-// //       // bottom
-// //       if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("started at bottom")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"bottom"};
-// //         controller.emit('action', action);
-// //       }
-// //     });
-// //     controller.addEventListener("touchend", (e) => {
-// //       // AFRAME.log("touchended")
-// //       xAxis = e.target.components['tracked-controls'].controller.axes[0]
-// //       yAxis = e.target.components['tracked-controls'].controller.axes[1]
-// //       // left side
-// //       if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("ended at left")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"left"};
-// //         controller.emit('action', action);
-// //       }
-// //       // right side
-// //       if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("ended at right")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"right"};
-// //         controller.emit('action', action);
-// //       }
-// //       // top
-// //       if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("ended at top")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"top"};
-// //         controller.emit('action', action);
-// //       }
-// //       // bottom
-// //       if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("ended at bottom")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"bottom"};
-// //         controller.emit('action', action);
-// //       }
-// //     });
-// //
-// //     controller.addEventListener("trackpadtouchstart", (e) => {
-// //       //movement start
-// //       xAxis = e.target.components['tracked-controls'].controller.axes[0]
-// //       yAxis = e.target.components['tracked-controls'].controller.axes[1]
-// //       // AFRAME.log("start" + start);
-// //
-// //       // left side
-// //       if (xAxis < -.7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("touched left")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"left"};
-// //         controller.emit('action', action);
-// //       }
-// //       // right side
-// //       if (xAxis > .7 && yAxis > -.3 && yAxis <.3){
-// //         // AFRAME.log("touched right")
-// //         // AFRAME.log(xAxis)
-// //         action = {touch:"right"};
-// //         controller.emit('action', action);
-// //       }
-// //       // top
-// //       if (yAxis < -.7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("touched top")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"top"};
-// //         controller.emit('action', action);
-// //       }
-// //       // bottom
-// //       if (yAxis > .7 && xAxis > -.3 && xAxis <.3){
-// //         // AFRAME.log("touched bottom")
-// //         // AFRAME.log(yAxis)
-// //         action = {touch:"bottom"};
-// //         controller.emit('action', action);
-// //       }
-// //     });
-// //
-// //     // controller.addEventListener("trackpadtouchend", (e) => {
-// //     //     end = e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]
-// //     //     AFRAME.log("end" + end);
-// //     // });
-// //     controller.addEventListener("trackpaddown", (e) => {
-// //       // AFRAME.log("clicked" + e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]);
-// //       // createbug("clicked", e);
-// //       action={trackpaddown:true}
-// //       controller.emit('action', action);
-// //     });
-// //     controller.addEventListener("trackpadup", (e) => {
-// //       // AFRAME.log("released" + e.target.components['tracked-controls'].controller.axes[0] + " " + e.target.components['tracked-controls'].controller.axes[1]);
-// //       // createbug("released", e);
-// //       action={trackpadup:true}
-// //       controller.emit('action', action);
-// //     });
-// //   },
-// // });
-// //
-// // // do some stuff with the trackpad actions
-// // // window.addEventListener('action', function(e){
-// // //     if (e.detail.touch == "left"){
-// // //       camera.object3D.rotation.y += Math.PI/8;
-// // //     }
-// // //     if (e.detail.touch == "right") {
-// // //       camera.object3D.rotation.y -= Math.PI/8;
-// // //     }
-// // //     if (e.detail.trackpaddown==true){
-// // //       // console.log("trackpad pressed down")
-// // //
-// // //     }
-// // //     if (e.detail.trackpadup==true){
-// // //       // console.log("trackpad released")
-// // //     }
-// // // });
+//     }
+//     if (e.detail.trackpadup==true){
+//       // console.log("trackpad released")
+//     }
+// });

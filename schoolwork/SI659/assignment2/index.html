@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
+
   <head>
-    <meta charset="utf-8">
-    <title>SI659 Assignment 2</title>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <meta charset="UTF-8">
+    <title>SI659 Assignment 2: Resubmit</title>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
-    <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
-    <!-- <script src="js/daydream-component.js"></script> -->
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+    <script src="js/daydream-component.js"></script>
   </head>
   <body>
-    <a-scene stats physics>
-      <a-assets>
+    <a-scene  environment = "lighting:point;"
+              physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.7"
+              >
+      <a-assets id="assets">
         <!-- flower - https://poly.google.com/view/eydI4__jXpi-->
         <a-asset-item id="plant-model" src="models/plant/Flower.gltf"></a-asset-item>
         <!-- watering can Riofluo Agence événementiel street -->
@@ -24,21 +27,14 @@
         <a-mixin id="sunMix" shadow  class="moveable" dynamic-body="shape: sphere; mass: .2" gltf-model="#sun-model" scale=".001 .001 .001" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable draggable droppable > </a-mixin>
       </a-assets>
 
-      <!-- sound -->
-      <!-- <a-sound id="sound" src="src: url(sounds/Birds-chirping-sound.mp3)" autoplay="true" loop="true" position="0 2 5"></a-sound> -->
-
-      <!-- lights -->
-      <!-- <a-light type="ambient"  intensity=".25" position="1.582 5 4.764" color="#fff"></a-light>
-      <a-light type="point" intensity=".75" position="1.5 6.5 3.6"></a-light> -->
-
       <!-- Player -->
-      <a-entity id="player" position="0 0 6" >
-        <a-entity camera look-controls ></a-entity>
+      <a-entity wasd-controls id="player">
+        <a-entity camera look-controls position="0 1.6 6"></a-entity>
         <a-entity id="righthand"
+          raycaster="showLine: true"
           daydream-listener
-          collider-check
-          raycaster="showLine: true; objects: .moveable"
           daydream-controls
+          collision-filter="collisionForces: false"
           sphere-collider="objects: [dynamic-body]"
           static-body="shape: sphere"
           super-hands=" colliderEvent: raycaster-intersection;
@@ -48,80 +44,79 @@
         ></a-entity>
       </a-entity>
 
-      <!-- menu -->
-      <a-entity id="menu" position="2.3 3 1" rotation="0 45 0">
+      <!-- Terrain -->
+      <a-box width="75" height="0.1" depth="75" static-body visible="false"></a-box>
+      <a-light></a-light>
+
+      <!-- Furniture Menu -->
+      <a-entity id="menu" position="2.3 3 1" rotation="0 45 0" >
         <!-- <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
           <a-entity id="plant" shadow="" onclick="spawn(id)" gltf-model="#plant-model" scale="0.003 0.003 0.003" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
             </a-entity>
         </a-entity> -->
         <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="wateringcan" shadow onclick="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
+          <a-entity id="wateringcan" shadow event-set__mousedown="spawn(id)" gltf-model="#wateringcan-model" scale=".01 .01 .01" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
         <!-- <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
             <a-entity id="sun" shadow onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity> -->
       </a-entity>
 
-      <!-- landscape -->
-      <a-cylinder id="ground" position= "0 0 0" radius="75" height="0.1" material="color:green;roughness: 1; metalness: 0;" static-body box-collider="objects: [dynamic-body];" ></a-cylinder>
-
-      <a-entity id="waypoint" shadow="" class="teleportable" onclick="movecamera(waypoint)" material="color: blue;" position="1 0 -3" rotation="0 180 0" geometry="primitive:box;width:2;height:1;depth:2;" ></a-entity>
-
-      <a-sky material="color:skyblue"></a-sky>
-
     </a-scene>
-    <script>
-
+  </body>
+  <script>
 
     var camera = document.querySelector('#player');
     var ycoord = camera.getAttribute("rotation");
     var scene = document.querySelector('a-scene');
+    var controller = document.getElementById('righthand');
     var newObject;
     var intersectedObject;
     var intersectionLocation;
 
-    // window.addEventListener('action', function(e){
-    //     if (e.detail.touch == "left"){
-    //       camera.object3D.rotation.y += Math.PI/8;
-    //     }
-    //     if (e.detail.touch == "right") {
-    //       camera.object3D.rotation.y -= Math.PI/8;
-    //     }
-    //     if (e.detail.trackpaddown==true){
-    //       console.log("trackpad pressed down")
-    //
-    //     }
-    //     if (e.detail.trackpadup==true){
-    //       console.log("trackpad released")
-    //     }
-    // });
-    //
-    // // spawn on click and attach to raycaster - make draggable & grabbable
-    // window.addEventListener('intersection', function (e) {
-    //   if (e.detail){
-    //     intersectedObject = e.detail.objectid;
-    //     intersectionLocation = e.detail.location;
-    //     console.log("some stuff was intersected", intersectedObject, intersectionLocation)
-    //   }
-    //   else {
-    //     console.log("intersection event, but no intersection data")
-    //   }
-    // });
-    //
-    // function spawn(id){
-    //   newObject = document.createElement('a-entity');
-    //   newObject.setAttribute('mixin', id+"Mix");
-    //   newObject.setAttribute("position", intersectionLocation)
-    //   scene.appendChild(newObject);
-    //   console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
-    // }
-    //
-    // function movecamera(object){
-    //   var newpos = document.getElementById(object.id).getAttribute("position")
-    //   console.log("moving to", newpos)
-    //   document.getElementById('player').setAttribute("position", newpos) ;
-    // }
 
-    </script>
-  </body>
+    window.addEventListener('action', function(e){
+        if (e.detail.touch == "left"){
+          camera.object3D.rotation.y += Math.PI/8;
+        }
+        if (e.detail.touch == "right") {
+          camera.object3D.rotation.y -= Math.PI/8;
+        }
+        if (e.detail.trackpaddown==true){
+          console.log("trackpad pressed down")
+
+        }
+        if (e.detail.trackpadup==true){
+          console.log("trackpad released")
+        }
+    });
+
+    // spawn on click and attach to raycaster - make draggable & grabbable
+    window.addEventListener('intersection', function (e) {
+      if (e.detail){
+        intersectedObject = e.detail.objectid;
+        intersectionLocation = e.detail.location;
+        console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+      }
+      else {
+        console.log("intersection event, but no intersection data")
+      }
+    });
+
+    function spawn(id){
+      newObject = document.createElement('a-entity');
+      newObject.setAttribute('mixin', id+"Mix");
+      newObject.setAttribute("position", intersectionLocation)
+      scene.appendChild(newObject);
+      console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
+    }
+
+    function movecamera(object){
+      var newpos = document.getElementById(object.id).getAttribute("position")
+      console.log("moving to", newpos)
+      document.getElementById('player').setAttribute("position", newpos) ;
+    }
+
+
+  </script>
 </html>
