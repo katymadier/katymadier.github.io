@@ -38,12 +38,13 @@
           collision-filter="collisionForces: false"
           sphere-collider="objects: [dynamic-body]"
           static-body="shape: sphere"
-          super-hands=" colliderEvent: raycaster-intersection;
-                        colliderEventProperty: els;
-                        colliderEndEvent:raycaster-intersection-cleared;
-                        colliderEndEventProperty: clearedEls;"
         ></a-entity>
       </a-entity>
+      
+      <!-- super-hands=" colliderEvent: raycaster-intersection;
+                    colliderEventProperty: els;
+                    colliderEndEvent:raycaster-intersection-cleared;
+                    colliderEndEventProperty: clearedEls;" -->
 
       <!-- Terrain -->
       <a-box width="75" height="0.1" depth="75" static-body visible="false"></a-box>
