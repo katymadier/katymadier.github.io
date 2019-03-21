@@ -106,7 +106,12 @@ AFRAME.registerComponent('collider-check', {
 });
 
 
-
+//
+//
+//
+//
+//
+//
 // // remixed from other code
 // AFRAME.registerComponent("daydream-listener", {
 //   schema: {
