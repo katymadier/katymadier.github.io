@@ -8,7 +8,6 @@
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
     <script src="js/daydream-component.js"></script>
   </head>
   <body>
@@ -53,13 +52,13 @@
       <!-- Menu -->
       <a-entity id="menu" position="2.3 3 1" rotation="0 45 0" >
         <a-entity shadow geometry="primitive: plane" position="0 0 0" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="plant" shadow="" onclick="spawn(id)" gltf-model="#plantModel" position="0.03097 -0.31323 0.2709" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
+          <a-entity id="plant" shadow="" onclick="spawn(id)" gltf-model="#plantModel" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
             </a-entity>
         </a-entity>
         <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-          <a-entity id="wateringcan" shadow onclick="spawn(id)" gltf-model="#wateringcanModel" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
+          <a-entity id="wateringcan" shadow onclick="spawn(id)" gltf-model="#wateringcanModel" rotation="0 90 0"  animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
-        <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+        <a-entity  shadow geometry="primitive: plane" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
             <a-entity id="sun" shadow onclick="spawn(id)" gltf-model="#sunModel" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity>
       </a-entity>
