@@ -35,6 +35,7 @@
           raycaster="showLine: true; objects: moveable"
           daydream-listener
           collision-filter="collisionForces: false"
+          laser-controls
           sphere-collider="objects: [dynamic-body]"
           static-body="shape: sphere"
           super-hands=" colliderEvent: raycaster-intersection;
@@ -43,7 +44,6 @@
                         colliderEndEventProperty: clearedEls;"
         ></a-entity>
       </a-entity>
-        <!-- daydream-controls -->
 
       <!-- Terrain -->
       <a-box width="75" height="0.1" depth="75" static-body visible="false"></a-box>
