@@ -50,7 +50,7 @@
       </a-entity>
 
       <!-- Terrain -->
-      <a-box width="75" height="0.1" depth="75" static-body visible="false"></a-box>
+      <a-box width="75" height="0.1" depth="75" static-body="shape: box;" visible="false"></a-box>
       <a-light></a-light>
 
       <!-- Menu -->
@@ -89,7 +89,6 @@
         }
         if (e.detail.trackpaddown==true){
           console.log("trackpad pressed down")
-          // spawn('sun')
         }
         if (e.detail.trackpadup==true){
           console.log("trackpad released")
