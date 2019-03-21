@@ -68,38 +68,68 @@ AFRAME.registerComponent('collider-check', {
     var object;
     var objectclassname;
 
-    controller.addEventListener('raycaster-intersection', function (e) {
-      console.log("raycaster", e)
+    window.addEventListener('raycaster-intersection', function (e) {
+      // console.log("raycaster", e)
        for (x in e.detail.els){
          console.log("intersected #" + e.detail.els[x].id)
-          object = document.querySelector("#" + e.detail.els[x].id)
-          object.emit('hover')
-          objectclassname = e.detail.els[x].className
+          object = document.getElementById(e.detail.els[x].id)
+          if (object){
+            object.emit('hover')
+            objectclassname = e.detail.els[x].className
+            // object.addEventListener('click', function(e){
+            //   console.log("object was clicked", e)
+            //   // object.emit('click')
+            // })
+          }
        }
     });
-    controller.addEventListener('trackpaddown', function(e) {
-      console.log("trackpaddown", e)
-      if (e.detail.intersectedEl){
-        name =e.detail.intersectedEl.id;
-        location = e.detail.intersection.point;
-        objectclassname =e.detail.intersectedEl.className;
-        clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
-        clickedobject.emit('click')
-        if (e.detail.intersectedEl.className){
-          objectclassname = e.detail.intersectedEl.className;
-          console.log(name, location)
-          if (objectclassname == "moveable"){
-            intersection = {
-              objectid:name,
-              location:location
-            }
-            controller.emit('intersection', intersection);
-          }
-        }
-      }
+    window.addEventListener('trackpaddown', function(e) {
+      // console.log("trackpaddown", e.target.components.raycaster.)
+      // console.log(e.components.raycaster.getIntersection(controller))
+      //
+      // if (e.detail.intersectedEl){
+      //   name =e.detail.intersectedEl.id;
+      //   location = e.detail.intersection.point;
+      //   objectclassname =e.detail.intersectedEl.className;
+      //   clickedobject = document.querySelector("#" + e.detail.intersectedEl.id)
+      //   clickedobject.emit('click')
+      //   if (e.detail.intersectedEl.className){
+      //     objectclassname = e.detail.intersectedEl.className;
+      //     console.log(name, location)
+      //     if (objectclassname == "clickable"){
+      //       intersection = {
+      //         objectid:name,
+      //         location:location
+      //       }
+      //       controller.emit('intersection', intersection);
+      //     }
+      //   }
+      // }
     })
   }
 });
+
+AFRAME.registerComponent('raycaster-listen', {
+	init: function () {
+    // Use events to figure out what raycaster is listening so we don't have to
+    // hardcode the raycaster.
+    this.el.addEventListener('raycaster-intersected', evt => {
+      this.raycaster = evt.detail.el;
+    });
+    this.el.addEventListener('raycaster-intersected-cleared', evt => {
+      this.raycaster = null;
+    });
+  },
+
+  tick: function () {
+    if (!this.raycaster) { return; }  // Not intersecting.
+
+    let intersection = this.raycaster.components.raycaster.getIntersection(this.el);
+    if (!intersection) { return; }
+    console.log(intersection.point);
+  }
+});
+
 //
 //
 //
