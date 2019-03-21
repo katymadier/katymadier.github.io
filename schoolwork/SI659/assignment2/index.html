@@ -32,7 +32,7 @@
       <a-entity wasd-controls id="player" position="0 0 6">
         <a-entity camera look-controls></a-entity>
         <a-entity id="righthand"
-          raycaster="showLine: true"
+          raycaster="showLine: true; objects: moveable"
           daydream-listener
           collision-filter="collisionForces: false"
           sphere-collider="objects: [dynamic-body]"
