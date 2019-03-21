@@ -109,7 +109,7 @@
     function spawn(id){
       newObject = document.createElement('a-entity');
       newObject.setAttribute('mixin', id+"Mix");
-      // newObject.setAttribute("position", intersectionLocation)
+      newObject.setAttribute("position", {x:0, y:3, z:0})
       scene.appendChild(newObject);
       // console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
     }
