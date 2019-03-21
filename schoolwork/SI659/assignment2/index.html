@@ -8,7 +8,7 @@
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/super-hands@3.0.0/dist/super-hands.min.js"></script>
     <script src="https://unpkg.com/aframe-animation-component@^4.1.2/dist/aframe-animation-component.min.js"></script>
-    <script src="js/daydream-component.js"></script>
+    <!-- <script src="js/daydream-component.js"></script> -->
   </head>
   <body>
     <a-scene stats physics>
@@ -80,47 +80,47 @@
     var intersectedObject;
     var intersectionLocation;
 
-    window.addEventListener('action', function(e){
-        if (e.detail.touch == "left"){
-          camera.object3D.rotation.y += Math.PI/8;
-        }
-        if (e.detail.touch == "right") {
-          camera.object3D.rotation.y -= Math.PI/8;
-        }
-        if (e.detail.trackpaddown==true){
-          console.log("trackpad pressed down")
-
-        }
-        if (e.detail.trackpadup==true){
-          console.log("trackpad released")
-        }
-    });
-
-    // spawn on click and attach to raycaster - make draggable & grabbable
-    window.addEventListener('intersection', function (e) {
-      if (e.detail){
-        intersectedObject = e.detail.objectid;
-        intersectionLocation = e.detail.location;
-        console.log("some stuff was intersected", intersectedObject, intersectionLocation)
-      }
-      else {
-        console.log("intersection event, but no intersection data")
-      }
-    });
-
-    function spawn(id){
-      newObject = document.createElement('a-entity');
-      newObject.setAttribute('mixin', id+"Mix");
-      newObject.setAttribute("position", intersectionLocation)
-      scene.appendChild(newObject);
-      console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
-    }
-
-    function movecamera(object){
-      var newpos = document.getElementById(object.id).getAttribute("position")
-      console.log("moving to", newpos)
-      document.getElementById('player').setAttribute("position", newpos) ;
-    }
+    // window.addEventListener('action', function(e){
+    //     if (e.detail.touch == "left"){
+    //       camera.object3D.rotation.y += Math.PI/8;
+    //     }
+    //     if (e.detail.touch == "right") {
+    //       camera.object3D.rotation.y -= Math.PI/8;
+    //     }
+    //     if (e.detail.trackpaddown==true){
+    //       console.log("trackpad pressed down")
+    //
+    //     }
+    //     if (e.detail.trackpadup==true){
+    //       console.log("trackpad released")
+    //     }
+    // });
+    //
+    // // spawn on click and attach to raycaster - make draggable & grabbable
+    // window.addEventListener('intersection', function (e) {
+    //   if (e.detail){
+    //     intersectedObject = e.detail.objectid;
+    //     intersectionLocation = e.detail.location;
+    //     console.log("some stuff was intersected", intersectedObject, intersectionLocation)
+    //   }
+    //   else {
+    //     console.log("intersection event, but no intersection data")
+    //   }
+    // });
+    //
+    // function spawn(id){
+    //   newObject = document.createElement('a-entity');
+    //   newObject.setAttribute('mixin', id+"Mix");
+    //   newObject.setAttribute("position", intersectionLocation)
+    //   scene.appendChild(newObject);
+    //   console.log("you made a ", id, "at", intersectionLocation, "!", newObject)
+    // }
+    //
+    // function movecamera(object){
+    //   var newpos = document.getElementById(object.id).getAttribute("position")
+    //   console.log("moving to", newpos)
+    //   document.getElementById('player').setAttribute("position", newpos) ;
+    // }
 
     </script>
   </body>
