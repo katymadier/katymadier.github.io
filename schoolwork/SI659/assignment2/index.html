@@ -57,9 +57,9 @@
         <a-entity  shadow geometry="primitive: plane" position="0 0 1.5" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
           <a-entity id="wateringcan" shadow event-set__mousedown="spawn(id)" gltf-model="#wateringcan-model" rotation="0 90 0" position=".1 -.237 -.2" animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
         </a-entity>
-        <!-- <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
-            <a-entity id="sun" shadow onclick="spawn(id)" gltf-model="#sun-model" scale=".001 .001 .001" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
-        </a-entity> -->
+        <a-entity  shadow geometry="primitive: plane" position="0 0 3" rotation="0 90 0" material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7">
+            <a-entity id="sun" shadow onclick="spawn(id)" gltf-model="#sun-model" rotation="90 90 0" position=".036 .270 -.229" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
+        </a-entity>
       </a-entity>
 
     </a-scene>
