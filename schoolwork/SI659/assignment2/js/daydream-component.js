@@ -69,6 +69,7 @@ AFRAME.registerComponent('collider-check', {
     var objectclassname;
 
     controller.addEventListener('raycaster-intersection', function (e) {
+      console.log("raycaster", e)
        for (x in e.detail.els){
          console.log("intersected #" + e.detail.els[x].id)
           object = document.querySelector("#" + e.detail.els[x].id)
@@ -77,7 +78,7 @@ AFRAME.registerComponent('collider-check', {
        }
     });
     controller.addEventListener('trackpaddown', function(e) {
-      console.log(e)
+      console.log("trackpaddown", e)
       if (e.detail.intersectedEl){
         name =e.detail.intersectedEl.id;
         location = e.detail.intersection.point;
