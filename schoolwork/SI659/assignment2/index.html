@@ -16,15 +16,16 @@
     <a-scene  environment
               physics="driver: worker; workerFps: 60; workerInterpolate: true; workerInterpBufferSize: 2; friction: 0.1; restitution: 0.3">
       <a-assets>
+        <!-- flower - https://poly.google.com/view/eydI4__jXpi-->
+        <a-asset-item id="plantModel" src="models/flower.gltf"></a-asset-item>
+        <!-- watering can Riofluo Agence événementiel street -->
+        <a-asset-item id="wateringcanModel" src="models/wateringcan.gltf"></a-asset-item>
+        <!-- sun - poly by Google -->
         <a-asset-item id="sunModel" src="models/sun.gltf"></a-asset-item>
-        <a-mixin id="sunMix"
-        shadow
-        class="clickable"
-        dynamic-body="shape: sphere; mass: 0.1"
-        gltf-model="#sunModel"
-        light="type: directional; color: #FFF; intensity: 0.6"
-        sound="src: url(sounds/bongo.mp3); on:click"
-        hoverable grabbable stretchable draggable droppable
+
+        <a-mixin id="plantMix" shadow class="clickable" gltf-model="#plantModel" dynamic-body="shape: box; mass: 2" hoverable grabbable stretchable draggable droppable ></a-mixin>
+        <a-mixin id="wateringcanMix" shadow class="clickable" dynamic-body="shape: box; mass: 2" gltf-model="#wateringcanModel" hoverable grabbable draggable stretchable droppable ></a-mixin>
+        <a-mixin id="sunMix" shadow class="clickable" dynamic-body="shape: sphere; mass: 0.1" gltf-model="#sunModel" light="type: directional; color: #FFF; intensity: 0.6" hoverable grabbable stretchable draggable droppable
         ></a-mixin>
       </a-assets>
 
@@ -47,7 +48,8 @@
 
       <!-- menu -->
       <a-entity id="menu" position="3 2 -3" rotation="0 90 0">
-        <a-entity id="menuBtn"
+        <a-entity id="menuBtn1"
+          position="0 0 0"
           shadow
           geometry="primitive: plane"
           material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7"
@@ -62,6 +64,35 @@
           shadow
           gltf-model="#sunModel"
           animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
+        </a-entity>
+        <a-entity id="menuBtn2"
+          position="1.5 0 0"
+          shadow
+          geometry="primitive: plane"
+          material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7"
+          dynamic-body="shape: box; mass:0;"
+          sound="src: url(sounds/bongo.mp3); on:click"
+          event-set__mousedown="position: 1.5 0 .1; onclick:spawn('wateringcan')"
+          event-set__mouseup="position: 1.5 0 0"
+          event-set__mouseenter="material.opacity:1"
+          event-set__mouseleave="material.opacity:.5"
+          >
+          <a-entity id="wateringcan" shadow gltf-model="#wateringcanModel" rotation="0 90 0"  animation="property:rotation; to: 45 90 0; dir:alternate; loop:2; startEvents: hover"></a-entity>
+        </a-entity>
+        <a-entity id="menuBtn3"
+          position="3 0 0"
+          shadow
+          geometry="primitive: plane"
+          material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7"
+          dynamic-body="shape: box; mass:0;"
+          sound="src: url(sounds/bongo.mp3); on:click"
+          event-set__mousedown="position: 3 0 .1; onclick:spawn('plant')"
+          event-set__mouseup="position: 3 0 0"
+          event-set__mouseenter="material.opacity:1"
+          event-set__mouseleave="material.opacity:.5"
+          >
+          <a-entity id="plant" shadow="" gltf-model="#plantModel" rotation="0 180 0" animation="property:scale; to:0.0036 0.0036 0.0036; dir:alternate;loop:2; startEvents:hover">
+          </a-entity>
         </a-entity>
       </a-entity>
     </a-scene>
