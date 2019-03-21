@@ -53,20 +53,20 @@
           material="color: #fff; opacity:.5; side: double; emissive: #b7b7b7"
           dynamic-body="shape: box; mass:0;"
           sound="src: url(sounds/bongo.mp3); on:click"
-          event-set__mousedown="position: 0 0 .1; onclick:spawn('ball')"
+          event-set__mousedown="position: 0 0 .1; onclick:spawn('sun')"
           event-set__mouseup="position: 0 0 0"
           event-set__mouseenter="material.opacity:1"
           event-set__mouseleave="material.opacity:.5"
           >
-          <a-entity id="sun" shadow class="clickable" onclick="spawn('sun')" gltf-model="#sunModel" animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
+          <a-entity id="sun"
+          shadow
+          gltf-model="#sunModel"
+          animation="property:rotation; to: 90 450 0; startEvents: hover"> </a-entity>
         </a-entity>
       </a-entity>
     </a-scene>
   </body>
   <script>
-    // ball sound on bounce
-    // network
-    // avatars
 
     var newObject;
     var scene = document.querySelector('a-scene');
