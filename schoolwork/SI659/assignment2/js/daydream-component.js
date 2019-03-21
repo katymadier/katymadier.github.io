@@ -76,10 +76,6 @@ AFRAME.registerComponent('collider-check', {
           if (object){
             object.emit('hover')
             objectclassname = e.detail.els[x].className
-            // object.addEventListener('click', function(e){
-            //   console.log("object was clicked", e)
-            //   // object.emit('click')
-            // })
           }
        }
     });
@@ -110,12 +106,7 @@ AFRAME.registerComponent('collider-check', {
 });
 
 
-//
-//
-//
-//
-//
-//
+
 // // remixed from other code
 // AFRAME.registerComponent("daydream-listener", {
 //   schema: {
