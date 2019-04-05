@@ -1,0 +1,18 @@
+{
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 I/O",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene"
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 0,
+            "uri" : "data:application/octet-stream;base64,"
+        }
+    ]
+}
