@@ -142,8 +142,8 @@
 
     //creates joints
     function createJoint(part, position){
-      console.log("creating joints")
       if (part == partMapping[part]){
+        console.log("creating joints")
         var joint = document.createElement('a-sphere');
         joint.setAttribute("id", part);
         body.appendChild(joint);
