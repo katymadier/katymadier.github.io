@@ -176,27 +176,42 @@
       // console.log("moving "+ part+ "to ", position)
       // console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
 
-      let runmapping= new Promise((resolve, reject)=>{
-        let dataReceivedSuccessfully = true;
-          if (dataReceivedSuccessfully){
-            resolve('map the new coordinates');
-            for (x in xMap){
-              if (x >= position.x-99  && x <=position.x+99){
-                newCoordx = xMap[x];
-                console.log("x", newCoordx )
-              }
-            }
-            for (y in xMap){
-              if (y >= position.y-99  && y <=position.y+99){
-                newCoordy = yMap[y];
-                console.log("y",   newCoordy)
-              }
-            }
-          }
+      // let runmapping= new Promise((resolve, reject)=>{
+      //   let dataReceivedSuccessfully = true;
+      //     if (dataReceivedSuccessfully){
+      //       resolve('map the new coordinates');
+      //       for (x in xMap){
+      //         if (x >= position.x-99  && x <=position.x+99){
+      //           newCoordx = xMap[x];
+      //           console.log("x", newCoordx )
+      //         }
+      //       }
+      //       for (y in xMap){
+      //         if (y >= position.y-99  && y <=position.y+99){
+      //           newCoordy = yMap[y];
+      //           console.log("y",   newCoordy)
+      //         }
+      //       }
+      //     }
+      //
+      //     if (!dataReceivedSuccessfully){
+      //         reject('there was an error');
+      //     }
+      // })
 
-          if (!dataReceivedSuccessfully){
-              reject('there was an error');
+      let runmapping= new Promise((resolve, reject)=>{
+        for (x in xMap){
+          if (x >= position.x-99  && x <=position.x+99){
+            newCoordx = xMap[x];
+            console.log("x", newCoordx )
           }
+        }
+        for (y in xMap){
+          if (y >= position.y-99  && y <=position.y+99){
+            newCoordy = yMap[y];
+            console.log("y",   newCoordy)
+          }
+        }
       })
 
       runmapping.then((message) => {
