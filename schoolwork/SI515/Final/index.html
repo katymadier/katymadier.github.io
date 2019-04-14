@@ -169,16 +169,40 @@
       }
     }
 
+    var newCoordx
+    var newCoordy
     // updates joint position
     function moveJoint(scale, part, position){
       console.log("moving "+ part+ "to ", position)
       console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
-      for (x in xMap){
-        if (x >= position.x-99  && x <=position.x+99){
-          console.log("x", x, position.x)
-            document.getElementById(part).setAttribute('position', {x: xMap[x],y: position.y * scale, z: -1});
-        }
-      }
+
+      let runmapping= new Promise((resolve, reject)=>{
+        let dataReceivedSuccessfully = false;
+          if (dataReceivedSuccessfully)
+            resolve('map the new coordinates');
+            for (x in xMap){
+              if (x >= position.x-99  && x <=position.x+99){
+                console.log("x", x, position.x)
+                newCoordx = xMap[x];
+              }
+            }
+            for (y in xMap){
+              if (y >= position.y-99  && y <=position.y+99){
+                console.log("y", y, position.y)
+                newCoordy = yMap[y];
+              }
+            }
+
+          if (!dataReceivedSuccessfully)
+            reject('there was an error');
+      })
+
+      runmapping.then( (message) => {
+        console.log(message, {x: xMap[x], y: yMap[y] , z: -1});
+        document.getElementById(part).setAttribute('position', {x: xMap[x], y: yMap[y] , z: -1})
+        }).catch( (message) => {
+           console.log(message);
+      })
 
       // document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
     }
