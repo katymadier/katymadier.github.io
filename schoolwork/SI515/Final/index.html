@@ -18,7 +18,7 @@
      </a-assets>
       <a-text id="info" style='display:none'></a-text>
       <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
-  		<a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera>
+  		<a-camera id="camera" wasd-controls="acceleration:10" position="0 0 0" rotation="0 180 0"></a-camera>
   		<a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity>
 	  </a-scene>
 
@@ -71,9 +71,9 @@
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
       const flipHorizontal = false;
-      const net = await posenet.load(0.5);
-      const imageScaleFactor = .5;
-      const outputStride = 16;
+      const net = await posenet.load(1.0);
+      const imageScaleFactor = 1;
+      const outputStride = 32;
 
       async function poseDetectionFrame() {
 
@@ -101,24 +101,32 @@
       }
       poseDetectionFrame();
     }
+    // const colorMapping = {
+    // 	nose: "red",
+    //   leftEye: "pink",
+    //   rightEye: "pink",
+    //   leftEar: "green",
+    //   rightEar: "green",
+    //   leftShoulder: "blue",
+    //   rightShoulder: "blue",
+    //   leftElbow: "blue",
+    //   rightElbow: "blue",
+    //   leftWrist: "blue",
+    //   rightWrist: "blue",
+    //   leftHip: "yellow",
+    //   rightHip: "yellow",
+    //   leftKnee: "yellow",
+    //   rightKnee: "yellow",
+    //   leftAnkle: "yellow",
+    //   rightAnkle: "yellow"
+    // };
+
     const colorMapping = {
-    	nose: "red",
-      leftEye: "pink",
-      rightEye: "pink",
-      leftEar: "green",
-      rightEar: "green",
-      leftShoulder: "blue",
-      rightShoulder: "blue",
-      leftElbow: "blue",
-      rightElbow: "blue",
+      nose: "red",
       leftWrist: "blue",
       rightWrist: "blue",
-      leftHip: "yellow",
-      rightHip: "yellow",
       leftKnee: "yellow",
       rightKnee: "yellow",
-      leftAnkle: "yellow",
-      rightAnkle: "yellow"
     };
 
     //creates joints
@@ -140,7 +148,7 @@
     }
 
     // Draws pose into VR Scene
-    function drawSkeleton(keypoints, minPartConfidence, scale = .002) {
+    function drawSkeleton(keypoints, minPartConfidence, scale = .003) {
       // console.log("drawing skeleton")
       keypoints.forEach((keypoint)=>{
         if (keypoint.score >= minPartConfidence) {
