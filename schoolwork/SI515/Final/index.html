@@ -14,6 +14,10 @@
     <!-- <a-scene stats environment="preset: forest; dressingAmount: 500"> -->
   <a-scene stats>
       <a-assets>
+        <!-- avatar models from mozilla's a saturday night demo https://aframe.io/a-saturday-night/ -->
+        <a-asset id="rightHandModel" gltf-model="assets/avatar1/avatar1-hand-right.gltf"></a-asset>
+        <a-asset id="leftHandModel" gltf-model="assets/avatar1/avatar1-hand-left.gltf"></a-asset>
+        <a-asset id="headModel" gltf-model="assets/avatar1/avatar1-head.gltf"></a-asset>
        <video id="video"></video>
      </a-assets>
       <a-text id="info" style='display:none'></a-text>
@@ -121,34 +125,47 @@
     //   rightAnkle: "yellow"
     // };
 
-    const colorMapping = {
-      nose: "red",
-      leftWrist: "blue",
-      rightWrist: "blue",
-      leftKnee: "yellow",
-      rightKnee: "yellow",
+    const modelMapping = {
+      nose: "headModel",
+      leftWrist: "leftHandModel",
+      rightWrist: "rightHandModel",
     };
+
+    const partsMapping ={
+      nose,
+      leftWrist,
+      rightWrist,
+      rightKnee,
+      leftKnee
+    }
 
     //creates joints
     function createJoint(part, position){
-      console.log("creating joints")
-      var joint = document.createElement('a-sphere');
-      joint.setAttribute("id", part);
-      body.appendChild(joint);
-      var getJoint = document.getElementById(part);
-      getJoint.setAttribute("radius", .1);
-      getJoint.setAttribute('dynamic-body', 'mass:0;');
-      getJoint.setAttribute("material", "color", colorMapping[part])
+      for (x in partsMapping){
+        if (part == x){
+          console.log("creating joints at ", position)
+          var joint = document.createElement('a-entity');
+          joint.setAttribute("id", part);
+          body.appendChild(joint);
+          var getJoint = document.getElementById(part);
+        }
+      }
+      for (x in modelMapping){
+        if (part == x){
+          getJoint.setAttribute("gltf-model", modelMapping[part]);
+          getJoint.setAttribute('dynamic-body', 'mass:0;');
+        }
+      }
     }
 
     // updates joint position
     function moveJoint(scale, part, position){
-      // console.log("moving joints")
+      console.log("moving joints to ", position)
         document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
     }
 
     // Draws pose into VR Scene
-    function drawSkeleton(keypoints, minPartConfidence, scale = .003) {
+    function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
       // console.log("drawing skeleton")
       keypoints.forEach((keypoint)=>{
         if (keypoint.score >= minPartConfidence) {
