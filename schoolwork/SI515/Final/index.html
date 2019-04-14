@@ -122,6 +122,32 @@
       leftKnee:""
     }
 
+    const xMap = {
+      0: -1,
+      100: -.75,
+      200: -.5,
+      300: -.25,
+      400: 0,
+      500: .25,
+      600: .5,
+      700: .75,
+      800: 1
+
+    }
+    const yMap = {
+      0: 1,
+      100: .9,
+      200: .8,
+      300: .7,
+      400: .6,
+      500: .5,
+      600: .4,
+      700: .3,
+      800: .2,
+      900: .1
+
+    }
+
     //creates joints
     function createJoint(part, position){
       for (x in partsMapping){
@@ -147,7 +173,13 @@
     function moveJoint(scale, part, position){
       console.log("moving "+ part+ "to ", position)
       console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
-        document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
+      for (x in xMap){
+        if (position.x-100 >= x && x <=position.x+100){
+          console.log("x", x, position.x)
+        }
+      }
+
+      document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
     }
 
     // Draws pose into VR Scene
