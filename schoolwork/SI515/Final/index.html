@@ -176,10 +176,11 @@
       for (x in xMap){
         if (x >= position.x-99  && x <=position.x+99){
           console.log("x", x, position.x)
+            document.getElementById(part).setAttribute('position', {x: xMap[x],y: position.y * scale, z: -1});
         }
       }
 
-      document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
+      // document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
     }
 
     // Draws pose into VR Scene
