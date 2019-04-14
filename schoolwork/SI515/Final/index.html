@@ -103,9 +103,12 @@
             findMoveRight();
           }
         });
-        requestAnimationFrame(poseDetectionFrame);
+        // requestAnimationFrame(poseDetectionFrame);
       }
-      poseDetectionFrame();
+      setInterval(()=> {
+        poseDetectionFrame();
+      }, 500)
+      // poseDetectionFrame();
     }
 
     const modelMapping = {
@@ -194,8 +197,7 @@
           }
       })
       runmapping.then((message) => {
-        console.log(message, {x: newCoordx, y: newCoordy, z: -2});
-        console.log("moving "+ part + "to ", newCoordx, newCoordy)
+        console.log(message + "moving "+ part + "to " + {x: newCoordx, y: newCoordy, z: -2})
         document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
@@ -239,7 +241,7 @@
       // console.log(rightKneeObject )
       // console.log(headObject)
       if(leftWristObject){
-          console.log(leftWristObject )
+          console.log(leftWristObject)
         leftWristObject.addEventListener('collide', function (e) {
           console.log('Left wrist has collided with #' + e.detail.body.id);
 
