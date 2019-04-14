@@ -20,7 +20,7 @@
         <a-asset id="rightHandModel" src="assets/righthand.gltf"></a-asset>
         <a-asset id="leftHandModel" src="assets/lefthand.gltf"></a-asset>
         <a-asset id="headModel" src="assets/head.gltf"></a-asset>
-       <video id="video"></video>
+       <video id="video" crossorigin="anonymous"></video>
      </a-assets>
       <a-text id="info" style='display:none'></a-text>
       <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
@@ -77,9 +77,9 @@
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
       const flipHorizontal = false;
-      const net = await posenet.load(.75);
+      const net = await posenet.load(0.5);
       const imageScaleFactor = .5;
-      const outputStride = 32;
+      const outputStride = 16;
 
       async function poseDetectionFrame() {
 
