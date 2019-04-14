@@ -143,7 +143,7 @@
     function createJoint(part, position){
       for (x in partsMapping){
         if (part == x){
-          console.log("creating joints at ", position)
+          // console.log("creating joints at ", position)
           var joint = document.createElement('a-entity');
           joint.setAttribute("id", part);
           body.appendChild(joint);
@@ -160,7 +160,7 @@
 
     // updates joint position
     function moveJoint(scale, part, position){
-      console.log("moving joints to ", position)
+      // console.log("moving joints to ", position)
         document.getElementById(part).setAttribute('position', {x: position.y * scale, y: position.x * scale, z: -1})
     }
 
