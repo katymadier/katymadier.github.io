@@ -182,14 +182,14 @@
             resolve('map the new coordinates');
             for (x in xMap){
               if (x >= position.x-99  && x <=position.x+99){
-                console.log("x", x, position.x)
                 newCoordx = xMap[x];
+                console.log("x", newCoordx )
               }
             }
             for (y in xMap){
               if (y >= position.y-99  && y <=position.y+99){
-                console.log("y", y, position.y)
                 newCoordy = yMap[y];
+                console.log("y",   newCoordy)
               }
             }
 
@@ -199,7 +199,7 @@
 
       runmapping.then( (message) => {
         console.log(message, {x: xMap[x], y: yMap[y] , z: -1});
-        document.getElementById(part).setAttribute('position', {x: xMap[x], y: yMap[y] , z: -1})
+        document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
       })
