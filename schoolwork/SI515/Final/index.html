@@ -173,7 +173,6 @@
     function moveJoint(scale, part, position){
       let newCoordx
       let newCoordy
-      console.log("moving "+ part + "to ", newCoordx, newCoordy)
       let runmapping= new Promise((resolve, reject)=>{
         let dataReceivedSuccessfully = true;
           if (dataReceivedSuccessfully){
@@ -196,6 +195,7 @@
       })
       runmapping.then((message) => {
         console.log(message, {x: newCoordx, y: newCoordy, z: -2});
+        console.log("moving "+ part + "to ", newCoordx, newCoordy)
         document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
