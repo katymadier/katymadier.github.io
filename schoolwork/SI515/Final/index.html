@@ -17,7 +17,7 @@
        <video id="video"></video>
      </a-assets>
       <a-text id="info" style='display:none'></a-text>
-      <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video>
+      <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
   		<a-camera id="camera" wasd-controls="acceleration:10" position="0 1.6 0" rotation="0 180 0"></a-camera>
   		<a-entity id="body" position="0 1.6 0" rotation="0 0 -90"></a-entity>
 	  </a-scene>
@@ -70,7 +70,7 @@
     //body tracking with posenet
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
-      const flipHorizontal = true;
+      const flipHorizontal = false;
       const net = await posenet.load(0.5);
       const imageScaleFactor = .5;
       const outputStride = 16;
@@ -140,7 +140,7 @@
     }
 
     // Draws pose into VR Scene
-    function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
+    function drawSkeleton(keypoints, minPartConfidence, scale = .002) {
       // console.log("drawing skeleton")
       keypoints.forEach((keypoint)=>{
         if (keypoint.score >= minPartConfidence) {
@@ -171,44 +171,46 @@
     // clapping hands
     //TODO wrist spheres intersection
     try {
-      console.log(leftWristObject )
       console.log(rightWristObject )
       console.log(leftKneeObject )
       console.log(rightKneeObject )
       console.log(headObject)
-      leftWristObject.addEventListener('collide', function (e) {
-        console.log('Left wrist has collided with #' + e.detail.body.id);
+      if(leftWristObject){
+          console.log(leftWristObject )
+        leftWristObject.addEventListener('collide', function (e) {
+          console.log('Left wrist has collided with #' + e.detail.body.id);
 
-        e.detail.target.el;  // Original entity (leftwrist).
-        e.detail.body.el;    // Other entity, which playerEl touched.
-        e.detail.contact;    // Stats about the collision (CANNON.ContactEquation).
-        e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
-      });
+          e.detail.target.el;  // Original entity (leftwrist).
+          e.detail.body.el;    // Other entity, which playerEl touched.
+          e.detail.contact;    // Stats about the collision (CANNON.ContactEquation).
+          e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+        });
+      }
     } catch (e){
       console.log(e)
     }
 
     function findClapping(){
-      console.log("looking for claps");
+      // console.log("looking for claps");
     }
 
     // running in place
     //TODO knee spheres elevation
     function findRunning(){
-      console.log("looking for running");
+      // console.log("looking for running");
 
     }
 
     // moving to the left
     // TODO head sphere to the left
     function findMoveLeft(){
-      console.log("looking for a move left");
+      // console.log("looking for a move left");
     }
 
     // moving to the right
     // TODO head sphere to the right
     function findMoveRight(){
-      console.log("looking for a move right");
+      // console.log("looking for a move right");
     }
 
     async function bindPage() {
