@@ -177,7 +177,7 @@
       // console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
 
       let runmapping= new Promise((resolve, reject)=>{
-        let dataReceivedSuccessfully = false;
+        let dataReceivedSuccessfully = true;
           if (dataReceivedSuccessfully){
             resolve('map the new coordinates');
             for (x in xMap){
@@ -192,8 +192,6 @@
                 console.log("y",   newCoordy)
               }
             }
-            dataReceivedSuccessfully = true;
-            document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
           }
 
           if (!dataReceivedSuccessfully){
@@ -203,6 +201,7 @@
 
       runmapping.then((message) => {
         console.log(message, {x: newCoordx, y: newCoordy, z: -1});
+        document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
       })
