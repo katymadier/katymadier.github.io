@@ -192,13 +192,14 @@
                 console.log("y",   newCoordy)
               }
             }
+            dataReceivedSuccessfully = true;
 
           if (!dataReceivedSuccessfully)
             reject('there was an error');
       })
 
       runmapping.then( (message) => {
-        console.log(message, {x: xMap[x], y: yMap[y] , z: -1});
+        console.log(message, {x: newCoordx, y: newCoordy, z: -1});
         document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
