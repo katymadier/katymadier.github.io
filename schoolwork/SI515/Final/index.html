@@ -72,7 +72,7 @@
       console.log("running detect pose function")
       const flipHorizontal = false;
       const net = await posenet.load(.5);
-      const imageScaleFactor = 1;
+      const imageScaleFactor = .5;
       const outputStride = 32;
 
       async function poseDetectionFrame() {
