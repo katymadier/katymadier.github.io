@@ -138,7 +138,7 @@
         if (part == x){
           getJoint.setAttribute("gltf-model", modelMapping[part]);
           getJoint.setAttribute('dynamic-body', 'mass:0;');
-          getJoint.setAttribute('rotate', '0 90 0');
+          getJoint.setAttribute('rotation', {x:0, y:90, z:0});
         }
       }
     }
