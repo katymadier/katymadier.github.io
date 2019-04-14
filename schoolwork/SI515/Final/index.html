@@ -173,8 +173,8 @@
     var newCoordy
     // updates joint position
     function moveJoint(scale, part, position){
-      console.log("moving "+ part+ "to ", position)
-      console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
+      // console.log("moving "+ part+ "to ", position)
+      // console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
 
       let runmapping= new Promise((resolve, reject)=>{
         let dataReceivedSuccessfully = false;
@@ -239,10 +239,10 @@
     // clapping hands
     //TODO wrist spheres intersection
     try {
-      console.log(rightWristObject )
-      console.log(leftKneeObject )
-      console.log(rightKneeObject )
-      console.log(headObject)
+      // console.log(rightWristObject )
+      // console.log(leftKneeObject )
+      // console.log(rightKneeObject )
+      // console.log(headObject)
       if(leftWristObject){
           console.log(leftWristObject )
         leftWristObject.addEventListener('collide', function (e) {
