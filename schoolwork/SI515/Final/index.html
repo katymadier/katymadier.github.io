@@ -169,13 +169,11 @@
       }
     }
 
-    var newCoordx
-    var newCoordy
     // updates joint position
     function moveJoint(scale, part, position){
+      let newCoordx
+      let newCoordy
       // console.log("moving "+ part+ "to ", position)
-      // console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
-
       let runmapping= new Promise((resolve, reject)=>{
         let dataReceivedSuccessfully = true;
           if (dataReceivedSuccessfully){
@@ -198,16 +196,12 @@
               reject('there was an error');
           }
       })
-
-
       runmapping.then((message) => {
         console.log(message, {x: newCoordx, y: newCoordy, z: -1});
         document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
         }).catch( (message) => {
            console.log(message);
       })
-
-      // document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
     }
 
     // Draws pose into VR Scene
