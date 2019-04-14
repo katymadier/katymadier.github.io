@@ -145,7 +145,7 @@
 
     // updates joint position
     function moveJoint(scale, part, position){
-      console.log("moving joints to ", position)
+      console.log("moving "+ part+ "to ", position)
       console.log("moving joints to ",  {x: position.x * scale, y: position.y * scale, z: -1})
         document.getElementById(part).setAttribute('position', {x: position.x * scale, y: position.y * scale, z: -1})
     }
