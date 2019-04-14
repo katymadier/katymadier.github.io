@@ -76,7 +76,7 @@
     //body tracking with posenet
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
-      const flipHorizontal = false;
+      const flipHorizontal = true;
       const net = await posenet.load(0.5);
       const imageScaleFactor = .5;
       const outputStride = 16;
