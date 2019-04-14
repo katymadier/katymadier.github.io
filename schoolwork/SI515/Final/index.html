@@ -77,7 +77,7 @@
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
       const flipHorizontal = false;
-      const net = await posenet.load(.5);
+      const net = await posenet.load(.75);
       const imageScaleFactor = .5;
       const outputStride = 32;
 
