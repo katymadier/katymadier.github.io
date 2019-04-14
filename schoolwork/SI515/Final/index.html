@@ -8,6 +8,7 @@
   	<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
 
 
  </head>
@@ -168,6 +169,7 @@
           getJoint.setAttribute("gltf-model", modelMapping[part]);
           getJoint.setAttribute('dynamic-body', 'mass:0;');
           getJoint.setAttribute('rotation', {x:0, y:90, z:0});
+          getJoint.setAttribute('lerp', 'properties: position, rotation, scale');
         }
       }
     }
