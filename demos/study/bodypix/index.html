@@ -53,7 +53,7 @@
     const segmentationThreshold = .8;
     const flipHorizontally = true;
     const maskBlurAmount = 0;
-    const pixelCellWidth = 10.0;
+    const pixelCellWidth = 2.0;
     const warm = [
       [110, 64, 170], [106, 72, 183], [100, 81, 196], [92, 91, 206],
       [84, 101, 214], [75, 113, 221], [66, 125, 224], [56, 138, 226],
@@ -112,10 +112,11 @@
         // Convert the personSegmentation into a mask to darken the background.
         const backgroundDarkeningMask = bodyPix.toMaskImageData(segmentation, maskBackground);
 
-        const opacity = 1;
+        const opacity = 0;
         bodyPix.drawPixelatedMask(
             canvas, video, backgroundDarkeningMask, opacity,
             maskBlurAmount, flipHorizontally, pixelCellWidth);
+
 
 
         // deconstruct this function to find the blocks being generated.
