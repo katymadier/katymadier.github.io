@@ -182,16 +182,19 @@
         let dataReceivedSuccessfully = true;
           if (dataReceivedSuccessfully){
             resolve('map the new coordinates');
-            for (x in xMap){
-              if (x >= position.x-99  && x <=position.x+99){
-                newCoordx = xMap[x];
-              }
-            }
-            for (y in xMap){
-              if (y >= position.y-99  && y <=position.y+99){
-                newCoordy = yMap[y];
-              }
-            }
+              newCoordx = position.x;
+              newCoordy = position.y;
+
+            // for (x in xMap){
+            //   if (x >= position.x-99  && x <=position.x+99){
+            //     newCoordx = xMap[x];
+            //   }
+            // }
+            // for (y in xMap){
+            //   if (y >= position.y-99  && y <=position.y+99){
+            //     newCoordy = yMap[y];
+            //   }
+            // }
           }
 
           if (!dataReceivedSuccessfully){
