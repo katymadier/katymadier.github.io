@@ -48,9 +48,8 @@
     video.width = videoWidth;
     video.height = videoHeight;
 
-    const opacity = 1;
     const outputStride = 16;
-    const segmentationThreshold = .8;
+    const segmentationThreshold = .5;
     const flipHorizontally = true;
     const maskBlurAmount = 0;
     const pixelCellWidth = 2.0;
@@ -112,7 +111,7 @@
         // Convert the personSegmentation into a mask to darken the background.
         const backgroundDarkeningMask = bodyPix.toMaskImageData(segmentation, maskBackground);
 
-        const opacity = .5;
+        const opacity = .7;
         bodyPix.drawPixelatedMask(
             canvas, video, backgroundDarkeningMask, opacity,
             maskBlurAmount, flipHorizontally, pixelCellWidth);
