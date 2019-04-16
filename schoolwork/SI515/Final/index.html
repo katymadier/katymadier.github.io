@@ -34,8 +34,8 @@
 
     // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
     const video = document.getElementById('video');
-    const videoWidth = 255;
-    const videoHeight = 255;
+    const videoWidth = 400;
+    const videoHeight = 400;
     video.width = videoWidth;
     video.height = videoHeight;
 
@@ -77,10 +77,10 @@
     //body tracking with posenet
     async function detectPoseInRealTime(video) {
       console.log("running detect pose function")
-      const flipHorizontal = true;
+      const flipHorizontal = false;
       const net = await posenet.load(0.5);
       const imageScaleFactor = .2;
-      const outputStride = 32;
+      const outputStride = 16;
 
       async function poseDetectionFrame() {
 
