@@ -102,8 +102,9 @@
     function segmentBodyInRealTime() {
       async function bodySegmentationFrame() {
         const net = await bodyPix.load(.25);
-        const partSegmentation = await net.estimatePartSegmentation(
-            video, outputStride, segmentationThreshold);
+        // const partSegmentation = await net.estimatePartSegmentation(
+        //     video, outputStride, segmentationThreshold);
+        const segmentation = await net.estimatePersonSegmentation(video);
         // console.log("segmentation", partSegmentation)
 
         // 1 is the body, 0 is not the body, -1 is not found
