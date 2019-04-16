@@ -110,7 +110,7 @@
         // 1 is the body, 0 is not the body, -1 is not found
         const maskBackground = true;
         // Convert the personSegmentation into a mask to darken the background.
-        const backgroundDarkeningMask = bodyPix.toMaskImageData(personSegmentation, maskBackground);
+        const backgroundDarkeningMask = bodyPix.toMaskImageData(segmentation, maskBackground);
 
         const opacity = 0.7;
         bodyPix.drawPixelatedMask(
