@@ -104,12 +104,12 @@
             findMoveRight();
           }
         });
-        // requestAnimationFrame(poseDetectionFrame);
+        requestAnimationFrame(poseDetectionFrame);
       }
-      setInterval(()=> {
-        poseDetectionFrame();
-      }, 1000)
-      // poseDetectionFrame();
+      // setInterval(()=> {
+      //   poseDetectionFrame();
+      // }, 1000)
+      poseDetectionFrame();
     }
 
     const modelMapping = {
