@@ -28,14 +28,14 @@
          <video id="video" crossorigin="anonymous" ></video>
          <canvas id="canvas"></canvas>
       </a-assets>
-      <a-plane position="-2 2 -4" rotation="0 0 0" width="4" height="4" material="src:#canvas"></a-plane>
+      <a-plane position="-2 2 -4" rotation="0 0 0" width="6" height="4" material="src:#canvas"></a-plane>
       <a-text id="info" style='display:none'></a-text>
-      <a-video material="visible:false" src="#video" width="2" height="2" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
+      <!-- <a-video material="visible:false" src="#video" width="2" height="2" webkit-playsinline playsinline style=" -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
         display: none;
-        "></a-video>
+        "></a-video> -->
     </a-scene>
     <script type="module">
 
@@ -49,7 +49,7 @@
     video.height = videoHeight;
 
     const opacity = 1;
-    const outputStride = 8;
+    const outputStride = 16;
     const segmentationThreshold = .8;
     const flipHorizontally = true;
     const maskBlurAmount = 0;
@@ -107,14 +107,24 @@
         // console.log("segmentation", partSegmentation)
 
         // 1 is the body, 0 is not the body, -1 is not found
+        const maskBackground = true;
+        // Convert the personSegmentation into a mask to darken the background.
+        const backgroundDarkeningMask = bodyPix.toMaskImageData(personSegmentation, maskBackground);
+
+        const opacity = 0.7;
+        bodyPix.drawPixelatedMask(
+            canvas, video, backgroundDarkeningMask, opacity,
+            maskBlurAmount, flipHorizontally, pixelCellWidth);
+
 
         // deconstruct this function to find the blocks being generated.
-        const coloredPartImageData = bodyPix.toColoredPartImageData(
-            partSegmentation, warm);
+        // const coloredPartImageData = bodyPix.toColoredPartImageData(
+        //     partSegmentation, warm);
 
-        bodyPix.drawPixelatedMask(
-            canvas, video, coloredPartImageData, opacity,
-            maskBlurAmount, flipHorizontally, pixelCellWidth);
+        // bodyPix.drawPixelatedMask(
+        //     canvas, video, coloredPartImageData, opacity,
+        //     maskBlurAmount, flipHorizontally, pixelCellWidth);
+
 
         requestAnimationFrame(bodySegmentationFrame);
       }
