@@ -182,8 +182,8 @@
         let dataReceivedSuccessfully = true;
           if (dataReceivedSuccessfully){
             resolve('map the new coordinates');
-              newCoordx = position.x;
-              newCoordy = position.y;
+              newCoordx = position.x * scale;
+              newCoordy = position.y * scale;
 
             // for (x in xMap){
             //   if (x >= position.x-99  && x <=position.x+99){
