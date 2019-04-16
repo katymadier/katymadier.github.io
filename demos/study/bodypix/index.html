@@ -112,7 +112,7 @@
         // Convert the personSegmentation into a mask to darken the background.
         const backgroundDarkeningMask = bodyPix.toMaskImageData(segmentation, maskBackground);
 
-        const opacity = 0;
+        const opacity = .5;
         bodyPix.drawPixelatedMask(
             canvas, video, backgroundDarkeningMask, opacity,
             maskBlurAmount, flipHorizontally, pixelCellWidth);
