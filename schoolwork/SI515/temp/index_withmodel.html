@@ -1,0 +1,304 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@0.2.3"></script>
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  	<script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
+
+
+ </head>
+
+  <body>
+    <!-- <a-scene stats environment="preset: forest; dressingAmount: 500"> -->
+  <a-scene stats>
+      <a-assets>
+        <!-- avatar models from mozilla's a saturday night demo https://aframe.io/a-saturday-night/ -->
+        <a-asset id="rightHandModel" src="assets/righthand.gltf"></a-asset>
+        <a-asset id="leftHandModel" src="assets/lefthand.gltf"></a-asset>
+        <a-asset id="headModel" src="assets/head.gltf"></a-asset>
+       <video id="video" crossorigin="anonymous"></video>
+     </a-assets>
+      <a-text id="info" style='display:none'></a-text>
+      <!-- <a-video src="#video" width="2" height="2" position="0 2 -5" webkit-playsinline playsinline></a-video> -->
+  		<a-camera id="camera" wasd-controls="acceleration:10" position="0 6 0" rotation="0 180 0"></a-camera>
+  		<a-entity id="body" position="0 0 0" rotation="0 0 0"></a-entity>
+	  </a-scene>
+
+  </body>
+  <script>
+
+    // code for body tracking remixed for VR from Tensorflow & Posenet https://www.npmjs.com/package/@tensorflow-models/posenet
+    const video = document.getElementById('video');
+    const videoWidth = 400;
+    const videoHeight = 400;
+    video.width = videoWidth;
+    video.height = videoHeight;
+
+    function isAndroid() {
+      return /Android/i.test(navigator.userAgent);
+    }
+    function isiOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function isMobile() {
+      return isAndroid() || isiOS();
+    }
+    async function setupCamera() {
+      console.log("running camera set up")
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error(
+            'Browser API navigator.mediaDevices.getUserMedia not available');
+      }
+
+      const mobile = isMobile();
+      const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {
+          facingMode: 'environment',
+          width: mobile ? undefined : videoWidth,
+          height: mobile ? undefined : videoHeight,
+        },
+      });
+      video.srcObject = stream;
+
+      return new Promise((resolve) => {
+        video.onloadedmetadata = () => {
+          console.log("resolving video")
+          resolve(video);
+        };
+      });
+    }
+
+    //body tracking with posenet
+    async function detectPoseInRealTime(video) {
+      console.log("running detect pose function")
+      const flipHorizontal = false;
+      const net = await posenet.load(0.5);
+      const imageScaleFactor = .2;
+      const outputStride = 16;
+
+      async function poseDetectionFrame() {
+
+        let poses=[];
+        let minPoseConfidence = 0.2;
+        let minPartConfidence = 0.5;
+
+        const pose = await net.estimateSinglePose(
+            video, imageScaleFactor, flipHorizontal, outputStride);
+        poses.push(pose);
+
+        poses.forEach(({score, keypoints}) => {
+          // console.log("looking at poses")
+          if (score >= minPoseConfidence) {
+            drawSkeleton(keypoints, minPartConfidence);
+
+            // find poses
+            findClapping();
+            findRunning();
+            findMoveLeft();
+            findMoveRight();
+          }
+        });
+        requestAnimationFrame(poseDetectionFrame);
+      }
+      // setInterval(()=> {
+      //   poseDetectionFrame();
+      // }, 1000)
+      poseDetectionFrame();
+    }
+
+    const modelMapping = {
+      nose: "#headModel",
+      leftWrist: "#leftHandModel",
+      rightWrist: "#rightHandModel",
+    };
+
+    const partsMapping ={
+      nose:"",
+      leftWrist:"",
+      rightWrist:"",
+      rightKnee:"",
+      leftKnee:""
+    }
+
+    const xMap = {
+      0: -1,
+      100: -.75,
+      200: -.5,
+      300: -.25,
+      400: 0,
+      500: .25,
+      600: .5,
+      700: .75,
+      800: 1
+
+    }
+    const yMap = {
+      0: 1,
+      100: .9,
+      200: .8,
+      300: .7,
+      400: .6,
+      500: .5,
+      600: .4,
+      700: .3,
+      800: .2,
+      900: .1
+
+    }
+
+    //creates joints
+    function createJoint(part, position){
+      for (x in partsMapping){
+        if (part == x){
+          // console.log("creating joints at ", position)
+          var joint = document.createElement('a-entity');
+          joint.setAttribute("id", part);
+          body.appendChild(joint);
+          var getJoint = document.getElementById(part);
+          console.log("creating ", getJoint)
+        }
+      }
+      for (x in modelMapping){
+        if (part == x){
+          getJoint.setAttribute("gltf-model", modelMapping[part]);
+          getJoint.setAttribute('dynamic-body', 'mass:0;');
+          getJoint.setAttribute('rotation', {x:0, y:90, z:0});
+          getJoint.setAttribute('lerp', 'properties: position, rotation, scale');
+        }
+      }
+    }
+
+    // updates joint position
+    function moveJoint(scale, part, position){
+      let newCoordx
+      let newCoordy
+      let runmapping= new Promise((resolve, reject)=>{
+        let dataReceivedSuccessfully = true;
+          if (dataReceivedSuccessfully){
+            resolve('map the new coordinates');
+            for (x in xMap){
+              if (x >= position.x-99  && x <=position.x+99){
+                newCoordx = xMap[x];
+              }
+            }
+            for (y in xMap){
+              if (y >= position.y-99  && y <=position.y+99){
+                newCoordy = yMap[y];
+              }
+            }
+          }
+
+          if (!dataReceivedSuccessfully){
+              reject('there was an error');
+          }
+      })
+      runmapping.then((message) => {
+        console.log(message + "moving "+ part + "to " + {x: newCoordx, y: newCoordy, z: -2})
+        document.getElementById(part).setAttribute('position', {x: newCoordx, y: newCoordy, z: -1})
+        }).catch( (message) => {
+           console.log(message);
+      })
+    }
+
+    // Draws pose into VR Scene
+    function drawSkeleton(keypoints, minPartConfidence, scale = .001) {
+      // console.log("drawing skeleton")
+      keypoints.forEach((keypoint)=>{
+        if (keypoint.score >= minPartConfidence) {
+          if (document.getElementById(keypoint.part)){
+            moveJoint(scale, keypoint.part, keypoint.position)
+          } else {
+            createJoint(keypoint.part, keypoint.position);
+          }
+        }
+        return
+      })
+    }
+
+    async function loadVideo() {
+      const video = await setupCamera();
+      console.log("playing video")
+      video.play();
+      return video;
+    }
+
+    ////// find poses
+    var leftWristObject = document.getElementById('leftWrist');
+    var rightWristObject = document.getElementById('rightWrist');
+    var leftKneeObject = document.getElementById('leftKnee');
+    var rightKneeObject = document.getElementById('rightKnee');
+    var headObject = document.getElementById('nose');
+
+    // clapping hands
+    //TODO wrist spheres intersection
+    try {
+      // console.log(rightWristObject )
+      // console.log(leftKneeObject )
+      // console.log(rightKneeObject )
+      // console.log(headObject)
+      if(leftWristObject){
+          console.log(leftWristObject)
+        leftWristObject.addEventListener('collide', function (e) {
+          console.log('Left wrist has collided with #' + e.detail.body.id);
+
+          e.detail.target.el;  // Original entity (leftwrist).
+          e.detail.body.el;    // Other entity, which playerEl touched.
+          e.detail.contact;    // Stats about the collision (CANNON.ContactEquation).
+          e.detail.contact.ni; // Normal (direction) of the collision (CANNON.Vec3).
+        });
+      }
+    } catch (e){
+      console.log(e)
+    }
+
+    function findClapping(){
+      // console.log("looking for claps");
+    }
+
+    // running in place
+    //TODO knee spheres elevation
+    function findRunning(){
+      // console.log("looking for running");
+
+    }
+
+    // moving to the left
+    // TODO head sphere to the left
+    function findMoveLeft(){
+      // console.log("looking for a move left");
+    }
+
+    // moving to the right
+    // TODO head sphere to the right
+    function findMoveRight(){
+      // console.log("looking for a move right");
+    }
+
+    async function bindPage() {
+      let video
+      try {
+        video = await loadVideo();
+      } catch (e) {
+        let info = document.getElementById('info');
+        info.value = 'this browser does not support video capture,' +
+            'or this device does not have a camera';
+        info.style.display = 'block';
+        throw e;
+      }
+      detectPoseInRealTime(video);
+    }
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+    bindPage();
+
+
+  </script>
+
+</html>
