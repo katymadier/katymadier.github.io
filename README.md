@@ -25,7 +25,7 @@ I am currently a second-year master's student at the University of Michigan Scho
 
 ## Authors
 
-* **Katy Madier** - [katylewis.com](https://katylewis.com)
+* **Katy Lewis** - [katylewis.com](https://katylewis.com)
 
 
 ## Acknowledgments
